@@ -4,7 +4,7 @@ import cr.ac.una.proyectopreguntados.App;
 import cr.ac.una.proyectopreguntados.model.JugadorDto;
 import cr.ac.una.proyectopreguntados.service.JugadorService;
 import cr.ac.una.proyectopreguntados.util.Formato;
-import cr.ac.una.proyectopreguntados.util.Respuesta;
+import cr.ac.una.proyectopreguntados.util.RespuestaEnt;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXCheckbox;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
@@ -180,7 +180,7 @@ public class NewGameController extends Controller implements Initializable {
 
     private void fillCbxPlayer() {
         JugadorService jugadorService = new JugadorService();
-        Respuesta respuesta = jugadorService.getAllPlayers();
+        RespuestaEnt respuesta = jugadorService.getAllPlayers();
         players.addAll((List<JugadorDto>) respuesta.getResultado("Jugadores"));
         for (int i = 1; i <= 6; i++) {
             getPlayerCbx(i).setItems(players);

@@ -148,6 +148,18 @@ public class Formato {
         });
         return letrasFormat;
     }
+    public TextFormatter textFormat(Integer maxLength) {
+    TextFormatter<String> letrasFormat = new TextFormatter<>(c -> {
+        if (c.getControlNewText().isEmpty()) {
+            return c;
+        }
+        if (maxLength > 0 && c.getControlNewText().length() > maxLength) {
+            return null;
+        }
+        return c;
+    });
+    return letrasFormat;
+}
 
     public TextFormatter maxLengthFormat(Integer length) {
         TextFormatter maxLengthFormat = new TextFormatter<>(c

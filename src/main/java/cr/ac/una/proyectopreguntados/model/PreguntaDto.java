@@ -24,7 +24,7 @@ public class PreguntaDto implements Serializable {
         this.contenido = new SimpleStringProperty("");
         this.categoria = new SimpleStringProperty("");
         this.estado = new SimpleBooleanProperty(true);
-        this.cantidadLlamadas = new SimpleStringProperty("");
+        this.cantidadLlamadas = new SimpleStringProperty("0");
     }
 
     public PreguntaDto(Pregunta pregunta) {

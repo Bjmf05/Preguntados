@@ -1,7 +1,8 @@
 cr\ac\una\proyectopreguntados\controller\NewGameController.class
-cr\ac\una\proyectopreguntados\util\Respuesta.class
+cr\ac\una\proyectopreguntados\util\RespuestaEnt.class
 cr\ac\una\proyectopreguntados\model\Respuesta.class
 cr\ac\una\proyectopreguntados\model\PartidaDto.class
+cr\ac\una\proyectopreguntados\service\RespuestaService.class
 cr\ac\una\proyectopreguntados\controller\SixPlayerBoardController.class
 cr\ac\una\proyectopreguntados\controller\SearchQuestionController.class
 cr\ac\una\proyectopreguntados\util\EntityManagerHelper.class
@@ -9,6 +10,7 @@ cr\ac\una\proyectopreguntados\util\AppContext.class
 cr\ac\una\proyectopreguntados\service\JugadorService.class
 cr\ac\una\proyectopreguntados\util\Formato.class
 cr\ac\una\proyectopreguntados\model\JugadorDto.class
+cr\ac\una\proyectopreguntados\service\PreguntaService.class
 cr\ac\una\proyectopreguntados\model\Partida.class
 cr\ac\una\proyectopreguntados\model\Pregunta.class
 cr\ac\una\proyectopreguntados\model\CompetidorPK.class

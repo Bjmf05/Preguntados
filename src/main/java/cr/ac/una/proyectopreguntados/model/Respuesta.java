@@ -20,8 +20,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "PLAM_RESPUESTAS", schema = "UNA")
 @NamedQueries({
-        @NamedQuery(name = "Respuesta.findAll", query = "SELECT p FROM Respuesta p"),
-      /*  @NamedQuery(name = "Respuesta.findByResIdPregunta", query = "SELECT p FROM PlamRespuestas p WHERE p.plamRespuestasPK.resIdPregunta = :resIdPregunta"),
+    @NamedQuery(name = "Respuesta.findAll", query = "SELECT p FROM Respuesta p"), /*  @NamedQuery(name = "Respuesta.findByResIdPregunta", query = "SELECT p FROM PlamRespuestas p WHERE p.plamRespuestasPK.resIdPregunta = :resIdPregunta"),
         @NamedQuery(name = "Respuesta.findByResId", query = "SELECT p FROM PlamRespuestas p WHERE p.plamRespuestasPK.resId = :resId"),
         @NamedQuery(name = "Respuesta.findByResContenido", query = "SELECT p FROM PlamRespuestas p WHERE p.contenido = :contenido"),
         @NamedQuery(name = "Respuesta.findByResTipo", query = "SELECT p FROM PlamRespuestas p WHERE p.tipo = :tipo"),
@@ -58,6 +57,10 @@ public class Respuesta implements Serializable {
 
     public Respuesta(RespuestaDto respuestaDto) {
         this.RespuestaPK = respuestaDto.getRespuestaPK();
+        actualizar(respuestaDto);
+    }
+
+    public void actualizar(RespuestaDto respuestaDto) {
         this.contenido = respuestaDto.getContenido();
         this.tipo = respuestaDto.getTipo();
         this.cantidadSelecciones = respuestaDto.getCantidadSelecciones();
@@ -107,8 +110,6 @@ public class Respuesta implements Serializable {
     public void setVersion(Long version) {
         this.version = version;
     }
-    
-
 
     public Pregunta getPregunta() {
         return pregunta;

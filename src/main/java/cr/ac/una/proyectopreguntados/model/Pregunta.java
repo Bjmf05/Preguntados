@@ -71,8 +71,9 @@ public class Pregunta implements Serializable {
         actualizar(preguntaDto);
     }
 
-    private void actualizar(PreguntaDto preguntaDto) {
+    public void actualizar(PreguntaDto preguntaDto) {
         this.contenido = preguntaDto.getContenido();
+        System.out.println(this.contenido);
         this.categoria = preguntaDto.getCategoria();
         this.estado = preguntaDto.getEstado();
         this.cantidadLlamadas = preguntaDto.getCantidadLlamadas();

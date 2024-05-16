@@ -5,7 +5,7 @@ import cr.ac.una.proyectopreguntados.service.JugadorService;
 import cr.ac.una.proyectopreguntados.util.FlowController;
 import cr.ac.una.proyectopreguntados.util.Formato;
 import cr.ac.una.proyectopreguntados.util.Mensaje;
-import cr.ac.una.proyectopreguntados.util.Respuesta;
+import cr.ac.una.proyectopreguntados.util.RespuestaEnt;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.net.URL;
@@ -120,10 +120,10 @@ public class LogInController extends Controller implements Initializable {
         }else{
             jugadorDto = new JugadorDto();
             jugadorDto.setNombre(txfNewPlayer.getText());
-            jugadorDto.setPartidasGanadas(0L);
-            jugadorDto.setPartidasJugadas(0L);
+//            jugadorDto.setPartidasGanadas(0L);
+//            jugadorDto.setPartidasJugadas(0L);
             JugadorService service = new JugadorService();
-                Respuesta respuesta = service.savePlayer(jugadorDto);
+                RespuestaEnt respuesta = service.savePlayer(jugadorDto);
                 if (!respuesta.getEstado()) {
                     new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar jugador", getStage(), respuesta.getMensaje());
                 } else {

@@ -19,8 +19,8 @@ public class JugadorDto implements Serializable {
     public JugadorDto() {
         this.id = new SimpleStringProperty("");
         this.nombre = new SimpleStringProperty("");
-        this.partidasJugadas = new SimpleStringProperty("");
-        this.partidasGanadas = new SimpleStringProperty("");
+        this.partidasJugadas = new SimpleStringProperty("0");
+        this.partidasGanadas = new SimpleStringProperty("0");
         this.modificado=false;
     }
         public JugadorDto(Jugador jugador) {

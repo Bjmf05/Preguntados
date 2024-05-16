@@ -3,7 +3,7 @@ package cr.ac.una.proyectopreguntados.service;
 import cr.ac.una.proyectopreguntados.model.Jugador;
 import cr.ac.una.proyectopreguntados.model.JugadorDto;
 import cr.ac.una.proyectopreguntados.util.EntityManagerHelper;
-import cr.ac.una.proyectopreguntados.util.Respuesta;
+import cr.ac.una.proyectopreguntados.util.RespuestaEnt;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.NoResultException;
@@ -22,7 +22,7 @@ public class JugadorService {
     private EntityManager em = EntityManagerHelper.getInstance().getManager();
     private EntityTransaction et;
 
-    public Respuesta savePlayer(JugadorDto jugadorDto) {
+    public RespuestaEnt savePlayer(JugadorDto jugadorDto) {
         try {
             et = em.getTransaction();
             et.begin();
@@ -31,7 +31,7 @@ public class JugadorService {
                 jugador = em.find(Jugador.class, jugadorDto.getId());
                 if (jugador == null) {
                     et.rollback();
-                    return new Respuesta(false, "No se encontró el jugador a modificar.", "guardarJugador NoResultException");
+                    return new RespuestaEnt(false, "No se encontró el jugador a modificar.", "guardarJugador NoResultException");
                 }
                 jugador.actualizar(jugadorDto);
                 jugador = em.merge(jugador);
@@ -40,14 +40,14 @@ public class JugadorService {
                 em.persist(jugador);
             }
             et.commit();
-            return new Respuesta(true, "", "", "Jugador", new JugadorDto(jugador));
+            return new RespuestaEnt(true, "", "", "Jugador", new JugadorDto(jugador));
         } catch (Exception ex) {
             et.rollback();
             Logger.getLogger(JugadorService.class.getName()).log(Level.SEVERE, "Ocurrio un error al guardar el jugador.", ex);
-            return new Respuesta(false, "Ocurrio un error al guardar el jugador", "guardarJugador " + ex.getMessage());
+            return new RespuestaEnt(false, "Ocurrio un error al guardar el jugador", "guardarJugador " + ex.getMessage());
         }
     }
-     public Respuesta getAllPlayers() {
+     public RespuestaEnt getAllPlayers() {
         try {
             Query query = em.createNamedQuery("Jugador.findAll",Jugador.class);
             List<Jugador> jugadores = (List<Jugador>) query.getResultList();
@@ -55,12 +55,12 @@ public class JugadorService {
             for (Jugador jug : jugadores) {
                 jugadorDto.add(new JugadorDto(jug));
             }
-            return new Respuesta(true, "", "", "Jugadores", jugadorDto);
+            return new RespuestaEnt(true, "", "", "Jugadores", jugadorDto);
         } catch (NoResultException ex) {
-            return new Respuesta(false, "No existen Jugadores.", "getJugadores NoResultException");
+            return new RespuestaEnt(false, "No existen Jugadores.", "getJugadores NoResultException");
         } catch (Exception ex) {
             Logger.getLogger(JugadorService.class.getName()).log(Level.SEVERE, "Error obteniendo empleados.", ex);
-            return new Respuesta(false, "Error obteniendo empleados.", "getJugadores " + ex.getMessage());
+            return new RespuestaEnt(false, "Error obteniendo empleados.", "getJugadores " + ex.getMessage());
         }
     }
 }

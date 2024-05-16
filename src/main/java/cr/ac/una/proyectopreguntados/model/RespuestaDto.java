@@ -11,9 +11,9 @@ import javafx.beans.property.SimpleStringProperty;
 public class RespuestaDto implements Serializable {
 
     protected RespuestaPK RespuestaPK;
-    private SimpleStringProperty contenido;
-    private SimpleStringProperty tipo;
-    private SimpleStringProperty cantidadSelecciones;
+    public SimpleStringProperty contenido;
+    public SimpleStringProperty tipo;
+    public SimpleStringProperty cantidadSelecciones;
     private Long version;
     private boolean modificado;
 
@@ -21,7 +21,7 @@ public class RespuestaDto implements Serializable {
         this.RespuestaPK = new RespuestaPK();
         this.contenido = new SimpleStringProperty("");
         this.tipo = new SimpleStringProperty("");
-        this.cantidadSelecciones = new SimpleStringProperty("");
+        this.cantidadSelecciones = new SimpleStringProperty("0");
         this.modificado = false;
     }
 
@@ -80,6 +80,14 @@ public class RespuestaDto implements Serializable {
 
     public void setVersion(Long version) {
         this.version = version;
+    }
+
+    public Long getId() {
+        if (RespuestaPK != null) {
+            return RespuestaPK.getId();
+        } else {
+            return null;
+        }
     }
 
     @Override

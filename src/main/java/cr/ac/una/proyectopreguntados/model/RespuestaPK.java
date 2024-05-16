@@ -20,10 +20,11 @@ public class RespuestaPK implements Serializable {
     @Basic(optional = false)
     @Column(name = "RES_ID_PREGUNTA")
     private Long idPregunta;
-//    @Id
-//    @SequenceGenerator(name = "PLAM_PLAM_RESPUESTAS_ID_GENERATOR", sequenceName = "una.PLAM_RESPUESTAS_SEQ01", allocationSize = 1)
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PLAM_PLAM_RESPUESTAS_ID_GENERATOR")
+ 
+
     @Basic(optional = false)
+    @SequenceGenerator(name = "PLAM_PLAM_RESPUESTAS_ID_GENERATOR", sequenceName = "una.PLAM_RESPUESTAS_SEQ01", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PLAM_PLAM_RESPUESTAS_ID_GENERATOR")
     @Column(name = "RES_ID")
     private Long id;
 
@@ -34,7 +35,9 @@ public class RespuestaPK implements Serializable {
         this.idPregunta = resIdPregunta;
         this.id = resId;
     }
-
+    public RespuestaPK(Long resIdPregunta) {
+        this.idPregunta = resIdPregunta;
+    }
     public Long getIdPregunta() {
         return idPregunta;
     }
