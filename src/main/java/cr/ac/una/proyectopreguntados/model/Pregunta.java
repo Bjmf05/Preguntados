@@ -25,12 +25,12 @@ import java.util.List;
 @Table(name = "PLAM_PREGUNTAS", schema = "UNA")
 @NamedQueries({
     @NamedQuery(name = "Pregunta.findAll", query = "SELECT p FROM Pregunta p"),
-    @NamedQuery(name = "Pregunta.findByPreId", query = "SELECT p FROM Pregunta p WHERE p.id = :id"),
-    @NamedQuery(name = "Pregunta.findByPreContenido", query = "SELECT p FROM Pregunta p WHERE p.contenido = :contenido"),
-    @NamedQuery(name = "Pregunta.findByPreCategoria", query = "SELECT p FROM Pregunta p WHERE p.categoria = :categoria"),
-    @NamedQuery(name = "Pregunta.findByPreEstado", query = "SELECT p FROM Pregunta p WHERE p.estado = :estado"),
-    @NamedQuery(name = "Pregunta.findByPreCantidadLlamadas", query = "SELECT p FROM Pregunta p WHERE p.cantidadLlamadas = :cantidadLlamadas"),
-    @NamedQuery(name = "Pregunta.findByPreVersion", query = "SELECT p FROM Pregunta p WHERE p.version = :version")})
+    @NamedQuery(name = "Pregunta.findById", query = "SELECT p FROM Pregunta p WHERE p.id = :id"),
+    @NamedQuery(name = "Pregunta.findByContenido", query = "SELECT p FROM Pregunta p WHERE p.contenido = :contenido"),
+    @NamedQuery(name = "Pregunta.findByCategoria", query = "SELECT p FROM Pregunta p WHERE p.categoria = :categoria"),
+    @NamedQuery(name = "Pregunta.findByEstado", query = "SELECT p FROM Pregunta p WHERE p.estado = :estado"),
+    @NamedQuery(name = "Pregunta.findByCantidadLlamadas", query = "SELECT p FROM Pregunta p WHERE p.cantidadLlamadas = :cantidadLlamadas"),
+    @NamedQuery(name = "Pregunta.findByVersion", query = "SELECT p FROM Pregunta p WHERE p.version = :version")})
 public class Pregunta implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -73,7 +73,6 @@ public class Pregunta implements Serializable {
 
     public void actualizar(PreguntaDto preguntaDto) {
         this.contenido = preguntaDto.getContenido();
-        System.out.println(this.contenido);
         this.categoria = preguntaDto.getCategoria();
         this.estado = preguntaDto.getEstado();
         this.cantidadLlamadas = preguntaDto.getCantidadLlamadas();

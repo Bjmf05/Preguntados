@@ -1,6 +1,7 @@
 package cr.ac.una.proyectopreguntados.model;
 
 import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -20,12 +21,13 @@ import java.io.Serializable;
 @Entity
 @Table(name = "PLAM_RESPUESTAS", schema = "UNA")
 @NamedQueries({
-    @NamedQuery(name = "Respuesta.findAll", query = "SELECT p FROM Respuesta p"), /*  @NamedQuery(name = "Respuesta.findByResIdPregunta", query = "SELECT p FROM PlamRespuestas p WHERE p.plamRespuestasPK.resIdPregunta = :resIdPregunta"),
-        @NamedQuery(name = "Respuesta.findByResId", query = "SELECT p FROM PlamRespuestas p WHERE p.plamRespuestasPK.resId = :resId"),
-        @NamedQuery(name = "Respuesta.findByResContenido", query = "SELECT p FROM PlamRespuestas p WHERE p.contenido = :contenido"),
-        @NamedQuery(name = "Respuesta.findByResTipo", query = "SELECT p FROM PlamRespuestas p WHERE p.tipo = :tipo"),
-        @NamedQuery(name = "Respuesta.findByResCantidadSelecciones", query = "SELECT p FROM PlamRespuestas p WHERE p.cantidadSelecciones = :cantidadSelecciones"),
-        @NamedQuery(name = "Respuesta.findByResVersion", query = "SELECT p FROM PlamRespuestas p WHERE p.version = :version")*/})
+    @NamedQuery(name = "Respuesta.findAll", query = "SELECT p FROM Respuesta p"), 
+    @NamedQuery(name = "Respuesta.findByResIdPregunta", query = "SELECT p FROM Respuesta p WHERE p.RespuestaPK.idPregunta = :idPregunta"),
+        @NamedQuery(name = "Respuesta.findByResId", query = "SELECT p FROM Respuesta p WHERE p.RespuestaPK.id = :id"),/*
+        @NamedQuery(name = "Respuesta.findByResContenido", query = "SELECT p FROM Respuesta p WHERE p.contenido = :contenido"),
+        @NamedQuery(name = "Respuesta.findByResTipo", query = "SELECT p FROM Respuesta p WHERE p.tipo = :tipo"),
+        @NamedQuery(name = "Respuesta.findByResCantidadSelecciones", query = "SELECT p FROM Respuesta p WHERE p.cantidadSelecciones = :cantidadSelecciones"),
+        @NamedQuery(name = "Respuesta.findByResVersion", query = "SELECT p FROM Respuesta p WHERE p.version = :version")*/})
 
 public class Respuesta implements Serializable {
 
@@ -45,7 +47,7 @@ public class Respuesta implements Serializable {
     @Column(name = "RES_VERSION")
     private Long version;
     @JoinColumn(name = "RES_ID_PREGUNTA", referencedColumnName = "PRE_ID", insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Pregunta pregunta;
 
     public Respuesta() {

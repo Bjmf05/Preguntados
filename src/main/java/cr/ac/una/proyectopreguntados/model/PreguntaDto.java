@@ -1,6 +1,7 @@
 package cr.ac.una.proyectopreguntados.model;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -17,6 +18,7 @@ public class PreguntaDto implements Serializable {
     public SimpleBooleanProperty estado;
     public SimpleStringProperty cantidadLlamadas;
     public Long version;
+    private List<Respuesta> plamRespuestasList;
     public boolean modificado;
 
     public PreguntaDto() {
@@ -34,6 +36,7 @@ public class PreguntaDto implements Serializable {
         this.categoria.set(pregunta.getCategoria());
         this.estado.setValue(pregunta.getEstado().equalsIgnoreCase("A"));
         this.cantidadLlamadas.set(pregunta.getCantidadLlamadas().toString());
+        this.plamRespuestasList = pregunta.getPlamRespuestasList();
         this.version = pregunta.getVersion();
     }
 
@@ -79,6 +82,14 @@ public class PreguntaDto implements Serializable {
 
     public void setCantidadLlamadas(Long cantidadLlamadas) {
         this.cantidadLlamadas.set(cantidadLlamadas.toString()); 
+    }
+
+    public List<Respuesta> getPlamRespuestasList() {
+        return plamRespuestasList;
+    }
+
+    public void setPlamRespuestasList(List<Respuesta> plamRespuestasList) {
+        this.plamRespuestasList = plamRespuestasList;
     }
 
     public Long getVersion() {
