@@ -83,7 +83,6 @@ public class PreguntaDto implements Serializable {
     public void setCantidadLlamadas(Long cantidadLlamadas) {
         this.cantidadLlamadas.set(cantidadLlamadas.toString()); 
     }
-
     public List<Respuesta> getPlamRespuestasList() {
         return plamRespuestasList;
     }
@@ -102,7 +101,7 @@ public class PreguntaDto implements Serializable {
 
     @Override
     public String toString() {
-        return "PreguntaDto{" + "id=" + id + ", contenido=" + contenido + ", categoria=" + categoria + ", estado=" + estado + ", cantidadLlamadas=" + cantidadLlamadas + ", version=" + version + ", modificado=" + modificado + '}';
+        return id.get() + contenido.get() ;
     }
 
 

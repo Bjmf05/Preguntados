@@ -26,8 +26,7 @@ public class RespuestaService {
          try {
             et = em.getTransaction();
             et.begin();
-            Respuesta respuesta;
-             System.out.println(respuestaDto.getRespuestaPK().getId());      
+            Respuesta respuesta;     
             if (respuestaDto.getRespuestaPK().getId() != null && respuestaDto.getRespuestaPK().getId() > 0) {
                 respuesta = em.find(Respuesta.class, respuestaDto.getRespuestaPK());
                 if (respuesta == null) {

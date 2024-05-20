@@ -1,9 +1,14 @@
 package cr.ac.una.proyectopreguntados.controller;
 
 import cr.ac.una.proyectopreguntados.App;
+import cr.ac.una.proyectopreguntados.model.Competidor;
+import cr.ac.una.proyectopreguntados.model.CompetidorDto;
 import cr.ac.una.proyectopreguntados.model.JugadorDto;
+import cr.ac.una.proyectopreguntados.model.PartidaDto;
 import cr.ac.una.proyectopreguntados.service.JugadorService;
+import cr.ac.una.proyectopreguntados.util.AppContext;
 import cr.ac.una.proyectopreguntados.util.Formato;
+import cr.ac.una.proyectopreguntados.util.Mensaje;
 import cr.ac.una.proyectopreguntados.util.RespuestaEnt;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXCheckbox;
@@ -11,16 +16,23 @@ import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.InputStream;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -66,7 +78,6 @@ public class NewGameController extends Controller implements Initializable {
     @FXML
     private MFXTextField txfMinute;
     private ObservableList<JugadorDto> players = FXCollections.observableArrayList();
-    JugadorDto jugadorDto;
     List<Node> required = new ArrayList<>();
 
     /**
@@ -81,6 +92,7 @@ public class NewGameController extends Controller implements Initializable {
         txfHour.delegateSetTextFormatter(Formato.getInstance().integerFormat(24));
         txfMinute.delegateSetTextFormatter(Formato.getInstance().integerFormat(60));
         txfNameGame.setTextFormatter(Formato.getInstance().letrasFormat(50));
+        clear();
         fillCbxPlayer();
         indicateRequired();
     }
@@ -133,6 +145,7 @@ public class NewGameController extends Controller implements Initializable {
             currentPlayer.clear();
             currentPlayer.setDisable(true);
         }
+
     }
 
     @FXML
@@ -154,7 +167,27 @@ public class NewGameController extends Controller implements Initializable {
 
     @FXML
     private void onActionBtnPlay(ActionEvent event) {
-        
+        try {
+            String invalid = validateRequired();
+            if (!invalid.isEmpty()) {
+                new Mensaje().showModal(Alert.AlertType.ERROR, "Iniciar partida", getStage(), invalid);
+            } else {
+                // safeNewGame();
+                //safePlayers();
+//                PreguntaService serviceQuestion = new PreguntaService();
+//                preguntaDto.setCategoria(cbxTypeQuestion.getValue());
+//                RespuestaEnt respuestaQuestion = serviceQuestion.saveQuestion(preguntaDto);
+//                if (!respuestaQuestion.getEstado()) {
+//                    new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar pregunta", getStage(), respuestaQuestion.getMensaje());
+//                } else {
+//                    safeAnswers(respuestaQuestion);
+//                }
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(MaintenanceQuestionsController.class.getName()).log(Level.SEVERE, "Error al iniciar partida.", ex);
+            new Mensaje().showModal(Alert.AlertType.ERROR, "Iniciar Partida", getStage(), "Ocurrió un error al iniciar partida.");
+        }
+
     }
 
     @FXML
@@ -166,6 +199,8 @@ public class NewGameController extends Controller implements Initializable {
         if (chkTime.isSelected()) {
             txfHour.setDisable(false);
             txfMinute.setDisable(false);
+            txfHour.setText("00");
+            txfMinute.setText("00");
             required.addAll(Arrays.asList(txfHour, txfMinute));
         } else {
             required.removeAll(Arrays.asList(txfHour, txfMinute));
@@ -192,6 +227,7 @@ public class NewGameController extends Controller implements Initializable {
         required.clear();
         required.addAll(Arrays.asList(txfNameGame, cbxAmountPlayer, cbxDifficulty, cbxPlayer1, cbxPlayer2));
     }
+
     public String validateRequired() {
         Boolean valid = true;
         String invalid = "";
@@ -212,10 +248,58 @@ public class NewGameController extends Controller implements Initializable {
                 valid = false;
             }
         }
-        if (valid) {
-            return "";
-        } else {
+        if (!valid) {
             return "Campos requeridos o con problemas de formato [" + invalid + "].";
+        } else if (!areAllValuesDifferent(getPlayerCbx(1), getPlayerCbx(2), getPlayerCbx(3), getPlayerCbx(4), getPlayerCbx(5), getPlayerCbx(6))) {
+            return "Hay algunos jugadores repetidos, seleccione un jugador diferente";
+        } else {
+            return "";
         }
+    }
+
+    private boolean areAllValuesDifferent(MFXComboBox<JugadorDto>... comboBoxes) {
+        Set<JugadorDto> uniqueValues = new HashSet<>();
+        for (MFXComboBox<JugadorDto> comboBox : comboBoxes) {
+            JugadorDto value = comboBox.getValue();
+            if (value == null) {
+                continue;
+            }
+            if (!uniqueValues.add(value)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void safePlayers(int idGame) {
+        ObservableList<CompetidorDto> playerSelect = FXCollections.observableArrayList();
+        int numPlayer = cbxAmountPlayer.getValue() == null ? 2 : Integer.parseInt(cbxAmountPlayer.getValue());
+
+     for (int i = 1; i <= numPlayer; i++) {
+        JugadorDto jugador =(JugadorDto) getPlayerCbx(i).getValue();
+        if (jugador != null) {
+   //         CompetidorDto competidor = new CompetidorDto(idGame, jugador.getId());
+     //       playerSelect.add(competidor);
+        }
+        
+    }
+     AppContext.getInstance().set("Competidores", playerSelect);
+    }
+
+    private PartidaDto safeNewGame() {
+        String name = txfNameGame.getText();
+        Long numberPlayers = 2L;
+        if (cbxAmountPlayer.getValue() != null) {
+            numberPlayers = Long.parseLong(cbxAmountPlayer.getValue());
+        }
+        boolean limitTime = chkTime.isSelected();
+        String time = "";
+        if (limitTime) {
+            time = txfHour.getText() + ":" + txfMinute.getText() + ":00";
+        }
+        LocalDate dateNow = LocalDate.now();
+        PartidaDto partidaDto = new PartidaDto(name, numberPlayers, limitTime, time, dateNow);
+        AppContext.getInstance().set("Partida", partidaDto);
+        return partidaDto;
     }
 }

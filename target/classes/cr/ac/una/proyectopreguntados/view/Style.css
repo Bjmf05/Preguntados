@@ -136,5 +136,12 @@
      -fx-opacity: 0.7;
     
 }
+/*Maintenance question*/
+/*Search question*/
+.tbvQuestions{
+    -fx-font-family: Roboto;
+      -fx-alignment:CENTER;
+    -fx-text-fill: black;
+    -fx-font-size: 12px;
 
-
+}

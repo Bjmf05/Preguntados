@@ -17,12 +17,18 @@ public class PartidaDto {
     private Long version;
     private boolean modificado;
 
+    /*Sin base de datos*/
+    private String tiempo;
+    private Boolean limiteTiempo;
+
     public PartidaDto() {
         id = Long.valueOf(0);
         fecha = now();
         nombre = "";
         jugadores = Long.valueOf(0);
         modificado = false;
+        tiempo = "";
+        limiteTiempo = false;
     }
 
     public PartidaDto(Partida partida) {
@@ -33,6 +39,15 @@ public class PartidaDto {
         this.jugadores = partida.getJugadores();
         this.version = partida.getVersion();
     }
+
+    public PartidaDto(String nombre, Long jugadores, Boolean limiteTiempo,String tiempo,LocalDate fecha) {   
+        this.nombre = nombre;
+        this.jugadores = jugadores;
+        this.tiempo = tiempo;
+        this.limiteTiempo = limiteTiempo;
+        this.fecha = fecha;
+    }
+    
 
     public Long getId() {
         if (id != null) {
@@ -84,6 +99,27 @@ public class PartidaDto {
 
     public void setModificado(boolean modificado) {
         this.modificado = modificado;
+    }
+
+    public String getTiempo() {
+        return tiempo;
+    }
+
+    public void setTiempo(String tiempo) {
+        this.tiempo = tiempo;
+    }
+
+    public String getLimiteTiempo() {
+        return limiteTiempo ? "A" : "I";
+    }
+
+    public void setLimiteTiempo(String limiteTiempo) {
+        if (limiteTiempo.equals("A")) {
+            this.limiteTiempo = true;
+        } else {
+            this.limiteTiempo = false;
+        }
+
     }
 
     @Override

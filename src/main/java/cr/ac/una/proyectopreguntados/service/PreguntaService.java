@@ -9,6 +9,8 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.NonUniqueResultException;
 import jakarta.persistence.Query;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -60,6 +62,22 @@ public class PreguntaService {
         } catch (Exception ex) {
             Logger.getLogger(PreguntaService.class.getName()).log(Level.SEVERE, "Error obteniendo la pregunta [" + id + "]", ex);
             return new RespuestaEnt(false, "Error obteniendo la pregunta.", "getPregunta " + ex.getMessage());
+        }
+    }
+        public RespuestaEnt getQuestions() {
+        try {
+            Query query = em.createNamedQuery("Pregunta.findAll",Pregunta.class);
+            List<Pregunta> preguntas = (List<Pregunta>) query.getResultList();
+            List<PreguntaDto> preguntaDto = new ArrayList<>();
+            for (Pregunta pre : preguntas) {
+                preguntaDto.add(new PreguntaDto(pre));
+            }
+            return new RespuestaEnt(true, "", "", "Preguntas", preguntaDto);
+        } catch (NoResultException ex) {
+            return new RespuestaEnt(false, "No existen Preguntas.", "getPreguntas NoResultException");
+        } catch (Exception ex) {
+            Logger.getLogger(JugadorService.class.getName()).log(Level.SEVERE, "Error obteniendo Preguntas.", ex);
+            return new RespuestaEnt(false, "Error obteniendo Preguntas.", "getPreguntas " + ex.getMessage());
         }
     }
         public RespuestaEnt deleteQuestion(Long id) {

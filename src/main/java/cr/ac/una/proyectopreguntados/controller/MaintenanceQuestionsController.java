@@ -6,6 +6,7 @@ import cr.ac.una.proyectopreguntados.model.RespuestaDto;
 import cr.ac.una.proyectopreguntados.model.RespuestaPK;
 import cr.ac.una.proyectopreguntados.service.PreguntaService;
 import cr.ac.una.proyectopreguntados.service.RespuestaService;
+import cr.ac.una.proyectopreguntados.util.FlowController;
 import cr.ac.una.proyectopreguntados.util.Formato;
 import cr.ac.una.proyectopreguntados.util.Mensaje;
 import cr.ac.una.proyectopreguntados.util.RespuestaEnt;
@@ -95,11 +96,6 @@ public class MaintenanceQuestionsController extends Controller implements Initia
         txfIncorrectAnswer1.delegateSetTextFormatter(Formato.getInstance().textFormat(50));
         txfIncorrectAnswer2.delegateSetTextFormatter(Formato.getInstance().textFormat(50));
         txfIncorrectAnswer3.delegateSetTextFormatter(Formato.getInstance().textFormat(50));
-        preguntaDto = new PreguntaDto();
-        respuestaDtoCorrect = new RespuestaDto();
-        respuestaDtoIncorrect1 = new RespuestaDto();
-        respuestaDtoIncorrect2 = new RespuestaDto();
-        respuestaDtoIncorrect3 = new RespuestaDto();
         newQuestion();
         indicateRequired();
     }
@@ -125,6 +121,12 @@ public class MaintenanceQuestionsController extends Controller implements Initia
 
     @FXML
     private void onActionBtnSearch(ActionEvent event) {
+        SearchQuestionController searchController = (SearchQuestionController) FlowController.getInstance().getController("SearchQuestionView");
+        FlowController.getInstance().goViewInWindowModal("SearchQuestionView", getStage(), true);
+        PreguntaDto preguntaDto = (PreguntaDto) searchController.getResult();
+        if (preguntaDto != null) {
+            getQuestion(preguntaDto.getId());
+        }
     }
 
     @FXML
@@ -274,13 +276,16 @@ public class MaintenanceQuestionsController extends Controller implements Initia
         }
         txfQuestion.textProperty().bindBidirectional(preguntaDto.contenido);
         chkActive.selectedProperty().bindBidirectional(preguntaDto.estado);
+        lblNumberOfTimeAsked.textProperty().bind(preguntaDto.cantidadLlamadas);
         txfCorrectAnswer.textProperty().bindBidirectional(respuestaDtoCorrect.contenido);
+        lblQuantityCorrectAnswer.textProperty().bind(respuestaDtoCorrect.cantidadSelecciones);
         txfIncorrectAnswer1.textProperty().bindBidirectional(respuestaDtoIncorrect1.contenido);
+        lblQuantityIncorrectAnswer1.textProperty().bind(respuestaDtoIncorrect1.cantidadSelecciones);
         txfIncorrectAnswer2.textProperty().bindBidirectional(respuestaDtoIncorrect2.contenido);
+        lblQuantityIncorrectAnswer2.textProperty().bind(respuestaDtoIncorrect2.cantidadSelecciones);
         txfIncorrectAnswer3.textProperty().bindBidirectional(respuestaDtoIncorrect3.contenido);
-        if (preguntaDto.getCategoria() != "") {
-            cbxTypeQuestion.setValue(preguntaDto.getCategoria());
-        }
+        lblQuantityIncorrectAnswer3.textProperty().bind(respuestaDtoIncorrect3.cantidadSelecciones);
+        cbxTypeQuestion.textProperty().bindBidirectional(preguntaDto.categoria);
     }
 
     private void unbindQuestion() {
@@ -313,20 +318,20 @@ public class MaintenanceQuestionsController extends Controller implements Initia
     }
 
     private void getAnswer(PreguntaDto preguntaDto) {
- answers.addAll(preguntaDto.getPlamRespuestasList());
-                for (Respuesta answer : answers) {
-                    RespuestaDto respuestaDto = new RespuestaDto(answer); // Convertir la respuesta a un objeto RespuestaDto
+        answers.addAll(preguntaDto.getPlamRespuestasList());
+        for (Respuesta answer : answers) {
+            RespuestaDto respuestaDto = new RespuestaDto(answer);
 
-                    if (answer.getTipo().equals("V")) {
-                        respuestaDtoCorrect = respuestaDto;
-                    } else if (respuestaDtoIncorrect1.getId() == null) {
-                        respuestaDtoIncorrect1 = respuestaDto;
-                    } else if (respuestaDtoIncorrect2.getId() == null) {
-                        respuestaDtoIncorrect2 = respuestaDto;
-                    } else if (respuestaDtoIncorrect3.getId() == null) {
-                        respuestaDtoIncorrect3 = respuestaDto;
-                    }
-                }
+            if (answer.getTipo().equals("V")) {
+                respuestaDtoCorrect = respuestaDto;
+            } else if (respuestaDtoIncorrect1.getId() == null) {
+                respuestaDtoIncorrect1 = respuestaDto;
+            } else if (respuestaDtoIncorrect2.getId() == null) {
+                respuestaDtoIncorrect2 = respuestaDto;
+            } else if (respuestaDtoIncorrect3.getId() == null) {
+                respuestaDtoIncorrect3 = respuestaDto;
+            }
+        }
 
     }
 }
