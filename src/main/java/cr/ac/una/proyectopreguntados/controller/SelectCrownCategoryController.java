@@ -71,7 +71,10 @@ public class SelectCrownCategoryController extends Controller implements Initial
     private void onMouseEnteredImgSports(MouseEvent event) {
         DropShadow dropShadow = new DropShadow();
         dropShadow.setRadius(5.0);
-        dropShadow.setColor(Color.ORANGE);
+        String hexColor = "#A8412B";
+        Color color = Color.web(hexColor);
+        dropShadow.setColor(color);
+
         imgSports.setEffect(dropShadow);
     }
 
@@ -90,7 +93,9 @@ public class SelectCrownCategoryController extends Controller implements Initial
     private void onMouseEnteredImgEntertainment(MouseEvent event) {
         DropShadow dropShadow = new DropShadow();
         dropShadow.setRadius(5.0);
-        dropShadow.setColor(Color.PINK);
+        String hexColor = "#ED0E86";
+        Color color = Color.web(hexColor);
+        dropShadow.setColor(color);
         imgEntertainment.setEffect(dropShadow);
     }
 
@@ -109,7 +114,9 @@ public class SelectCrownCategoryController extends Controller implements Initial
     private void onMouseEnteredImgScience(MouseEvent event) {
         DropShadow dropShadow = new DropShadow();
         dropShadow.setRadius(5.0);
-        dropShadow.setColor(Color.GREEN);
+        String hexColor = "#4EC772";
+        Color color = Color.web(hexColor);
+        dropShadow.setColor(color);
         imgScience.setEffect(dropShadow);
     }
 
@@ -128,7 +135,9 @@ public class SelectCrownCategoryController extends Controller implements Initial
     private void onMouseEnteredImgHistory(MouseEvent event) {
         DropShadow dropShadow = new DropShadow();
         dropShadow.setRadius(5.0);
-        dropShadow.setColor(Color.YELLOW);
+        String hexColor = "#BF6A17";
+        Color color = Color.web(hexColor);
+        dropShadow.setColor(color);
         imgHistory.setEffect(dropShadow);
 
     }
@@ -148,7 +157,9 @@ public class SelectCrownCategoryController extends Controller implements Initial
     private void onMouseEnteredImgGeography(MouseEvent event) {
         DropShadow dropShadow = new DropShadow();
         dropShadow.setRadius(5.0);
-        dropShadow.setColor(Color.BLUE);
+        String hexColor = "#6ACEDA";
+        Color color = Color.web(hexColor);
+        dropShadow.setColor(color);
         imgGeography.setEffect(dropShadow);
 
     }
@@ -168,7 +179,9 @@ public class SelectCrownCategoryController extends Controller implements Initial
     private void onMouseEnteredImgArt(MouseEvent event) {
         DropShadow dropShadow = new DropShadow();
         dropShadow.setRadius(5.0);
-        dropShadow.setColor(Color.RED);
+        String hexColor = "#EAAC34";
+        Color color = Color.web(hexColor);
+        dropShadow.setColor(color);
         imgArt.setEffect(dropShadow);
     }
 

@@ -12,13 +12,13 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="850.0" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.proyectopreguntados.controller.NewGameController">
+<AnchorPane id="AnchorPane" prefHeight="544.0" prefWidth="850.0" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.proyectopreguntados.controller.NewGameController">
    <children>
-      <VBox alignment="CENTER" layoutX="18.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
+            <HBox alignment="CENTER" prefHeight="36.0" prefWidth="830.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Label styleClass="Title" text="Preguntados" />
+                  <Label prefHeight="50.0" prefWidth="189.0" styleClass="Title" text="Nueva Partida" />
                </children>
             </HBox>
             <HBox alignment="CENTER" spacing="10.0" VBox.vgrow="ALWAYS">
@@ -38,6 +38,12 @@
                <children>
                   <VBox alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="351.0" prefWidth="379.0" spacing="30.0" HBox.hgrow="ALWAYS">
                      <children>
+                        <HBox alignment="CENTER" spacing="10.0">
+                           <children>
+                              <MFXTextField fx:id="txfNewPlayer" floatMode="BORDER" floatingText="Añade un Nuevo Jugador" prefHeight="38.0" prefWidth="144.0" />
+                              <MFXButton fx:id="btnSavePlayer" onAction="#onActionBtnSavePlayer" text="Guardar" />
+                           </children>
+                        </HBox>
                         <HBox alignment="CENTER" spacing="20.0">
                            <children>
                               <MFXComboBox fx:id="cbxPlayer1" floatingText="Jugador 1" />
@@ -71,9 +77,9 @@
                   </VBox>
                   <VBox alignment="CENTER_LEFT" fillWidth="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="377.0" prefWidth="372.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <HBox alignment="CENTER" prefHeight="376.0" prefWidth="463.0" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER" prefHeight="259.0" prefWidth="411.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <ImageView fx:id="imgBoard" fitHeight="349.0" fitWidth="431.0" pickOnBounds="true">
+                              <ImageView fx:id="imgBoard" fitHeight="276.0" fitWidth="368.0" pickOnBounds="true">
                                  <image>
                                     <Image url="@../resources/ruleta.png" />
                                  </image>
@@ -87,13 +93,12 @@
             <HBox alignment="CENTER" prefHeight="115.0" prefWidth="680.0" spacing="20.0" VBox.vgrow="ALWAYS">
                <children>
                   <MFXButton fx:id="btnExit" onAction="#onActionBtnExit" text="Salir" />
-                  <MFXButton fx:id="btnLoadGame" onAction="#onActionBtnLoadGame" text="Cargar Partida" />
                   <MFXButton fx:id="btnPlay" layoutX="318.0" layoutY="39.0" onAction="#onActionBtnPlay" text="Jugar" />
                </children>
             </HBox>
          </children>
          <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </VBox>
    </children>

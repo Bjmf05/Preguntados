@@ -5,7 +5,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import java.io.Serializable;
 
@@ -22,10 +21,9 @@ public class CompetidorPK implements Serializable {
     @Basic(optional = false)
     @Column(name = "COM_ID_JUGADOR")
     private Long idJugador;
-//    @Id
-//    @SequenceGenerator(name = "PLAM_COMPETIDORES_COM_ID_GENERATOR", sequenceName = "una.PLAM_COMPETIDORES_SEQ01", allocationSize = 1)
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PLAM_COMPETIDORES_COM_ID_GENERATOR")
     @Basic(optional = false)
+    @SequenceGenerator(name = "PLAM_COMPETIDORES_COM_ID_GENERATOR", sequenceName = "una.PLAM_COMPETIDORES_SEQ01", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PLAM_COMPETIDORES_COM_ID_GENERATOR")
     @Column(name = "COM_ID")
     private Long id;
 
@@ -37,6 +35,12 @@ public class CompetidorPK implements Serializable {
         this.idJugador = idJugador;
         this.id = id;
     }
+
+    public CompetidorPK(Long idPartida, Long idJugador) {
+        this.idPartida = idPartida;
+        this.idJugador = idJugador;
+    }
+    
 
     public Long getIdPartida() {
         return idPartida;
@@ -61,8 +65,6 @@ public class CompetidorPK implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
-    
 
     @Override
     public int hashCode() {
@@ -96,5 +98,5 @@ public class CompetidorPK implements Serializable {
     public String toString() {
         return "cr.ac.una.proyectopreguntados.model.CompetidorPK[ comIdPartida=" + idPartida + ", comIdJugador=" + idJugador + ", comId=" + id + " ]";
     }
-    
+
 }

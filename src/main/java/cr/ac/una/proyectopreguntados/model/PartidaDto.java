@@ -2,6 +2,7 @@ package cr.ac.una.proyectopreguntados.model;
 
 import java.time.LocalDate;
 import static java.time.LocalDate.now;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -14,21 +15,20 @@ public class PartidaDto {
     private LocalDate fecha;
     private String nombre;
     private Long jugadores;
+    private String dificultad;
+    private String tiempoLimite;
+    private List<Pregunta> preguntaList;
     private Long version;
     private boolean modificado;
-
-    /*Sin base de datos*/
-    private String tiempo;
-    private Boolean limiteTiempo;
-
+    
     public PartidaDto() {
         id = Long.valueOf(0);
         fecha = now();
         nombre = "";
         jugadores = Long.valueOf(0);
         modificado = false;
-        tiempo = "";
-        limiteTiempo = false;
+        dificultad = "";
+        tiempoLimite = null;
     }
 
     public PartidaDto(Partida partida) {
@@ -37,17 +37,19 @@ public class PartidaDto {
         this.fecha = partida.getFecha();
         this.nombre = partida.getNombre();
         this.jugadores = partida.getJugadores();
+        this.tiempoLimite = partida.getTiempoLimite();
+        this.dificultad = partida.getDificultad();
+        this.preguntaList = partida.getPreguntaList();
         this.version = partida.getVersion();
     }
 
-    public PartidaDto(String nombre, Long jugadores, Boolean limiteTiempo,String tiempo,LocalDate fecha) {   
+    public PartidaDto(String nombre, Long jugadores, String limiteTiempo, String dificultad, LocalDate fecha) {
         this.nombre = nombre;
         this.jugadores = jugadores;
-        this.tiempo = tiempo;
-        this.limiteTiempo = limiteTiempo;
+        this.dificultad = dificultad;
+        this.tiempoLimite = limiteTiempo;
         this.fecha = fecha;
     }
-    
 
     public Long getId() {
         if (id != null) {
@@ -85,12 +87,28 @@ public class PartidaDto {
         this.jugadores = jugadores;
     }
 
-    public Long getVersion() {
-        return version;
+    public String getDificultad() {
+        return dificultad;
     }
 
-    public void setVersion(Long version) {
-        this.version = version;
+    public void setDificultad(String dificultad) {
+        this.dificultad = dificultad;
+    }
+
+    public String getTiempoLimite() {
+        return tiempoLimite;
+    }
+
+    public void setTiempoLimite(String tiempoLimite) {
+        this.tiempoLimite = tiempoLimite;
+    }
+
+    public List<Pregunta> getPreguntaList() {
+        return preguntaList;
+    }
+
+    public void setPreguntaList(List<Pregunta> preguntaList) {
+        this.preguntaList = preguntaList;
     }
 
     public boolean isModificado() {
@@ -101,26 +119,14 @@ public class PartidaDto {
         this.modificado = modificado;
     }
 
-    public String getTiempo() {
-        return tiempo;
+    public Long getVersion() {
+        return version;
     }
 
-    public void setTiempo(String tiempo) {
-        this.tiempo = tiempo;
+    public void setVersion(Long version) {
+        this.version = version;
     }
 
-    public String getLimiteTiempo() {
-        return limiteTiempo ? "A" : "I";
-    }
-
-    public void setLimiteTiempo(String limiteTiempo) {
-        if (limiteTiempo.equals("A")) {
-            this.limiteTiempo = true;
-        } else {
-            this.limiteTiempo = false;
-        }
-
-    }
 
     @Override
     public String toString() {

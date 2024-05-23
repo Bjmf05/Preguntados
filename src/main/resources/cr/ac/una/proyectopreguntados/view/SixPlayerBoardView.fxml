@@ -19,7 +19,7 @@
             <Image url="@../resources/Arte.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgBonzoPlayer1" fitHeight="35.0" fitWidth="35.0" layoutX="220.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" rotate="145.0">
+      <ImageView fx:id="imgBonzoPlayer1" fitHeight="35.0" fitWidth="35.0" layoutX="221.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" rotate="145.0">
          <image>
             <Image url="@../resources/Bonzo.png" />
          </image>
@@ -34,7 +34,7 @@
             <Image url="@../resources/Entretenimiento.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgTitoPlayer1" fitHeight="35.0" fitWidth="35.0" layoutX="184.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true" rotate="135.6">
+      <ImageView fx:id="imgTitoPlayer1" fitHeight="35.0" fitWidth="35.0" layoutX="193.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true" rotate="135.6">
          <image>
             <Image url="@../resources/Geograf_a.png" />
          </image>
@@ -50,37 +50,37 @@
       <Label fx:id="lblPlayer4" layoutX="660.0" layoutY="258.0" styleClass="lblPlayer" text="Jugador 4" />
       <Label fx:id="lblPlayer5" layoutX="94.0" layoutY="492.0" styleClass="lblPlayer" text="Jugador 5" />
       <Label fx:id="lblPlayer6" layoutX="578.0" layoutY="492.0" styleClass="lblPlayer" text="Jugador 6" />
-      <ImageView fx:id="imgTinaPlayer3" fitHeight="35.0" fitWidth="35.0" layoutX="153.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true" rotate="67.2">
+      <ImageView fx:id="imgTinaPlayer3" fitHeight="35.0" fitWidth="35.0" layoutX="147.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true" rotate="67.2">
          <image>
             <Image url="@../resources/Arte.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgBonzoPlayer3" fitHeight="35.0" fitWidth="35.0" layoutX="131.0" layoutY="285.0" pickOnBounds="true" preserveRatio="true" rotate="81.9">
+      <ImageView fx:id="imgBonzoPlayer3" fitHeight="35.0" fitWidth="35.0" layoutX="128.0" layoutY="285.0" pickOnBounds="true" preserveRatio="true" rotate="81.9">
          <image>
             <Image url="@../resources/Bonzo.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgAlbertPlayer3" fitHeight="35.0" fitWidth="35.0" layoutX="138.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true" rotate="106.3">
+      <ImageView fx:id="imgAlbertPlayer3" fitHeight="35.0" fitWidth="35.0" layoutX="134.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true" rotate="106.3">
          <image>
             <Image url="@../resources/Ciencia.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgPopPlayer3" fitHeight="35.0" fitWidth="35.0" layoutX="145.0" layoutY="165.0" pickOnBounds="true" preserveRatio="true" rotate="113.2">
+      <ImageView fx:id="imgPopPlayer3" fitHeight="35.0" fitWidth="35.0" layoutX="144.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true" rotate="113.2">
          <image>
             <Image url="@../resources/Entretenimiento.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgTitoPlayer3" fitHeight="35.0" fitWidth="35.0" layoutX="133.0" layoutY="324.0" pickOnBounds="true" preserveRatio="true" rotate="68.4">
+      <ImageView fx:id="imgTitoPlayer3" fitHeight="35.0" fitWidth="35.0" layoutX="133.0" layoutY="324.0" pickOnBounds="true" preserveRatio="true" rotate="75.5">
          <image>
             <Image url="@../resources/Geograf_a.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgHectorPlayer3" fitHeight="35.0" fitWidth="35.0" layoutX="130.0" layoutY="235.0" pickOnBounds="true" preserveRatio="true" rotate="98.1">
+      <ImageView fx:id="imgHectorPlayer3" fitHeight="35.0" fitWidth="35.0" layoutX="127.0" layoutY="235.0" pickOnBounds="true" preserveRatio="true" rotate="98.1">
          <image>
             <Image url="@../resources/Historia.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgTinaPlayer5" fitHeight="35.0" fitWidth="35.0" layoutX="347.0" layoutY="492.0" pickOnBounds="true" preserveRatio="true" rotate="7.1">
+      <ImageView fx:id="imgTinaPlayer5" fitHeight="35.0" fitWidth="35.0" layoutX="341.0" layoutY="492.0" pickOnBounds="true" preserveRatio="true" rotate="7.1">
          <image>
             <Image url="@../resources/Arte.png" />
          </image>
@@ -90,12 +90,12 @@
             <Image url="@../resources/Bonzo.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgAlbertPlayer5" fitHeight="35.0" fitWidth="35.0" layoutX="203.0" layoutY="428.0" pickOnBounds="true" preserveRatio="true" rotate="46.6">
+      <ImageView fx:id="imgAlbertPlayer5" fitHeight="35.0" fitWidth="35.0" layoutX="197.0" layoutY="428.0" pickOnBounds="true" preserveRatio="true" rotate="46.6">
          <image>
             <Image url="@../resources/Ciencia.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgPopPlayer5" fitHeight="35.0" fitWidth="35.0" layoutX="172.0" layoutY="400.0" pickOnBounds="true" preserveRatio="true" rotate="56.3">
+      <ImageView fx:id="imgPopPlayer5" fitHeight="35.0" fitWidth="35.0" layoutX="174.0" layoutY="402.0" pickOnBounds="true" preserveRatio="true" rotate="56.3">
          <image>
             <Image url="@../resources/Entretenimiento.png" />
          </image>
@@ -105,7 +105,7 @@
             <Image url="@../resources/Geograf_a.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgHectorPlayer5" fitHeight="35.0" fitWidth="35.0" layoutX="229.0" layoutY="449.0" pickOnBounds="true" preserveRatio="true" rotate="35.5">
+      <ImageView fx:id="imgHectorPlayer5" fitHeight="35.0" fitWidth="35.0" layoutX="226.0" layoutY="452.0" pickOnBounds="true" preserveRatio="true" rotate="35.5">
          <image>
             <Image url="@../resources/Historia.png" />
          </image>
@@ -115,12 +115,12 @@
             <Image url="@../resources/Arte.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgBonzoPlayer6" fitHeight="35.0" fitWidth="35.0" layoutX="504.0" layoutY="448.0" pickOnBounds="true" preserveRatio="true" rotate="-32.9">
+      <ImageView fx:id="imgBonzoPlayer6" fitHeight="35.0" fitWidth="35.0" layoutX="500.0" layoutY="448.0" pickOnBounds="true" preserveRatio="true" rotate="-32.9">
          <image>
             <Image url="@../resources/Bonzo.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgAlbertPlayer6" fitHeight="35.0" fitWidth="35.0" layoutX="430.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true" rotate="-14.0">
+      <ImageView fx:id="imgAlbertPlayer6" fitHeight="35.0" fitWidth="35.0" layoutX="426.0" layoutY="484.0" pickOnBounds="true" preserveRatio="true" rotate="-14.0">
          <image>
             <Image url="@../resources/Ciencia.png" />
          </image>
@@ -130,7 +130,7 @@
             <Image url="@../resources/Entretenimiento.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgTitoPlayer6" fitHeight="35.0" fitWidth="35.0" layoutX="528.0" layoutY="420.0" pickOnBounds="true" preserveRatio="true" rotate="-45.0">
+      <ImageView fx:id="imgTitoPlayer6" fitHeight="35.0" fitWidth="35.0" layoutX="530.0" layoutY="421.0" pickOnBounds="true" preserveRatio="true" rotate="-45.0">
          <image>
             <Image url="@../resources/Geograf_a.png" />
          </image>
@@ -140,7 +140,7 @@
             <Image url="@../resources/Historia.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgTinaPlayer4" fitHeight="35.0" fitWidth="35.0" layoutX="581.0" layoutY="164.0" pickOnBounds="true" preserveRatio="true" rotate="-114.4">
+      <ImageView fx:id="imgTinaPlayer4" fitHeight="35.0" fitWidth="35.0" layoutX="573.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true" rotate="-114.4">
          <image>
             <Image url="@../resources/Arte.png" />
          </image>
@@ -150,7 +150,7 @@
             <Image url="@../resources/Bonzo.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgAlbertPlayer4" fitHeight="35.0" fitWidth="35.0" layoutX="595.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true" rotate="-76.0">
+      <ImageView fx:id="imgAlbertPlayer4" fitHeight="35.0" fitWidth="35.0" layoutX="590.0" layoutY="315.0" pickOnBounds="true" preserveRatio="true" rotate="-76.0">
          <image>
             <Image url="@../resources/Ciencia.png" />
          </image>
@@ -165,7 +165,7 @@
             <Image url="@../resources/Geograf_a.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgHectorPlayer4" fitHeight="35.0" fitWidth="35.0" layoutX="597.0" layoutY="280.0" pickOnBounds="true" preserveRatio="true" rotate="-84.0">
+      <ImageView fx:id="imgHectorPlayer4" fitHeight="35.0" fitWidth="35.0" layoutX="594.0" layoutY="280.0" pickOnBounds="true" preserveRatio="true" rotate="-84.0">
          <image>
             <Image url="@../resources/Historia.png" />
          </image>
@@ -180,7 +180,7 @@
             <Image url="@../resources/Bonzo.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgAlbertPlayer2" fitHeight="35.0" fitWidth="35.0" layoutX="530.0" layoutY="89.0" pickOnBounds="true" preserveRatio="true" rotate="-137.1">
+      <ImageView fx:id="imgAlbertPlayer2" fitHeight="35.0" fitWidth="35.0" layoutX="528.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" rotate="-137.1">
          <image>
             <Image url="@../resources/Ciencia.png" />
          </image>
@@ -190,7 +190,7 @@
             <Image url="@../resources/Entretenimiento.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgTitoPlayer2" fitHeight="35.0" fitWidth="35.0" layoutX="417.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" rotate="-165.0">
+      <ImageView fx:id="imgTitoPlayer2" fitHeight="35.0" fitWidth="35.0" layoutX="420.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" rotate="-165.0">
          <image>
             <Image url="@../resources/Geograf_a.png" />
          </image>

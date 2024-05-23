@@ -8,6 +8,9 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
@@ -23,7 +26,7 @@ import java.util.List;
  * @author PC
  */
 @Entity
-@Table(name = "PLAM_PARTIDAS",schema = "UNA")
+@Table(name = "PLAM_PARTIDAS", schema = "UNA")
 @NamedQueries({
     @NamedQuery(name = "Partida.findAll", query = "SELECT p FROM Partida p"),
     @NamedQuery(name = "Partida.findByPartId", query = "SELECT p FROM Partida p WHERE p.id = :id"),
@@ -32,6 +35,8 @@ import java.util.List;
     @NamedQuery(name = "Partida.findByPartJugadores", query = "SELECT p FROM Partida p WHERE p.jugadores = :jugadores"),
     @NamedQuery(name = "Partida.findByPartVersion", query = "SELECT p FROM Partida p WHERE p.version = :version")})
 public class Partida implements Serializable {
+
+ 
 
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -43,11 +48,16 @@ public class Partida implements Serializable {
     @Column(name = "PART_ID")
     private Long id;
     @Basic(optional = false)
-    @Column(name = "PART_FECHA")
-    private LocalDate fecha;
-    @Basic(optional = false)
     @Column(name = "PART_NOMBRE")
     private String nombre;
+    @Basic(optional = false)
+    @Column(name = "PART_DIFICULTAD")
+    private String dificultad;
+    @Column(name = "PART_TIEMPO_LIMITE")
+    private String tiempoLimite;
+    @Basic(optional = false)
+    @Column(name = "PART_FECHA")
+    private LocalDate fecha;
     @Basic(optional = false)
     @Column(name = "PART_JUGADORES")
     private Long jugadores;
@@ -56,6 +66,11 @@ public class Partida implements Serializable {
     private Long version;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "partida", fetch = FetchType.LAZY)
     private List<Competidor> competidorList;
+    @JoinTable(name = "PLAM_PREGUNTAS_PARTIDAS", joinColumns = {
+        @JoinColumn(name = "EXT_ID_PARTIDA", referencedColumnName = "PART_ID")}, inverseJoinColumns = {
+        @JoinColumn(name = "EXT_ID_PREGUNTA", referencedColumnName = "PRE_ID")})
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<Pregunta> preguntaList;
 
     public Partida() {
     }
@@ -66,12 +81,16 @@ public class Partida implements Serializable {
 
     public Partida(PartidaDto partidaDto) {
         this.id = partidaDto.getId();
-         actualizar(partidaDto);
+        actualizar(partidaDto);
     }
-    private void actualizar(PartidaDto partidaDto){
+
+    public void actualizar(PartidaDto partidaDto) {
         this.fecha = partidaDto.getFecha();
         this.nombre = partidaDto.getNombre();
         this.jugadores = partidaDto.getJugadores();
+        this.tiempoLimite = partidaDto.getTiempoLimite();
+        this.dificultad = partidaDto.getDificultad();
+        //this.preguntaList = partidaDto.getPreguntaList();
         this.version = partidaDto.getVersion();
     }
 
@@ -107,6 +126,22 @@ public class Partida implements Serializable {
         this.jugadores = jugadores;
     }
 
+    public String getDificultad() {
+        return dificultad;
+    }
+
+    public void setDificultad(String dificultad) {
+        this.dificultad = dificultad;
+    }
+
+    public String getTiempoLimite() {
+        return tiempoLimite;
+    }
+
+    public void setTiempoLimite(String tiempoLimite) {
+        this.tiempoLimite = tiempoLimite;
+    }
+
     public Long getVersion() {
         return version;
     }
@@ -114,7 +149,6 @@ public class Partida implements Serializable {
     public void setVersion(Long version) {
         this.version = version;
     }
-   
 
     public List<Competidor> getCompetidorList() {
         return competidorList;
@@ -122,6 +156,14 @@ public class Partida implements Serializable {
 
     public void setCompetidorList(List<Competidor> competidorList) {
         this.competidorList = competidorList;
+    }
+
+    public List<Pregunta> getPreguntaList() {
+        return preguntaList;
+    }
+
+    public void setPreguntaList(List<Pregunta> preguntaList) {
+        this.preguntaList = preguntaList;
     }
 
     @Override
@@ -148,5 +190,6 @@ public class Partida implements Serializable {
     public String toString() {
         return "cr.ac.una.proyectopreguntados.model.Partida[ partId=" + id + " ]";
     }
+
 
 }

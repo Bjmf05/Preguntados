@@ -62,27 +62,22 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="25.0" prefWidth="535.0" spacing="20.0">
                <children>
-                  <MFXButton fx:id="btnExit" alignment="CENTER" maxWidth="1.7976931348623157E308" onAction="#onActionBtnExit" prefHeight="35.0" prefWidth="200.0" text="Salir" HBox.hgrow="ALWAYS">
+                  <MFXButton fx:id="btnNew" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" onAction="#onActionBtnNew" prefHeight="35.0" prefWidth="108.0" styleClass="jfx-btn-nuevo" text="Nuevo" HBox.hgrow="ALWAYS">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
                      </graphic>
                   </MFXButton>
-                  <MFXButton fx:id="btnNew" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" onAction="#onActionBtnNew" prefHeight="35.0" prefWidth="200.0" styleClass="jfx-btn-nuevo" text="Nuevo" HBox.hgrow="ALWAYS">
+                  <MFXButton fx:id="btnSearch" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" onAction="#onActionBtnSearch" prefHeight="35.0" prefWidth="125.0" styleClass="jfx-btn-buscar" text="Buscar" HBox.hgrow="ALWAYS">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
                      </graphic>
                   </MFXButton>
-                  <MFXButton fx:id="btnSearch" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" onAction="#onActionBtnSearch" prefHeight="40.0" prefWidth="200.0" styleClass="jfx-btn-buscar" text="Buscar" HBox.hgrow="ALWAYS">
+                  <MFXButton fx:id="btnDelete" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" onAction="#onActionBtnDelete" prefHeight="35.0" prefWidth="134.0" styleClass="jfx-btn-eliminar" text="Eliminar" HBox.hgrow="ALWAYS">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
                      </graphic>
                   </MFXButton>
-                  <MFXButton fx:id="btnDelete" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" onAction="#onActionBtnDelete" prefWidth="200.0" styleClass="jfx-btn-eliminar" text="Eliminar" HBox.hgrow="ALWAYS">
-                     <graphic>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
-                     </graphic>
-                  </MFXButton>
-                  <MFXButton fx:id="btnSave" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" onAction="#onActionBtnSave" prefHeight="35.0" prefWidth="200.0" styleClass="jfx-btn-guardar" text="Guardar" HBox.hgrow="ALWAYS">
+                  <MFXButton fx:id="btnSave" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" onAction="#onActionBtnSave" prefHeight="35.0" prefWidth="150.0" styleClass="jfx-btn-guardar" text="Guardar" HBox.hgrow="ALWAYS">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
                      </graphic>

@@ -22,6 +22,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 /**
@@ -32,8 +33,6 @@ import javafx.util.Duration;
 public class LogInController extends Controller implements Initializable {
 
     @FXML
-    private MFXButton btnPlay;
-    @FXML
     private MFXButton btnExit;
     @FXML
     private MFXButton btnAbout;
@@ -41,16 +40,18 @@ public class LogInController extends Controller implements Initializable {
     private MFXButton btnStatistics;
     @FXML
     private MFXButton btnMaintenanceQuestions;
-    @FXML
     private MFXTextField txfNewPlayer;
-    @FXML
-    private MFXButton btnSave;
     JugadorDto jugadorDto;
-    @FXML
     private Label idPruebaTime;
         private Timeline timeline;
     private LocalTime tiempoInicial;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+    @FXML
+    private VBox vbxRoot;
+    @FXML
+    private MFXButton btnLoadGame;
+    @FXML
+    private MFXButton btnNewGame;
 
 
     /**
@@ -59,8 +60,8 @@ public class LogInController extends Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    txfNewPlayer.delegateSetTextFormatter(Formato.getInstance().letrasFormat(30));
-    setTiempoInicial("23:59:00");
+    
+   // setTiempoInicial("23:59:00");
     }
 
     @Override
@@ -69,15 +70,14 @@ public class LogInController extends Controller implements Initializable {
 
 
 
-    @FXML
     private void onActionBtnPlay(ActionEvent event) {
-        FlowController.getInstance().goMain();
-        getStage().close();
+
     }
 
 
     @FXML
     private void onActionBtnExit(ActionEvent event) {
+
     }
 
     @FXML
@@ -109,32 +109,16 @@ public class LogInController extends Controller implements Initializable {
 
     @FXML
     private void onActionBtnMaintenanceQuestions(ActionEvent event) {
-        FlowController.getInstance().goViewInWindowModal("MaintenanceQuestionsView", getStage(), true);
+                FlowController.getInstance().showViewInVBox("MaintenanceQuestionsView", vbxRoot);
     }
 
     @FXML
-    private void onActionBtnSave(ActionEvent event) {
-        try{
-        if(txfNewPlayer.getText().isEmpty()){
-            new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar jugador", getStage(), "Digite el nombre del jugador");
-        }else{
-            jugadorDto = new JugadorDto();
-            jugadorDto.setNombre(txfNewPlayer.getText());
-//            jugadorDto.setPartidasGanadas(0L);
-//            jugadorDto.setPartidasJugadas(0L);
-            JugadorService service = new JugadorService();
-                RespuestaEnt respuesta = service.savePlayer(jugadorDto);
-                if (!respuesta.getEstado()) {
-                    new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar jugador", getStage(), respuesta.getMensaje());
-                } else {
-                    jugadorDto = (JugadorDto) respuesta.getResultado("Jugador");
-                    new Mensaje().showModal(Alert.AlertType.INFORMATION, "Guardar jugador", getStage(), "Jugador guardado correctamente.");
-                }
-                    }
-        } catch (Exception ex) {
-            Logger.getLogger(LogInController.class.getName()).log(Level.SEVERE, "Error guardando el jugador.", ex);
-            new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar jugador", getStage(), "Ocurrió un error guardando el jugador.");
-        }
+    private void onActionBtnLoadGame(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionBtnNewGame(ActionEvent event) {
+        FlowController.getInstance().showViewInVBox("NewGameView", vbxRoot);
     }
 
 }

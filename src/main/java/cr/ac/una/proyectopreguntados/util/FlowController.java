@@ -181,6 +181,16 @@ public class FlowController {
         stage.showAndWait();
 
     }
+    public void showViewInVBox(String viewName, VBox vbox) {
+    try {
+        FXMLLoader loader = getLoader(viewName);
+        Parent view = loader.getRoot();
+        vbox.getChildren().clear();
+        vbox.getChildren().add(view);
+    } catch (Exception ex) {
+        java.util.logging.Logger.getLogger(FlowController.class.getName()).log(Level.SEVERE, "Error showing view in VBox.", ex);
+    }
+}
 
     public Controller getController(String viewName) {
         return getLoader(viewName).getController();

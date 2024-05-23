@@ -1,6 +1,7 @@
 package cr.ac.una.proyectopreguntados.model;
 
 import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -17,11 +18,11 @@ import java.io.Serializable;
  *
  * @author PC
  */
+
 @Entity
 @Table(name = "PLAM_COMPETIDORES", schema = "UNA")
 @NamedQueries({
-    @NamedQuery(name = "Competidor.findAll", query = "SELECT c FROM Competidor c"),
-  /*  @NamedQuery(name = "Competidor.findByComIdPartida", query = "SELECT c FROM Competidor c WHERE c.competidorPK.comIdPartida = :comIdPartida"),
+    @NamedQuery(name = "Competidor.findAll", query = "SELECT c FROM Competidor c"), /*  @NamedQuery(name = "Competidor.findByComIdPartida", query = "SELECT c FROM Competidor c WHERE c.competidorPK.comIdPartida = :comIdPartida"),
     @NamedQuery(name = "Competidor.findByComIdJugador", query = "SELECT c FROM Competidor c WHERE c.competidorPK.comIdJugador = :comIdJugador"),
     @NamedQuery(name = "Competidor.findByComId", query = "SELECT c FROM Competidor c WHERE c.competidorPK.comId = :comId"),
     @NamedQuery(name = "Competidor.findByComNumeroJugador", query = "SELECT c FROM Competidor c WHERE c.numeroJugador = :numeroJugador"),
@@ -33,18 +34,16 @@ import java.io.Serializable;
     @NamedQuery(name = "Competidor.findByComHistoria", query = "SELECT c FROM Competidor c WHERE c.historia = :historia"),
     @NamedQuery(name = "Competidor.findByComEntretenimiento", query = "SELECT c FROM Competidor c WHERE c.entretenimiento = :entretenimiento"),
     @NamedQuery(name = "Competidor.findByComDeporte", query = "SELECT c FROM Competidor c WHERE c.deporte = :deporte"),
+      @NamedQuery(name = "Competidor.findByComComodinDoble", query = "SELECT c FROM Competidor c WHERE c.comComodinDoble = :comComodinDoble"),
+    @NamedQuery(name = "Competidor.findByComComodinPasar", query = "SELECT c FROM Competidor c WHERE c.comComodinPasar = :comComodinPasar"),
+    @NamedQuery(name = "Competidor.findByComComodinBomba", query = "SELECT c FROM Competidor c WHERE c.comComodinBomba = :comComodinBomba"),
+    @NamedQuery(name = "Competidor.findByComComodinTiro", query = "SELECT c FROM Competidor c WHERE c.comComodinTiro = :comComodinTiro"),
     @NamedQuery(name = "Competidor.findByComVersion", query = "SELECT c FROM Competidor c WHERE c.version = :version")*/})
 public class Competidor implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected CompetidorPK competidorPK;
-    @Basic(optional = false)
-    @Column(name = "COM_NUMERO_JUGADOR")
-    private Long numeroJugador;
-    @Basic(optional = false)
-    @Column(name = "COM_POSICION_FICHA")
-    private Long posicionFicha;
     @Basic(optional = false)
     @Column(name = "COM_TURNO")
     private String turno;
@@ -66,14 +65,35 @@ public class Competidor implements Serializable {
     @Basic(optional = false)
     @Column(name = "COM_DEPORTE")
     private String deporte;
+    @Basic(optional = false)
+    @Column(name = "COM_NUMERO_JUGADOR")
+    private Long numeroJugador;
+    @Basic(optional = false)
+    @Column(name = "COM_POSICION_FICHA")
+    private Long posicionFicha;
+    @Basic(optional = false)
+    @Column(name = "COM_FICHA")
+    private String ficha;
+    @Basic(optional = false)
+    @Column(name = "COM_COMODIN_DOBLE")
+    private Long comodinDoble;
+    @Basic(optional = false)
+    @Column(name = "COM_COMODIN_PASAR")
+    private Long comodinPasar;
+    @Basic(optional = false)
+    @Column(name = "COM_COMODIN_BOMBA")
+    private Long comodinBomba;
+    @Basic(optional = false)
+    @Column(name = "COM_COMODIN_TIRO")
+    private Long comodinTiro;
     @Version
     @Column(name = "COM_VERSION")
     private Long version;
     @JoinColumn(name = "COM_ID_JUGADOR", referencedColumnName = "JUG_ID", insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Jugador jugador;
     @JoinColumn(name = "COM_ID_PARTIDA", referencedColumnName = "PART_ID", insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Partida partida;
 
     public Competidor() {
@@ -88,9 +108,10 @@ public class Competidor implements Serializable {
         actualizar(competidorDto);
     }
 
-    private void actualizar(CompetidorDto competidorDto) {
+    public void actualizar(CompetidorDto competidorDto) {
         this.numeroJugador = competidorDto.getNumeroJugador();
         this.posicionFicha = competidorDto.getPosicionFicha();
+        this.ficha = competidorDto.getFicha();
         this.turno = competidorDto.getTurno();
         this.geografia = competidorDto.getGeografia();
         this.arte = competidorDto.getArte();
@@ -98,6 +119,10 @@ public class Competidor implements Serializable {
         this.historia = competidorDto.getHistoria();
         this.entretenimiento = competidorDto.getEntretenimiento();
         this.deporte = competidorDto.getDeporte();
+        this.comodinBomba = competidorDto.getComodinBomba();
+        this.comodinDoble = competidorDto.getComodinDoble();
+        this.comodinPasar = competidorDto.getComodinPasar();
+        this.comodinTiro = competidorDto.getComodinTiro();
         this.version = competidorDto.getVersion();
     }
 
@@ -129,6 +154,14 @@ public class Competidor implements Serializable {
         this.posicionFicha = posicionFicha;
     }
 
+    public String getFicha() {
+        return ficha;
+    }
+
+    public void setFicha(String ficha) {
+        this.ficha = ficha;
+    }
+
     public Long getVersion() {
         return version;
     }
@@ -136,8 +169,6 @@ public class Competidor implements Serializable {
     public void setVersion(Long version) {
         this.version = version;
     }
-
-   
 
     public String getTurno() {
         return turno;
@@ -195,6 +226,37 @@ public class Competidor implements Serializable {
         this.deporte = deporte;
     }
 
+    public Long getComodinDoble() {
+        return comodinDoble;
+    }
+
+    public void setComodinDoble(Long comodinDoble) {
+        this.comodinDoble = comodinDoble;
+    }
+
+    public Long getComodinPasar() {
+        return comodinPasar;
+    }
+
+    public void setComodinPasar(Long comodinPasar) {
+        this.comodinPasar = comodinPasar;
+    }
+
+    public Long getComodinBomba() {
+        return comodinBomba;
+    }
+
+    public void setComodinBomba(Long comodinBomba) {
+        this.comodinBomba = comodinBomba;
+    }
+
+    public Long getComodinTiro() {
+        return comodinTiro;
+    }
+
+    public void setComodinTiro(Long comodinTiro) {
+        this.comodinTiro = comodinTiro;
+    }
 
     public Jugador getJugador() {
         return jugador;

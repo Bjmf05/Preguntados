@@ -12,10 +12,13 @@ cr\ac\una\proyectopreguntados\util\Formato.class
 cr\ac\una\proyectopreguntados\model\JugadorDto.class
 cr\ac\una\proyectopreguntados\service\PreguntaService.class
 cr\ac\una\proyectopreguntados\model\Partida.class
+cr\ac\una\proyectopreguntados\service\CompetidorService.class
+cr\ac\una\proyectopreguntados\service\PartidaService.class
 cr\ac\una\proyectopreguntados\model\Pregunta.class
 cr\ac\una\proyectopreguntados\model\CompetidorPK.class
 cr\ac\una\proyectopreguntados\model\PreguntaDto.class
 cr\ac\una\proyectopreguntados\model\Competidor.class
+cr\ac\una\proyectopreguntados\controller\SelectAvatarController.class
 cr\ac\una\proyectopreguntados\App.class
 module-info.class
 cr\ac\una\proyectopreguntados\controller\PrincipalController.class

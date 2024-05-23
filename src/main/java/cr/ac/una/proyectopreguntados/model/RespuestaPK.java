@@ -6,7 +6,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import java.io.Serializable;
 
@@ -20,8 +19,6 @@ public class RespuestaPK implements Serializable {
     @Basic(optional = false)
     @Column(name = "RES_ID_PREGUNTA")
     private Long idPregunta;
- 
-
     @Basic(optional = false)
     @SequenceGenerator(name = "PLAM_PLAM_RESPUESTAS_ID_GENERATOR", sequenceName = "una.PLAM_RESPUESTAS_SEQ01", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PLAM_PLAM_RESPUESTAS_ID_GENERATOR")

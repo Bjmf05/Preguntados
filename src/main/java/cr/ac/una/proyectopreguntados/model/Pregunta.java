@@ -8,6 +8,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
@@ -32,6 +33,7 @@ import java.util.List;
     @NamedQuery(name = "Pregunta.findByCantidadLlamadas", query = "SELECT p FROM Pregunta p WHERE p.cantidadLlamadas = :cantidadLlamadas"),
     @NamedQuery(name = "Pregunta.findByVersion", query = "SELECT p FROM Pregunta p WHERE p.version = :version")})
 public class Pregunta implements Serializable {
+
 
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -58,7 +60,8 @@ public class Pregunta implements Serializable {
     private Long version;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pregunta", fetch = FetchType.LAZY)
     private List<Respuesta> plamRespuestasList;
-
+    @ManyToMany(mappedBy = "preguntaList", fetch = FetchType.LAZY)
+    private List<Partida> PartidasList;
     public Pregunta() {
     }
 
@@ -160,4 +163,11 @@ public class Pregunta implements Serializable {
         return "cr.ac.una.proyectopreguntados.model.Pregunta[ preId=" + id + " ]";
     }
 
+    public List<Partida> getPartidasList() {
+        return PartidasList;
+    }
+
+    public void setPartidasList(List<Partida> partidasList) {
+        this.PartidasList = partidasList;
+    }
 }

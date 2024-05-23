@@ -14,6 +14,7 @@ C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proye
 C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\model\CompetidorDto.java
 C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\model\RespuestaDto.java
 C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\model\Partida.java
+C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\controller\SelectAvatarController.java
 C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\controller\NewGameController.java
 C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\model\PartidaDto.java
 C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\controller\LogInController.java
@@ -25,9 +26,11 @@ C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proye
 C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\controller\SearchQuestionController.java
 C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\util\RespuestaEnt.java
 C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\App.java
+C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\service\CompetidorService.java
 C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\model\CompetidorPK.java
 C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\controller\SixPlayerBoardController.java
 C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\model\Pregunta.java
+C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\service\PartidaService.java
 C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\util\EntityManagerHelper.java
 C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\model\JugadorDto.java
 C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\service\PreguntaService.java

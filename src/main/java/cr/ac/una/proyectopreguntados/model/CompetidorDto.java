@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- *
  * @author PC
  */
 public class CompetidorDto implements Serializable {
@@ -12,6 +11,7 @@ public class CompetidorDto implements Serializable {
     protected CompetidorPK competidorPK;
     private Long numeroJugador;
     private Long posicionFicha;
+    private String ficha;
     private String turno;
     private String geografia;
     private String arte;
@@ -19,20 +19,29 @@ public class CompetidorDto implements Serializable {
     private String historia;
     private String entretenimiento;
     private String deporte;
+    private Long comodinDoble;
+    private Long comodinPasar;
+    private Long comodinBomba;
+    private Long comodinTiro;
     private Long version;
     private boolean modificado;
 
     public CompetidorDto() {
         this.competidorPK = new CompetidorPK();
         this.numeroJugador = Long.valueOf(0);
-        this.posicionFicha = Long.valueOf(0);
-        this.turno = "";
-        this.geografia = "";
-        this.arte = "";
-        this.ciencias = "";
-        this.historia = "";
-        this.entretenimiento = "";
-        this.deporte = "";
+        this.ficha = "";
+        this.posicionFicha = 0L;
+        this.turno = "O";
+        this.geografia = "I";
+        this.arte = "I";
+        this.ciencias = "I";
+        this.historia = "I";
+        this.entretenimiento = "I";
+        this.deporte = "I";
+        this.comodinDoble = 0L;
+        this.comodinPasar = 0L;
+        this.comodinBomba = 0L;
+        this.comodinTiro = 0L;
         this.modificado = false;
     }
 
@@ -41,6 +50,7 @@ public class CompetidorDto implements Serializable {
         this.competidorPK = competidor.getCompetidorPK();
         this.numeroJugador = competidor.getNumeroJugador();
         this.posicionFicha = competidor.getPosicionFicha();
+        this.ficha = competidor.getFicha();
         this.turno = competidor.getTurno();
         this.geografia = competidor.getGeografia();
         this.arte = competidor.getArte();
@@ -48,7 +58,23 @@ public class CompetidorDto implements Serializable {
         this.historia = competidor.getHistoria();
         this.entretenimiento = competidor.getEntretenimiento();
         this.deporte = competidor.getDeporte();
+        this.comodinBomba = competidor.getComodinBomba();
+        this.comodinDoble = competidor.getComodinDoble();
+        this.comodinPasar = competidor.getComodinPasar();
+        this.comodinTiro = competidor.getComodinTiro();
         this.version = competidor.getVersion();
+    }
+
+    public CompetidorDto(CompetidorPK competidorPK, int numeroJugador, int ayuda, String ficha) {
+        this();
+        this.competidorPK = competidorPK;
+        this.numeroJugador = Long.valueOf(numeroJugador);
+        this.ficha = ficha;
+        this.comodinBomba = Long.valueOf(ayuda);
+        this.comodinDoble = Long.valueOf(ayuda);
+        this.comodinPasar = Long.valueOf(ayuda);
+        this.comodinTiro = Long.valueOf(ayuda);
+
     }
 
     public CompetidorPK getCompetidorPK() {
@@ -73,6 +99,14 @@ public class CompetidorDto implements Serializable {
 
     public void setPosicionFicha(Long posicionFicha) {
         this.posicionFicha = posicionFicha;
+    }
+
+    public String getFicha() {
+        return ficha;
+    }
+
+    public void setFicha(String ficha) {
+        this.ficha = ficha;
     }
 
     public String getTurno() {
@@ -131,6 +165,38 @@ public class CompetidorDto implements Serializable {
         this.deporte = deporte;
     }
 
+    public Long getComodinDoble() {
+        return comodinDoble;
+    }
+
+    public void setComodinDoble(Long comodinDoble) {
+        this.comodinDoble = comodinDoble;
+    }
+
+    public Long getComodinPasar() {
+        return comodinPasar;
+    }
+
+    public void setComodinPasar(Long comodinPasar) {
+        this.comodinPasar = comodinPasar;
+    }
+
+    public Long getComodinBomba() {
+        return comodinBomba;
+    }
+
+    public void setComodinBomba(Long comodinBomba) {
+        this.comodinBomba = comodinBomba;
+    }
+
+    public Long getComodinTiro() {
+        return comodinTiro;
+    }
+
+    public void setComodinTiro(Long comodinTiro) {
+        this.comodinTiro = comodinTiro;
+    }
+
     public Long getVersion() {
         return version;
     }
@@ -164,8 +230,7 @@ public class CompetidorDto implements Serializable {
             return false;
         }
         final CompetidorDto other = (CompetidorDto) obj;
-        return Objects.equals(this.numeroJugador, other.numeroJugador)&&Objects.equals(this.competidorPK, other.competidorPK);
+        return Objects.equals(this.numeroJugador, other.numeroJugador) && Objects.equals(this.competidorPK, other.competidorPK);
     }
-
 
 }

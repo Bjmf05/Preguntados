@@ -27,7 +27,7 @@ public class PrincipalController extends Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-      // FlowController.getInstance().goView("SixPlayerBoardView");
+
     }    
 
     @Override

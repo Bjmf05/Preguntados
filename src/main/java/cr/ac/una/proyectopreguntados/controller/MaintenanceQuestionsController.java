@@ -72,8 +72,6 @@ public class MaintenanceQuestionsController extends Controller implements Initia
     @FXML
     private MFXButton btnSave;
     @FXML
-    private MFXButton btnExit;
-    @FXML
     private MFXCheckbox chkActive;
     PreguntaDto preguntaDto;
     RespuestaDto respuestaDtoCorrect;
@@ -172,11 +170,6 @@ public class MaintenanceQuestionsController extends Controller implements Initia
             Logger.getLogger(MaintenanceQuestionsController.class.getName()).log(Level.SEVERE, "Error guardando la pregunta.", ex);
             new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar pregunta", getStage(), "Ocurrió un error guardando la pregunta.");
         }
-    }
-
-    @FXML
-    private void onActionBtnExit(ActionEvent event) {
-        getStage().close();
     }
 
     @FXML

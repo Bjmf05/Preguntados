@@ -65,7 +65,7 @@
     -fx-padding: 5 0 5 0;
     -fx-font-weight:bold;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 1, 0.1, 0, 1);
-    -fx-text-fill: #fb9304;
+    -fx-text-fill: #A8412B;
 }
 .lblEntertainment{
     -fx-font-family: Roboto;
@@ -73,7 +73,7 @@
     -fx-padding: 5 0 5 0;
     -fx-font-weight:bold;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 1, 0.1, 0, 1);
-    -fx-text-fill:  #cb348b;
+    -fx-text-fill:  #ED0E86;
 }
 .lblScience{
     -fx-font-family: Roboto;
@@ -81,7 +81,7 @@
     -fx-padding: 5 0 5 0;
     -fx-font-weight:bold;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 1, 0.1, 0, 1);
-    -fx-text-fill:  #0e9046;
+    -fx-text-fill:  #4EC772;
 }
 .lblArt{
     -fx-font-family: Roboto;
@@ -89,7 +89,7 @@
     -fx-padding: 5 0 5 0;
     -fx-font-weight:bold;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 1, 0.1, 0, 1);
-    -fx-text-fill:  #ba040c;
+    -fx-text-fill:#EAAC34;
 }
 .lblGeography{
     -fx-font-family: Roboto;
@@ -97,7 +97,7 @@
     -fx-padding: 5 0 5 0;
     -fx-font-weight:bold;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 1, 0.1, 0, 1);
-    -fx-text-fill:  #1473cb;
+    -fx-text-fill:  #6ACEDA;
 }
 .lblHistory{
     -fx-font-family: Roboto;
@@ -105,7 +105,7 @@
     -fx-padding: 5 0 5 0;
     -fx-font-weight:bold;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 1, 0.1, 0, 1);
-    -fx-text-fill:  #bca424;
+    -fx-text-fill:#BF6A17;
 }
 /*PrincipalView*/
 .backgroundImage {

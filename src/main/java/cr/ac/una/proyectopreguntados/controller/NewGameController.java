@@ -3,13 +3,13 @@ package cr.ac.una.proyectopreguntados.controller;
 import cr.ac.una.proyectopreguntados.App;
 import cr.ac.una.proyectopreguntados.model.Competidor;
 import cr.ac.una.proyectopreguntados.model.CompetidorDto;
+import cr.ac.una.proyectopreguntados.model.CompetidorPK;
 import cr.ac.una.proyectopreguntados.model.JugadorDto;
 import cr.ac.una.proyectopreguntados.model.PartidaDto;
+import cr.ac.una.proyectopreguntados.service.CompetidorService;
 import cr.ac.una.proyectopreguntados.service.JugadorService;
-import cr.ac.una.proyectopreguntados.util.AppContext;
-import cr.ac.una.proyectopreguntados.util.Formato;
-import cr.ac.una.proyectopreguntados.util.Mensaje;
-import cr.ac.una.proyectopreguntados.util.RespuestaEnt;
+import cr.ac.una.proyectopreguntados.service.PartidaService;
+import cr.ac.una.proyectopreguntados.util.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXCheckbox;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
@@ -79,6 +79,12 @@ public class NewGameController extends Controller implements Initializable {
     private MFXTextField txfMinute;
     private ObservableList<JugadorDto> players = FXCollections.observableArrayList();
     List<Node> required = new ArrayList<>();
+    private boolean isSelectAvatar = false;
+    @FXML
+    private MFXTextField txfNewPlayer;
+    @FXML
+    private MFXButton btnSavePlayer;
+    JugadorDto jugadorDto;
 
     /**
      * Initializes the controller class.
@@ -86,7 +92,7 @@ public class NewGameController extends Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-
+        txfNewPlayer.delegateSetTextFormatter(Formato.getInstance().letrasFormat(30));
         cbxAmountPlayer.getItems().addAll("2", "3", "4", "5", "6");
         cbxDifficulty.getItems().addAll("Facil", "Intermedio", "Dificil");
         txfHour.delegateSetTextFormatter(Formato.getInstance().integerFormat(24));
@@ -117,6 +123,7 @@ public class NewGameController extends Controller implements Initializable {
                 required.add(getPlayerCbx(i));
             }
         }
+        isSelectAvatar = false;
     }
 
     private MFXComboBox getPlayerCbx(int i) {
@@ -133,7 +140,6 @@ public class NewGameController extends Controller implements Initializable {
     private void clear() {
         txfNameGame.clear();
         imageBoard(2);
-        cbxAmountPlayer.setValue("2");
         cbxDifficulty.setValue("Intermedio");
         txfHour.setDisable(true);
         txfHour.clear();
@@ -145,7 +151,7 @@ public class NewGameController extends Controller implements Initializable {
             currentPlayer.clear();
             currentPlayer.setDisable(true);
         }
-
+        isSelectAvatar = false;
     }
 
     @FXML
@@ -154,6 +160,14 @@ public class NewGameController extends Controller implements Initializable {
 
     @FXML
     private void onActionBtnSelectAvatar(ActionEvent event) {
+        if (cbxAmountPlayer.getValue() != null) {
+            int numberOfPlayers = Integer.parseInt(cbxAmountPlayer.getValue());
+            AppContext.getInstance().set("NumberOfPlayers", numberOfPlayers);
+            FlowController.getInstance().goViewInWindowModal("SelectAvatarView", getStage(), true);
+            isSelectAvatar = true;
+        } else {
+            new Mensaje().showModal(Alert.AlertType.ERROR, "Seleccionar Avatar", getStage(), "Seleccione la cantidad de jugadores");
+        }
     }
 
     @FXML
@@ -172,16 +186,16 @@ public class NewGameController extends Controller implements Initializable {
             if (!invalid.isEmpty()) {
                 new Mensaje().showModal(Alert.AlertType.ERROR, "Iniciar partida", getStage(), invalid);
             } else {
-                // safeNewGame();
-                //safePlayers();
-//                PreguntaService serviceQuestion = new PreguntaService();
-//                preguntaDto.setCategoria(cbxTypeQuestion.getValue());
-//                RespuestaEnt respuestaQuestion = serviceQuestion.saveQuestion(preguntaDto);
-//                if (!respuestaQuestion.getEstado()) {
-//                    new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar pregunta", getStage(), respuestaQuestion.getMensaje());
-//                } else {
-//                    safeAnswers(respuestaQuestion);
-//                }
+
+                PartidaService serviceGame = new PartidaService();
+                RespuestaEnt respuestaGame = serviceGame.saveGame(safeNewGame());
+                if (!respuestaGame.getEstado()) {
+                    new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar pregunta", getStage(), respuestaGame.getMensaje());
+                } else {
+                    PartidaDto partidaDto = (PartidaDto) respuestaGame.getResultado("Partida");
+                    safePlayers(partidaDto.getId());
+                    FlowController.getInstance().goMain();
+                }
             }
         } catch (Exception ex) {
             Logger.getLogger(MaintenanceQuestionsController.class.getName()).log(Level.SEVERE, "Error al iniciar partida.", ex);
@@ -234,16 +248,23 @@ public class NewGameController extends Controller implements Initializable {
         for (Node node : required) {
             if (node instanceof MFXTextField && (((MFXTextField) node).getText() == null || ((MFXTextField) node).getText().isEmpty())) {
                 if (valid) {
-                    invalid += ((MFXTextField) node).getPromptText();
+                    invalid += ((MFXTextField) node).getFloatingText();
                 } else {
-                    invalid += "," + ((MFXTextField) node).getPromptText();
+                    invalid += "," + ((MFXTextField) node).getFloatingText();
                 }
                 valid = false;
             } else if (node instanceof MFXComboBox && ((MFXComboBox) node).getSelectionModel().getSelectedIndex() < 0) {
                 if (valid) {
-                    invalid += ((MFXComboBox) node).getPromptText();
+                    invalid += ((MFXComboBox) node).getFloatingText();
                 } else {
-                    invalid += "," + ((MFXComboBox) node).getPromptText();
+                    invalid += "," + ((MFXComboBox) node).getFloatingText();
+                }
+                valid = false;
+            } else if (isSelectAvatar) {
+                if (valid) {
+                    invalid += "Selecciona Avatar";
+                } else {
+                    invalid += ",Selecciona Avatar";
                 }
                 valid = false;
             }
@@ -271,19 +292,26 @@ public class NewGameController extends Controller implements Initializable {
         return true;
     }
 
-    private void safePlayers(int idGame) {
+    private void safePlayers(Long idGame) {
         ObservableList<CompetidorDto> playerSelect = FXCollections.observableArrayList();
+        ObservableList<String> playersAvatar = (ObservableList<String>) AppContext.getInstance().get("Rutes");
         int numPlayer = cbxAmountPlayer.getValue() == null ? 2 : Integer.parseInt(cbxAmountPlayer.getValue());
-
-     for (int i = 1; i <= numPlayer; i++) {
-        JugadorDto jugador =(JugadorDto) getPlayerCbx(i).getValue();
-        if (jugador != null) {
-   //         CompetidorDto competidor = new CompetidorDto(idGame, jugador.getId());
-     //       playerSelect.add(competidor);
+        String difficulty = cbxDifficulty.getValue();
+        int help = 0;
+        if (difficulty.equals("Facil")) {
+            help = 1;
         }
-        
-    }
-     AppContext.getInstance().set("Competidores", playerSelect);
+        for (int i = 1; i <= numPlayer; i++) {
+            JugadorDto jugador = (JugadorDto) getPlayerCbx(i).getValue();
+            String route = playersAvatar.get(i - 1);
+            if (jugador != null) {
+                CompetidorPK competidorPK = new CompetidorPK(idGame, jugador.getId());
+                CompetidorDto competitor = new CompetidorDto(competidorPK, i, help, route);
+                playerSelect.add(safeCompetitors(competitor));
+            }
+
+        }
+        AppContext.getInstance().set("Competidores", playerSelect);
     }
 
     private PartidaDto safeNewGame() {
@@ -293,13 +321,58 @@ public class NewGameController extends Controller implements Initializable {
             numberPlayers = Long.parseLong(cbxAmountPlayer.getValue());
         }
         boolean limitTime = chkTime.isSelected();
-        String time = "";
+        String difficulty = cbxDifficulty.getValue();
+        String time = null;
         if (limitTime) {
             time = txfHour.getText() + ":" + txfMinute.getText() + ":00";
         }
         LocalDate dateNow = LocalDate.now();
-        PartidaDto partidaDto = new PartidaDto(name, numberPlayers, limitTime, time, dateNow);
+        PartidaDto partidaDto = new PartidaDto(name, numberPlayers, time, difficulty, dateNow);
         AppContext.getInstance().set("Partida", partidaDto);
         return partidaDto;
+    }
+
+    private CompetidorDto safeCompetitors(CompetidorDto competidor) {
+        try {
+            CompetidorService serviceCompetitor = new CompetidorService();
+            RespuestaEnt respuestaCompetitor = serviceCompetitor.saveCompetitor(competidor);
+            if (!respuestaCompetitor.getEstado()) {
+                new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar pregunta", getStage(), respuestaCompetitor.getMensaje());
+            } else {
+                CompetidorDto competitor = (CompetidorDto) respuestaCompetitor.getResultado("Competidor");
+                return competitor;
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(MaintenanceQuestionsController.class.getName()).log(Level.SEVERE, "Error al guardar competidor.", ex);
+            new Mensaje().showModal(Alert.AlertType.ERROR, "Iniciar Partida", getStage(), "Ocurrió un error al guardar competidor.");
+        }
+        return competidor;
+    }
+
+    @FXML
+    private void onActionBtnSavePlayer(ActionEvent event) {
+        try {
+            if (txfNewPlayer.getText().isEmpty()) {
+                new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar jugador", getStage(), "Digite el nombre del jugador");
+            } else {
+                jugadorDto = new JugadorDto();
+                jugadorDto.setNombre(txfNewPlayer.getText());
+                JugadorService service = new JugadorService();
+                RespuestaEnt respuesta = service.savePlayer(jugadorDto);
+                if (!respuesta.getEstado()) {
+                    new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar jugador", getStage(), respuesta.getMensaje());
+                } else {
+                    jugadorDto = (JugadorDto) respuesta.getResultado("Jugador");
+                    new Mensaje().showModal(Alert.AlertType.INFORMATION, "Guardar jugador", getStage(), "Jugador guardado correctamente.");
+                    players.clear();
+                    fillCbxPlayer();
+                    txfNewPlayer.clear();
+                }
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(LogInController.class.getName()).log(Level.SEVERE, "Error guardando el jugador.", ex);
+            new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar jugador", getStage(), "Ocurrió un error guardando el jugador.");
+        }
     }
 }

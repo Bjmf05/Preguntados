@@ -21,19 +21,26 @@ import java.util.List;
  *
  * @author PC
  */
+
 @Entity
-@Table(name = "PLAM_JUGADORES",schema = "UNA")
+@Table(name = "PLAM_JUGADORES", schema = "UNA")
 @NamedQueries({
     @NamedQuery(name = "Jugador.findAll", query = "SELECT j FROM Jugador j"),
     @NamedQuery(name = "Jugador.findByJugId", query = "SELECT j FROM Jugador j WHERE j.id = :id"),
-    @NamedQuery(name = "Jugador.findByJugNombre", query = "SELECT j FROM Jugador j WHERE j.nombre = :nombre"),
-    /*@NamedQuery(name = "Jugador.findByJugPartidasJugadas", query = "SELECT j FROM Jugador j WHERE j.jugPartidasJugadas = :jugPartidasJugadas"),
+    @NamedQuery(name = "Jugador.findByJugNombre", query = "SELECT j FROM Jugador j WHERE j.nombre = :nombre"), /*@NamedQuery(name = "Jugador.findByJugPartidasJugadas", query = "SELECT j FROM Jugador j WHERE j.jugPartidasJugadas = :jugPartidasJugadas"),
     @NamedQuery(name = "Jugador.findByJugPartidasGanadas", query = "SELECT j FROM Jugador j WHERE j.jugPartidasGanadas = :jugPartidasGanadas"),
+     @NamedQuery(name = "Jugador.findByJugCantidadPreguntas", query = "SELECT j FROM Jugador j WHERE j.jugCantidadPreguntas = :jugCantidadPreguntas"),
+    @NamedQuery(name = "Jugador.findByJugCantidadAciertos", query = "SELECT j FROM Jugador j WHERE j.jugCantidadAciertos = :jugCantidadAciertos"),
+    @NamedQuery(name = "Jugador.findByJugCantidadADeporte", query = "SELECT j FROM Jugador j WHERE j.jugCantidadADeporte = :jugCantidadADeporte"),
+    @NamedQuery(name = "Jugador.findByJugCantidadAHistoria", query = "SELECT j FROM Jugador j WHERE j.jugCantidadAHistoria = :jugCantidadAHistoria"),
+    @NamedQuery(name = "Jugador.findByJugCantidadAArte", query = "SELECT j FROM Jugador j WHERE j.jugCantidadAArte = :jugCantidadAArte"),
+    @NamedQuery(name = "Jugador.findByJugCantidadACiencia", query = "SELECT j FROM Jugador j WHERE j.jugCantidadACiencia = :jugCantidadACiencia"),
+    @NamedQuery(name = "Jugador.findByJugCantidadAGeografia", query = "SELECT j FROM Jugador j WHERE j.jugCantidadAGeografia = :jugCantidadAGeografia"),
+    @NamedQuery(name = "Jugador.findByJugCantidadAEntretenimiento", query = "SELECT j FROM Jugador j WHERE j.jugCantidadAEntretenimiento = :jugCantidadAEntretenimiento"),
     @NamedQuery(name = "Jugador.findByJugVersion", query = "SELECT j FROM Jugador j WHERE j.version = :version")*/})
 public class Jugador implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @SequenceGenerator(name = "PLAM_PLAM_JUGADORES_JUG_ID_GENERATOR", sequenceName = "una.PLAM_JUGADORES_SEQ01", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PLAM_PLAM_JUGADORES_JUG_ID_GENERATOR")
@@ -46,9 +53,34 @@ public class Jugador implements Serializable {
     @Basic(optional = false)
     @Column(name = "JUG_PARTIDAS_JUGADAS")
     private Long partidasJugadas;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @Column(name = "JUG_PARTIDAS_GANADAS")
-    private Long partidasGanadas;   
+    private Long partidasGanadas;
+    @Basic(optional = false)
+    @Column(name = "JUG_CANTIDAD_PREGUNTAS")
+    private Long cantidadPreguntas;
+    @Basic(optional = false)
+    @Column(name = "JUG_CANTIDAD_ACIERTOS")
+    private Long cantidadAciertos;
+    @Basic(optional = false)
+    @Column(name = "JUG_CANTIDAD_A_DEPORTE")
+    private Long cantidadADeporte;
+    @Basic(optional = false)
+    @Column(name = "JUG_CANTIDAD_A_HISTORIA")
+    private Long cantidadAHistoria;
+    @Basic(optional = false)
+    @Column(name = "JUG_CANTIDAD_A_ARTE")
+    private Long cantidadAArte;
+    @Basic(optional = false)
+    @Column(name = "JUG_CANTIDAD_A_CIENCIA")
+    private Long cantidadACiencia;
+    @Basic(optional = false)
+    @Column(name = "JUG_CANTIDAD_A_GEOGRAFIA")
+    private Long cantidadAGeografia;
+    @Basic(optional = false)
+    @Column(name = "JUG_CANTIDAD_A_ENTRETENIMIENTO")
+    private Long cantidadAEntretenimiento;
     @Version
     @Column(name = "JUG_VERSION")
     private Long version;
@@ -66,12 +98,21 @@ public class Jugador implements Serializable {
         this.id = jugadorDto.getId();
         actualizar(jugadorDto);
     }
-public void actualizar(JugadorDto jugadorDto){
+
+    public void actualizar(JugadorDto jugadorDto) {
         this.nombre = jugadorDto.getNombre();
         this.partidasJugadas = jugadorDto.getPartidasJugadas();
         this.partidasGanadas = jugadorDto.getPartidasGanadas();
+        this.cantidadPreguntas = jugadorDto.getPartidasJugadas();
+        this.cantidadAciertos = jugadorDto.getCantidadAciertos();
+        this.cantidadADeporte = jugadorDto.getCantidadADeporte();
+        this.cantidadAHistoria = jugadorDto.getCantidadAHistoria();
+        this.cantidadAArte = jugadorDto.getCantidadAArte();
+        this.cantidadACiencia = jugadorDto.getCantidadACiencia();
+        this.cantidadAGeografia = jugadorDto.getCantidadAGeografia();
+        this.cantidadAEntretenimiento = jugadorDto.getCantidadAEntretenimiento();
         this.version = jugadorDto.getVersion();
-}
+    }
 
     public Long getId() {
         return id;
@@ -105,6 +146,70 @@ public void actualizar(JugadorDto jugadorDto){
         this.partidasGanadas = partidasGanadas;
     }
 
+    public Long getCantidadPreguntas() {
+        return cantidadPreguntas;
+    }
+
+    public void setCantidadPreguntas(Long cantidadPreguntas) {
+        this.cantidadPreguntas = cantidadPreguntas;
+    }
+
+    public Long getCantidadAciertos() {
+        return cantidadAciertos;
+    }
+
+    public void setCantidadAciertos(Long cantidadAciertos) {
+        this.cantidadAciertos = cantidadAciertos;
+    }
+
+    public Long getCantidadADeporte() {
+        return cantidadADeporte;
+    }
+
+    public void setCantidadADeporte(Long cantidadADeporte) {
+        this.cantidadADeporte = cantidadADeporte;
+    }
+
+    public Long getCantidadAHistoria() {
+        return cantidadAHistoria;
+    }
+
+    public void setCantidadAHistoria(Long cantidadAHistoria) {
+        this.cantidadAHistoria = cantidadAHistoria;
+    }
+
+    public Long getCantidadAArte() {
+        return cantidadAArte;
+    }
+
+    public void setCantidadAArte(Long cantidadAArte) {
+        this.cantidadAArte = cantidadAArte;
+    }
+
+    public Long getCantidadACiencia() {
+        return cantidadACiencia;
+    }
+
+    public void setCantidadACiencia(Long cantidadACiencia) {
+        this.cantidadACiencia = cantidadACiencia;
+    }
+
+    public Long getCantidadAGeografia() {
+        return cantidadAGeografia;
+    }
+
+    public void setCantidadAGeografia(Long cantidadAGeografia) {
+        this.cantidadAGeografia = cantidadAGeografia;
+    }
+
+    public Long getCantidadAEntretenimiento() {
+        return cantidadAEntretenimiento;
+    }
+
+    public void setCantidadAEntretenimiento(Long cantidadAEntretenimiento) {
+        this.cantidadAEntretenimiento = cantidadAEntretenimiento;
+    }
+
     public Long getVersion() {
         return version;
     }
@@ -112,7 +217,7 @@ public void actualizar(JugadorDto jugadorDto){
     public void setVersion(Long version) {
         this.version = version;
     }
-    
+
     public List<Competidor> getCompetidorList() {
         return competidorList;
     }
@@ -145,5 +250,6 @@ public void actualizar(JugadorDto jugadorDto){
     public String toString() {
         return "cr.ac.una.proyectopreguntados.model.Jugador[ jugId=" + id + " ]";
     }
-    
+
+
 }

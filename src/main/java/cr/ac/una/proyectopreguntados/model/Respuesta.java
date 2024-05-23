@@ -31,6 +31,8 @@ import java.io.Serializable;
 
 public class Respuesta implements Serializable {
 
+
+
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected RespuestaPK RespuestaPK;
@@ -43,6 +45,7 @@ public class Respuesta implements Serializable {
     @Basic(optional = false)
     @Column(name = "RES_CANTIDAD_SELECCIONES")
     private Long cantidadSelecciones;
+    @Basic(optional = false)
     @Version
     @Column(name = "RES_VERSION")
     private Long version;
@@ -145,5 +148,4 @@ public class Respuesta implements Serializable {
     public String toString() {
         return "cr.ac.una.proyectopreguntados.model.PlamRespuestas[ plamRespuestasPK=" + RespuestaPK + " ]";
     }
-
 }
