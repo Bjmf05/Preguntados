@@ -6,18 +6,22 @@ import cr.ac.una.proyectopreguntados.util.EntityManagerHelper;
 import cr.ac.una.proyectopreguntados.util.RespuestaEnt;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.Query;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
  * @author PC
  */
 public class PartidaService {
-        private EntityManager em = EntityManagerHelper.getInstance().getManager();
+    private EntityManager em = EntityManagerHelper.getInstance().getManager();
     private EntityTransaction et;
-    
-      public RespuestaEnt saveGame(PartidaDto partidaDto) {
+
+    public RespuestaEnt saveGame(PartidaDto partidaDto) {
         try {
             et = em.getTransaction();
             et.begin();
@@ -41,5 +45,28 @@ public class PartidaService {
             Logger.getLogger(JugadorService.class.getName()).log(Level.SEVERE, "Ocurrio un error al guardar la partida.", ex);
             return new RespuestaEnt(false, "Ocurrio un error al guardar la partida.", "guardarPartida " + ex.getMessage());
         }
+    }
+
+    public RespuestaEnt getGames(String id, String nombre, String cantidadJugadores, String dificultad, String fecha) {
+        try {
+            Query query = em.createNamedQuery("Partida.findByIdNomJugaFecha", Partida.class);
+            query.setParameter("id", id);
+            query.setParameter("nombre", nombre);
+            query.setParameter("jugadores", cantidadJugadores);
+            query.setParameter("dificultad", dificultad);
+            query.setParameter("fecha", fecha);
+            List<Partida> games = (List<Partida>) query.getResultList();
+            List<PartidaDto> gamesDto = new ArrayList<>();
+            for (Partida game : games) {
+                gamesDto.add(new PartidaDto(game));
+            }
+            return new RespuestaEnt(true, "", "", "Games", gamesDto);
+        } catch (NoResultException ex) {
+            return new RespuestaEnt(false, "No se encontraron partidas con los criterios ingresados", "getGames NoResultException");
+        } catch (Exception ex) {
+            Logger.getLogger(PartidaService.class.getName()).log(Level.SEVERE, "Ocurrio un error obteniendo las partidas", ex);
+            return new RespuestaEnt(false, "Ocurrio un error obteniendo las partidas", "getGames " + ex.getMessage());
+        }
+
     }
 }

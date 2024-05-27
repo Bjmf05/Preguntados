@@ -260,14 +260,15 @@ public class NewGameController extends Controller implements Initializable {
                     invalid += "," + ((MFXComboBox) node).getFloatingText();
                 }
                 valid = false;
-            } else if (isSelectAvatar) {
-                if (valid) {
-                    invalid += "Selecciona Avatar";
-                } else {
-                    invalid += ",Selecciona Avatar";
-                }
-                valid = false;
             }
+        }
+         if (!isSelectAvatar) {
+            if (valid) {
+                invalid += "Selecciona Avatar";
+            } else {
+                invalid += ",Selecciona Avatar";
+            }
+            valid = false;
         }
         if (!valid) {
             return "Campos requeridos o con problemas de formato [" + invalid + "].";
@@ -295,6 +296,7 @@ public class NewGameController extends Controller implements Initializable {
     private void safePlayers(Long idGame) {
         ObservableList<CompetidorDto> playerSelect = FXCollections.observableArrayList();
         ObservableList<String> playersAvatar = (ObservableList<String>) AppContext.getInstance().get("Rutes");
+        ObservableList<JugadorDto> playersName = FXCollections.observableArrayList();
         int numPlayer = cbxAmountPlayer.getValue() == null ? 2 : Integer.parseInt(cbxAmountPlayer.getValue());
         String difficulty = cbxDifficulty.getValue();
         int help = 0;
@@ -308,10 +310,12 @@ public class NewGameController extends Controller implements Initializable {
                 CompetidorPK competidorPK = new CompetidorPK(idGame, jugador.getId());
                 CompetidorDto competitor = new CompetidorDto(competidorPK, i, help, route);
                 playerSelect.add(safeCompetitors(competitor));
+                playersName.add(jugador);
             }
 
         }
         AppContext.getInstance().set("Competidores", playerSelect);
+        AppContext.getInstance().set("Jugadores", playersName);
     }
 
     private PartidaDto safeNewGame() {

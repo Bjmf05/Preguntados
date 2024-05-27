@@ -18,6 +18,7 @@ public class PartidaDto {
     private String dificultad;
     private String tiempoLimite;
     private List<Pregunta> preguntaList;
+    private List<Competidor> competidorList;
     private Long version;
     private boolean modificado;
     
@@ -40,6 +41,7 @@ public class PartidaDto {
         this.tiempoLimite = partida.getTiempoLimite();
         this.dificultad = partida.getDificultad();
         this.preguntaList = partida.getPreguntaList();
+        this.competidorList = partida.getCompetidorList();
         this.version = partida.getVersion();
     }
 
@@ -119,6 +121,10 @@ public class PartidaDto {
         this.modificado = modificado;
     }
 
+    public List<Competidor> getCompetidorList() {
+        return competidorList;
+    }
+
     public Long getVersion() {
         return version;
     }
@@ -130,7 +136,7 @@ public class PartidaDto {
 
     @Override
     public String toString() {
-        return "PartidaDto{" + "id=" + id + ", fecha=" + fecha + ", nombre=" + nombre + ", jugadores=" + jugadores + ", version=" + version + ", modificado=" + modificado + '}';
+        return  id.toString() + fecha + nombre +  jugadores + dificultad;
     }
 
     @Override

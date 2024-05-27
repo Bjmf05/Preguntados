@@ -1,22 +1,7 @@
 package cr.ac.una.proyectopreguntados.model;
 
-import jakarta.persistence.Basic;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.NamedQueries;
-import jakarta.persistence.NamedQuery;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
-import jakarta.persistence.Version;
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -33,6 +18,7 @@ import java.util.List;
     @NamedQuery(name = "Partida.findByPartFecha", query = "SELECT p FROM Partida p WHERE p.fecha = :fecha"),
     @NamedQuery(name = "Partida.findByPartNombre", query = "SELECT p FROM Partida p WHERE p.nombre = :nombre"),
     @NamedQuery(name = "Partida.findByPartJugadores", query = "SELECT p FROM Partida p WHERE p.jugadores = :jugadores"),
+    @NamedQuery(name = "Partida.findByIdNomJugaFecha", query = "SELECT p FROM Partida p WHERE UPPER(p.id) like :id and UPPER(p.nombre) LIKE :nombre and UPPER(p.dificultad) LIKE :dificultad and UPPER(p.jugadores)  like :jugadores and UPPER(p.fecha) like :fecha",hints = @QueryHint(name= "eclipselink.refresh", value = "true")),
     @NamedQuery(name = "Partida.findByPartVersion", query = "SELECT p FROM Partida p WHERE p.version = :version")})
 public class Partida implements Serializable {
 

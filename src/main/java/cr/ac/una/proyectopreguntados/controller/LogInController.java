@@ -114,6 +114,7 @@ public class LogInController extends Controller implements Initializable {
 
     @FXML
     private void onActionBtnLoadGame(ActionEvent event) {
+        FlowController.getInstance().showViewInVBox("SearchGameView", vbxRoot);
     }
 
     @FXML
