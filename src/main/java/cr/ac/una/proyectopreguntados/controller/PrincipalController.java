@@ -39,4 +39,11 @@ public class PrincipalController extends Controller implements Initializable {
         FlowController.getInstance().goView("SixPlayerBoardView");
     }
     
+    public double getWidth(){
+        return root.getWidth();
+    }
+    
+    public double getHeight(){
+        return root.getHeight();
+    }
 }

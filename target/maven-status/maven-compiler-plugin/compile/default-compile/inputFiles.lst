@@ -1,36 +1,38 @@
-C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\model\Jugador.java
-C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\util\AppContext.java
-C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\model\RespuestaPK.java
-C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\controller\Controller.java
-C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\model\Respuesta.java
-C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\service\JugadorService.java
-C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\controller\SelectCrownCategoryController.java
-C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\model\PreguntaDto.java
-C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\util\BindingUtils.java
-C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\service\RespuestaService.java
-C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\util\Mensaje.java
-C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\module-info.java
-C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\controller\MaintenanceQuestionsController.java
-C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\model\CompetidorDto.java
-C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\model\RespuestaDto.java
-C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\model\Partida.java
-C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\controller\SelectAvatarController.java
-C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\controller\NewGameController.java
-C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\model\PartidaDto.java
-C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\controller\LogInController.java
-C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\controller\PrincipalController.java
-C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\model\Competidor.java
-C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\util\FlowController.java
-C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\model\PlayerPosition.java
-C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\util\Formato.java
-C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\controller\SearchQuestionController.java
-C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\util\RespuestaEnt.java
-C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\App.java
-C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\service\CompetidorService.java
-C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\model\CompetidorPK.java
-C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\controller\SixPlayerBoardController.java
-C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\model\Pregunta.java
-C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\service\PartidaService.java
-C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\util\EntityManagerHelper.java
-C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\model\JugadorDto.java
-C:\Users\PC\Documents\Progra 2\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\service\PreguntaService.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\util\FlowController.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\controller\PrincipalController.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\controller\SearchGameController.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\controller\SelectAvatarController.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\util\BindingUtils.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\service\PartidaService.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\util\Mensaje.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\util\RespuestaEnt.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\model\PlayerPosition.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\service\JugadorService.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\service\RespuestaService.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\model\Jugador.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\model\Competidor.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\service\CompetidorService.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\controller\SelectCrownCategoryController.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\controller\LogInController.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\controller\NewGameController.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\util\Formato.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\App.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\model\Pregunta.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\model\PreguntaDto.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\service\PreguntaService.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\util\EntityManagerHelper.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\model\Partida.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\controller\Controller.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\model\RespuestaDto.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\controller\GameFuctionController.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\model\JugadorDto.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\module-info.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\controller\SearchQuestionController.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\model\CompetidorPK.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\model\PartidaDto.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\model\Respuesta.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\controller\SixPlayerBoardController.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\model\CompetidorDto.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\util\AppContext.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\controller\MaintenanceQuestionsController.java
+C:\Users\Marconi Calvo Campos\OneDrive - Universidad Latina\Escritorio\Marconi\NeatBeans\ProyectoPreguntados\src\main\java\cr\ac\una\proyectopreguntados\model\RespuestaPK.java

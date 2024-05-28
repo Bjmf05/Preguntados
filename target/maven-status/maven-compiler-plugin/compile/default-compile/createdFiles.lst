@@ -1,6 +1,7 @@
 cr\ac\una\proyectopreguntados\controller\NewGameController.class
 cr\ac\una\proyectopreguntados\util\RespuestaEnt.class
 cr\ac\una\proyectopreguntados\model\Respuesta.class
+cr\ac\una\proyectopreguntados\controller\SearchGameController.class
 cr\ac\una\proyectopreguntados\model\PartidaDto.class
 cr\ac\una\proyectopreguntados\service\RespuestaService.class
 cr\ac\una\proyectopreguntados\controller\SixPlayerBoardController.class
@@ -20,6 +21,7 @@ cr\ac\una\proyectopreguntados\model\PreguntaDto.class
 cr\ac\una\proyectopreguntados\model\Competidor.class
 cr\ac\una\proyectopreguntados\controller\SelectAvatarController.class
 cr\ac\una\proyectopreguntados\App.class
+cr\ac\una\proyectopreguntados\controller\GameFuctionController.class
 module-info.class
 cr\ac\una\proyectopreguntados\controller\PrincipalController.class
 cr\ac\una\proyectopreguntados\model\PlayerPosition.class

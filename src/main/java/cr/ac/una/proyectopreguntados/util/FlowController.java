@@ -87,6 +87,7 @@ public class FlowController {
             MFXThemeManager.addOn(this.mainStage.getScene(), Themes.DEFAULT, Themes.LEGACY);
             this.mainStage.show();
             FlowController.getInstance().goView("SixPlayerBoardView");
+            FlowController.getInstance().goView("GameFuctionView", "Left", null);
         } catch (IOException ex) {
             java.util.logging.Logger.getLogger(FlowController.class.getName()).log(Level.SEVERE, "Error inicializando la vista base.", ex);
         }
@@ -123,6 +124,9 @@ public class FlowController {
             case "Right":
                 break;
             case "Left":
+                VBox vBoxLeft = ((VBox) ((BorderPane) stage.getScene().getRoot()).getLeft());
+                vBoxLeft.getChildren().clear();
+                vBoxLeft.getChildren().add(loader.getRoot());
                 break;
             default:
                 break;

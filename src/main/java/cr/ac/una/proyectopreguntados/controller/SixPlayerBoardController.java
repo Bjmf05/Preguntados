@@ -150,6 +150,7 @@ public class SixPlayerBoardController extends Controller implements Initializabl
     private CompetidorDto player6= new CompetidorDto();
 
     private int topSection;
+    private GameFuctionController gameFuctionController = (GameFuctionController) FlowController.getInstance().getController("GameFuctionView");
     /**
      * Initializes the controller class.
      */
@@ -244,7 +245,11 @@ class TransitionFinishedEventHandler implements EventHandler<ActionEvent> {
         int topSection = (int) ((currentRotation + 360 / 14) % 360) / (360 / 7) + 1;
         checkAnswer(true);
         // Llama a rouletteNumber() después de que la rotación haya sido completada
-        Platform.runLater(() -> rouletteNumber(topSection));
+        Platform.runLater(() -> {rouletteNumber(topSection);
+        if(!isFirstGame){
+            gameFuctionController.moveCard(typeOfQuestion(topSection));
+        }
+        });
     }
 }
 
