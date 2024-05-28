@@ -3,16 +3,20 @@ package cr.ac.una.proyectopreguntados.controller;
 import cr.ac.una.proyectopreguntados.model.Pregunta;
 import cr.ac.una.proyectopreguntados.model.PreguntaDto;
 import cr.ac.una.proyectopreguntados.service.PreguntaService;
+import cr.ac.una.proyectopreguntados.util.Formato;
 import cr.ac.una.proyectopreguntados.util.Mensaje;
 import cr.ac.una.proyectopreguntados.util.RespuestaEnt;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
+import io.github.palexdev.materialfx.controls.MFXTextField;
+
 import java.net.URL;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -44,6 +48,16 @@ public class SearchQuestionController extends Controller implements Initializabl
     private TableColumn<PreguntaDto, String> tbvClId;
     @FXML
     private TableColumn<PreguntaDto, String> tvcClQuestion;
+    @FXML
+    private MFXTextField txfIdQuestion;
+    @FXML
+    private MFXTextField txfContentQuestion;
+    @FXML
+    private MFXButton btnSearch;
+    @FXML
+    private MFXComboBox<String> cbxStatus;
+    @FXML
+    private TableColumn<PreguntaDto, String> tbsEstatus;
 
     /**
      * Initializes the controller class.
@@ -51,26 +65,19 @@ public class SearchQuestionController extends Controller implements Initializabl
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-
-        cbxTypeQuestion.getItems().addAll("Deporte", "Historia", "Geografía", "Arte", "Ciencia", "Entretenimiento");
+        txfIdQuestion.delegateSetTextFormatter(Formato.getInstance().integerFormat());
+        txfContentQuestion.delegateSetTextFormatter(Formato.getInstance().textFormat(150));
+        cbxTypeQuestion.getItems().addAll("Deporte", "Historia", "Geografía", "Arte", "Ciencia", "Entretenimiento","");
+        cbxStatus.getItems().addAll("Activa", "Inactiva","");
         tbvClId.setCellValueFactory(new PropertyValueFactory<>("id"));
         tvcClQuestion.setCellValueFactory(new PropertyValueFactory<>("contenido"));
-        getQuestions();
-        tbvResults.setItems(questions);
+        tbsEstatus.setCellValueFactory(new PropertyValueFactory<>("estado"));
     }
 
     @Override
     public void initialize() {
     }
 
-    @FXML
-    private void onActionCbxTypeQuestion(ActionEvent event) {
-
-        ObservableList<PreguntaDto> filterList = questions.filtered(question
-                -> Objects.equals(question.getCategoria(), cbxTypeQuestion.getValue()));
-        tbvResults.setItems(filterList);
-
-    }
 
     @FXML
     private void onMousePressenTbvResults(MouseEvent event) {
@@ -90,18 +97,40 @@ public class SearchQuestionController extends Controller implements Initializabl
     }
 
     private void getQuestions() {
-        try {
-            PreguntaService service = new PreguntaService();
-            RespuestaEnt respuesta = service.getQuestions();
-            if (respuesta.getEstado()) {
-                questions = FXCollections.observableList((List<PreguntaDto>) respuesta.getResultado("Preguntas"));
-            } else {
-                new Mensaje().showModal(Alert.AlertType.ERROR, "Cargar Preguntas", getStage(), respuesta.getMensaje());
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(MaintenanceQuestionsController.class.getName()).log(Level.SEVERE, "Error consultando las preguntas.", ex);
-            new Mensaje().showModal(Alert.AlertType.ERROR, "Cargar Preguntas", getStage(), "Ocurrio un error consultando las preguntas.");
+        String id = txfIdQuestion.getText().trim();
+        String contenido = txfContentQuestion.getText().trim();
+        String categoria = cbxTypeQuestion.getValue();
+        String estado = cbxStatus.getValue();
+
+        if (Objects.equals(estado, "Activa")) {
+            estado = "A";
+        } else if (Objects.equals(estado, "Inactiva")) {
+            estado = "I";
+        } else {
+            estado = "";
         }
+        id = id.isEmpty() ? "%" : "%" + id.toUpperCase() + "%";
+        contenido = contenido.isEmpty() ? "%" : "%" + contenido.toUpperCase() + "%";
+        categoria = (categoria == null || categoria.isEmpty()) ? "%" : "%" + categoria.toUpperCase() + "%";
+        estado = (estado == null || estado.isEmpty()) ? "%" : "%" + estado.toUpperCase() + "%";
+
+
+        PreguntaService service = new PreguntaService();
+        RespuestaEnt respuesta = service.getQuestionsParameters(id, contenido, categoria, estado);
+        if (respuesta.getEstado()) {
+            questions.clear();
+            questions.addAll((List<PreguntaDto>) respuesta.getResultado("Preguntas"));
+            tbvResults.setItems(questions);
+            tbvResults.refresh();
+        } else {
+            new Mensaje().showModal(Alert.AlertType.ERROR, "Cargar Preguntas", getStage(), respuesta.getMensaje());
+        }
+
+    }
+
+    @FXML
+    private void onActionBtnSearch(ActionEvent event) {
+        getQuestions();
     }
 
 }

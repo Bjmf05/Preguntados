@@ -9,13 +9,13 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.NonUniqueResultException;
 import jakarta.persistence.Query;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
  * @author PC
  */
 public class PreguntaService {
@@ -48,6 +48,7 @@ public class PreguntaService {
             return new RespuestaEnt(false, "Ocurrio un error al guardar la pregunta", "guardarPregunta " + ex.getMessage());
         }
     }
+
     public RespuestaEnt getQuestion(Long id) {
         try {
             Query qryPregunta = em.createNamedQuery("Pregunta.findById", Pregunta.class);
@@ -64,9 +65,10 @@ public class PreguntaService {
             return new RespuestaEnt(false, "Error obteniendo la pregunta.", "getPregunta " + ex.getMessage());
         }
     }
-        public RespuestaEnt getQuestions() {
+
+    public RespuestaEnt getQuestions() {
         try {
-            Query query = em.createNamedQuery("Pregunta.findAll",Pregunta.class);
+            Query query = em.createNamedQuery("Pregunta.findAll", Pregunta.class);
             List<Pregunta> preguntas = (List<Pregunta>) query.getResultList();
             List<PreguntaDto> preguntaDto = new ArrayList<>();
             for (Pregunta pre : preguntas) {
@@ -80,7 +82,30 @@ public class PreguntaService {
             return new RespuestaEnt(false, "Error obteniendo Preguntas.", "getPreguntas " + ex.getMessage());
         }
     }
-        public RespuestaEnt deleteQuestion(Long id) {
+
+
+    public RespuestaEnt getQuestionsParameters(String id, String contenido, String categoria, String estado) {
+        try {
+            Query query = em.createNamedQuery("Pregunta.findByIdContCatEsta", Pregunta.class);
+            query.setParameter("id", id);
+            query.setParameter("contenido", contenido);
+            query.setParameter("categoria", categoria);
+            query.setParameter("estado", estado);
+            List<Pregunta> preguntas = (List<Pregunta>) query.getResultList();
+            List<PreguntaDto> preguntaDto = new ArrayList<>();
+            for (Pregunta pre : preguntas) {
+                preguntaDto.add(new PreguntaDto(pre));
+            }
+            return new RespuestaEnt(true, "", "", "Preguntas", preguntaDto);
+        } catch (NoResultException ex) {
+            return new RespuestaEnt(false, "No existen Preguntas.", "getPreguntas NoResultException");
+        } catch (Exception ex) {
+            Logger.getLogger(JugadorService.class.getName()).log(Level.SEVERE, "Error obteniendo Preguntas.", ex);
+            return new RespuestaEnt(false, "Error obteniendo Preguntas.", "getPreguntas " + ex.getMessage());
+        }
+    }
+
+    public RespuestaEnt deleteQuestion(Long id) {
         try {
             et = em.getTransaction();
             et.begin();
@@ -88,12 +113,12 @@ public class PreguntaService {
             if (id != null && id > 0) {
                 pregunta = em.find(Pregunta.class, id);
                 if (pregunta == null) {
-                   // et.rollback();
+                    // et.rollback();
                     return new RespuestaEnt(false, "No se encrontró la pregunta a eliminar.", "eliminarPregunta NoResultException");
                 }
                 em.remove(pregunta);
             } else {
-               // et.rollback();
+                // et.rollback();
                 return new RespuestaEnt(false, "Favor consultar la pregunta a eliminar.", "");
             }
             et.commit();

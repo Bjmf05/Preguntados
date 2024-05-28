@@ -2,6 +2,8 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -9,19 +11,42 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="350.0" prefWidth="650.0" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.proyectopreguntados.controller.SearchQuestionController">
+<AnchorPane id="AnchorPane" prefHeight="350.0" prefWidth="750.0" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.proyectopreguntados.controller.SearchQuestionController">
    <children>
       <HBox layoutX="88.0" layoutY="164.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox alignment="TOP_CENTER" prefHeight="450.0" prefWidth="161.0">
+            <VBox alignment="TOP_CENTER" prefHeight="450.0" prefWidth="161.0" spacing="10.0">
                <children>
                   <Label styleClass="Title" text="Filtro" />
-                  <HBox alignment="CENTER" prefHeight="54.0" prefWidth="161.0">
+                  <HBox>
                      <children>
-                        <MFXComboBox fx:id="cbxTypeQuestion" floatingText="Tipo " onAction="#onActionCbxTypeQuestion" />
+                        <MFXTextField fx:id="txfIdQuestion" floatMode="BORDER" floatingText="ID" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
+                  <HBox>
+                     <children>
+                        <MFXTextField fx:id="txfContentQuestion" floatMode="BORDER" floatingText="Contenido Pregunta" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <MFXComboBox fx:id="cbxTypeQuestion" floatingText="Tipo " maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <MFXComboBox fx:id="cbxStatus" floatMode="BORDER" floatingText="Estado" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+                  <VBox>
+                     <children>
+                        <MFXButton fx:id="btnSearch" maxWidth="1.7976931348623157E308" onAction="#onActionBtnSearch" text="Buscar" VBox.vgrow="ALWAYS" />
+                     </children>
+                  </VBox>
                </children>
+               <padding>
+                  <Insets left="5.0" right="5.0" />
+               </padding>
             </VBox>
             <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" HBox.hgrow="ALWAYS">
                <children>
@@ -29,7 +54,8 @@
                   <TableView fx:id="tbvResults" onMousePressed="#onMousePressenTbvResults" prefHeight="241.0" prefWidth="489.0">
                     <columns>
                       <TableColumn fx:id="tbvClId" prefWidth="75.0" styleClass="tbvQuestions" text="Id" />
-                      <TableColumn fx:id="tvcClQuestion" prefWidth="413.0" styleClass="tbvQuestions" text="Pregunta" />
+                      <TableColumn fx:id="tvcClQuestion" prefWidth="434.0" styleClass="tbvQuestions" text="Pregunta" />
+                        <TableColumn fx:id="tbsEstatus" prefWidth="64.0" text="Estado" />
                     </columns>
                   </TableView>
                   <HBox alignment="CENTER">
@@ -38,6 +64,9 @@
                      </children>
                   </HBox>
                </children>
+               <padding>
+                  <Insets left="5.0" right="10.0" />
+               </padding>
             </VBox>
          </children>
       </HBox>

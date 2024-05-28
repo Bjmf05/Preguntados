@@ -101,7 +101,7 @@ public class PreguntaDto implements Serializable {
 
     @Override
     public String toString() {
-        return id.get() + contenido.get() ;
+        return id.get() + contenido.get()+estado.get() ;
     }
 
 

@@ -1,20 +1,7 @@
 package cr.ac.una.proyectopreguntados.model;
 
-import jakarta.persistence.Basic;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.NamedQueries;
-import jakarta.persistence.NamedQuery;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
-import jakarta.persistence.Version;
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -30,7 +17,7 @@ import java.util.List;
     @NamedQuery(name = "Pregunta.findByContenido", query = "SELECT p FROM Pregunta p WHERE p.contenido = :contenido"),
     @NamedQuery(name = "Pregunta.findByCategoria", query = "SELECT p FROM Pregunta p WHERE p.categoria = :categoria"),
     @NamedQuery(name = "Pregunta.findByEstado", query = "SELECT p FROM Pregunta p WHERE p.estado = :estado"),
-    @NamedQuery(name = "Pregunta.findByCantidadLlamadas", query = "SELECT p FROM Pregunta p WHERE p.cantidadLlamadas = :cantidadLlamadas"),
+    @NamedQuery(name = "Pregunta.findByIdContCatEsta", query = "SELECT p FROM Pregunta p WHERE UPPER(p.id) LIKE :id and UPPER(p.contenido) LIKE :contenido and UPPER(p.categoria) LIKE :categoria and UPPER(p.estado) LIKE :estado",hints = @QueryHint(name= "eclipselink.refresh", value = "true")),
     @NamedQuery(name = "Pregunta.findByVersion", query = "SELECT p FROM Pregunta p WHERE p.version = :version")})
 public class Pregunta implements Serializable {
 

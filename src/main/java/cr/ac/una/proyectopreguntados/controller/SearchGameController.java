@@ -73,8 +73,8 @@ public class SearchGameController extends Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        cbxAmountPlayers.getItems().addAll("2", "3", "4", "5", "6");
-        cbxDificulty.getItems().addAll("Facil", "Intermedio", "Dificil");
+        cbxAmountPlayers.getItems().addAll("2", "3", "4", "5", "6","");
+        cbxDificulty.getItems().addAll("Facil", "Intermedio", "Dificil","");
         tbcIdGame.setCellValueFactory(new PropertyValueFactory<>("id"));
         tbcGameName.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         tbcAmountPlayers.setCellValueFactory(new PropertyValueFactory<>("jugadores"));
@@ -96,9 +96,12 @@ public class SearchGameController extends Controller implements Initializable {
     @FXML
     private void onActionBtnAccept(ActionEvent event) {
         selectedGame = tbvGame.getSelectionModel().getSelectedItem();
+        if (selectedGame == null) {
+            new Mensaje().showModal(Alert.AlertType.ERROR, "Cargar Partida", getStage(), "Debe seleccionar una partida");
+        }else {
         loadGameData(selectedGame);
         AppContext.getInstance().set("Partida", selectedGame);
-        FlowController.getInstance().goMain();
+        FlowController.getInstance().goMain();}
     }
 
     private void makeSearch() {

@@ -1,5 +1,6 @@
 package cr.ac.una.proyectopreguntados.controller;
 
+import cr.ac.una.proyectopreguntados.App;
 import cr.ac.una.proyectopreguntados.model.CompetidorDto;
 import cr.ac.una.proyectopreguntados.model.JugadorDto;
 import cr.ac.una.proyectopreguntados.model.PartidaDto;
@@ -7,6 +8,7 @@ import cr.ac.una.proyectopreguntados.model.PlayerPosition;
 import cr.ac.una.proyectopreguntados.util.AppContext;
 import cr.ac.una.proyectopreguntados.util.FlowController;
 
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -21,6 +23,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
@@ -139,12 +142,13 @@ public class SixPlayerBoardController extends Controller implements Initializabl
     private ObservableList<CompetidorDto> competitors = FXCollections.observableArrayList();
     private ObservableList<JugadorDto> competitorsNames = FXCollections.observableArrayList();
     private boolean isFirstGame = true;
-    private CompetidorDto player1;
-    private CompetidorDto player2;
-    private CompetidorDto player3;
-    private CompetidorDto player4;
-    private CompetidorDto player5;
-    private CompetidorDto player6;
+    private CompetidorDto player1 = new CompetidorDto();
+    private CompetidorDto player2= new CompetidorDto();
+    private CompetidorDto player3= new CompetidorDto();
+    private CompetidorDto player4= new CompetidorDto();
+    private CompetidorDto player5= new CompetidorDto();
+    private CompetidorDto player6= new CompetidorDto();
+
     private int topSection;
     /**
      * Initializes the controller class.
@@ -157,10 +161,11 @@ public class SixPlayerBoardController extends Controller implements Initializabl
         competitorsNames = (ObservableList<JugadorDto>) AppContext.getInstance().get("Jugadores");
         darkenIcons();
         fillPlayersDto();
+        fillPlayersAvatar();
         fillPlayersLabels();
         checkGame();
         currentCompetitor = competitors.getFirst();
-        System.out.println(currentCompetitor.getJugador().getNombre());
+
     }
 
     /////Nuevas funciones
@@ -171,21 +176,9 @@ public class SixPlayerBoardController extends Controller implements Initializabl
         }
     }
 
-    private CompetidorDto competitors(int i) {
+    private CompetidorDto competitorsPlayer(int i) {
         CompetidorDto[] player = {player1, player2, player3, player4, player5, player6};
         return player[i];
-    }
-
-    private Label labelsNamePlayers(int i) {
-        Label[] labels = {lblPlayer1, lblPlayer2, lblPlayer3, lblPlayer4, lblPlayer5, lblPlayer6};
-        return labels[i];
-    }
-
-    private void fillPlayersLabels() {
-        for (int i = 0; i < numberOfPlayers; i++) {
-            JugadorDto jugadorDto = competitorsNames.get(i);
-            labelsNamePlayers(i).setText(jugadorDto.getNombre());
-        }
     }
 
     private void changePlayerTurn() {
@@ -197,7 +190,7 @@ public class SixPlayerBoardController extends Controller implements Initializabl
         } else {
             currentPlayer++;
         }
-        currentCompetitor = competitors(currentPlayer - 1);
+        currentCompetitor = competitorsPlayer(currentPlayer - 1);
         currentCompetitor.setTurno("A");
     }
     private void savePlayerDto(){
@@ -226,34 +219,35 @@ public class SixPlayerBoardController extends Controller implements Initializabl
     /////////////
     @FXML
     private void onActionBtnSpinWheel(ActionEvent event) {
-        Random random = new Random();
-        int randomAngle = random.nextInt(1081) + 1080;
-    test(randomAngle);
-
-       int topSectio = (int) ((imgWheel.getRotate() + 360 / 14) % 360) / (360 / 7) + 1;
-    System.out.println("Fuera de test 2 = "+topSectio);
-
-
-    }
-
-
-private void test(int randomAngle){
     RotateTransition rotateTransition = new RotateTransition(Duration.seconds(1), imgWheel);
+    Random random = new Random();
+    int randomAngle = random.nextInt(1081) + 1080;
+        rotateTransition.setByAngle(randomAngle);
+        rotateTransition.setCycleCount(1);
 
-    rotateTransition.setByAngle(randomAngle);
-    rotateTransition.setCycleCount(1);
+    // Crea una instancia de la clase interna que implementa EventHandler<ActionEvent>
+    EventHandler<ActionEvent> eventHandler = new TransitionFinishedEventHandler();
 
-    // Usar una expresión lambda para manejar el evento de finalización de la transición
-    rotateTransition.setOnFinished(e -> {
-        double currentRotation = imgWheel.getRotate();
-        topSection = (int) ((currentRotation + 360 / 14) % 360) / (360 / 7) + 1;
-        System.out.println("Dentro de test = "+topSection);
-rouletteNumber(topSection);
-    });
+    // Asigna la instancia como el oyente de la transición
+        rotateTransition.setOnFinished(eventHandler);
 
     // Inicia la rotación
-    rotateTransition.play();
+        rotateTransition.play();
 }
+
+class TransitionFinishedEventHandler implements EventHandler<ActionEvent> {
+
+    @Override
+    public void handle(ActionEvent event) {
+
+        double currentRotation = imgWheel.getRotate();
+        int topSection = (int) ((currentRotation + 360 / 14) % 360) / (360 / 7) + 1;
+        checkAnswer(true);
+        // Llama a rouletteNumber() después de que la rotación haya sido completada
+        Platform.runLater(() -> rouletteNumber(topSection));
+    }
+}
+
     @Override
     public void initialize() {
     }
@@ -261,19 +255,18 @@ rouletteNumber(topSection);
     private void rouletteNumber(int number) {
         if (isFirstGame) {
             if (number == 4) {
-                currentCompetitor = competitors(currentPlayer - 1);
-                System.out.println("Jugador Actual= "+currentPlayer);
-                System.out.println("Cometidor nombre "+competitors(currentPlayer - 1).getJugador().getNombre()+" Numero= " +competitors(currentPlayer - 1).getNumeroJugador());
-                System.out.println("Jugador actual: " + currentCompetitor.getJugador().getNombre());
+                currentCompetitor = competitorsPlayer(currentPlayer - 1);
                 currentCompetitor.setTurno("A");
                 isFirstGame = false;
             } else {
                 //Crear Funcion para pasar al siguiente jugador
-                currentPlayer++;
-                currentCompetitor = competitors(currentPlayer - 1);
+                if (currentPlayer == numberOfPlayers) {
+                    currentPlayer = 1;
+                } else {
+                currentPlayer++;}
+                currentCompetitor = competitorsPlayer(currentPlayer - 1);
             }
         } else if (number == 4) {
-            System.out.println("Ya hay jugador actual");
             //Llama a corona 
             System.out.println(crownAction());
         } else {
@@ -356,14 +349,49 @@ rouletteNumber(topSection);
     }
 
     private void fillPlayersDto() {
-        player1 = competitors(0);
-        player2 = competitors(1);
-        player3 = competitors(2);
-        player4 = competitors(3);
-        player5 = competitors(4);
-        player6 = competitors(5);
+        for(int i = 0; i < competitors.size(); i++){
+            CompetidorDto competidorDto = competitors.get(i);
+            switch (i) {
+                case 0:
+                    player1 = competidorDto;
+                    break;
+                case 1:
+                    player2 = competidorDto;
+                    break;
+                case 2:
+                    player3 = competidorDto;
+                    break;
+                case 3:
+                    player4 = competidorDto;
+                    break;
+                case 4:
+                    player5 = competidorDto;
+                    break;
+                case 5:
+                    player6 = competidorDto;
+                    break;
+            }
+
+        }
     }
 
+    private Label labelsNamePlayers(int i) {
+        Label[] labels = {lblPlayer1, lblPlayer2, lblPlayer3, lblPlayer4, lblPlayer5, lblPlayer6};
+        return labels[i];
+    }
+    private void fillPlayersLabels() {
+        for (int i = 0; i < numberOfPlayers; i++) {
+            JugadorDto jugadorDto = competitorsNames.get(i);
+            labelsNamePlayers(i).setText(jugadorDto.getNombre());
+        }
+    }
+    private void fillPlayersAvatar(){
+        for (int i = 0; i < numberOfPlayers; i++) {
+            ImageView[] playersImages = getPlayersImages();
+            InputStream inputStream = App.class.getResourceAsStream(competitorsPlayer(i).getFicha());
+            playersImages[i].setImage(new Image(inputStream));
+        }
+    }
     private String typeOfQuestion(int number) {
         switch (number) {
             case 1:
@@ -404,6 +432,9 @@ rouletteNumber(topSection);
             default:
                 throw new IllegalArgumentException("Invalid player number: " + currentPlayer);
         }
+    }
+    private ImageView[] getPlayersImages() {
+        return new ImageView[]{imgAvatarPlayer1, imgAvatarPlayer2, imgAvatarPlayer3, imgAvatarPlayer4, imgAvatarPlayer5, imgAvatarPlayer6};
     }
 
     private void positionPlayer(int position) {
@@ -446,23 +477,23 @@ rouletteNumber(topSection);
     }
 
     private void playerTwoPosition(int position) {
-        movePlayer(position, playerPosition.playerTwoPositions6, imgAvatarPlayer1);
+        movePlayer(position, playerPosition.playerTwoPositions6, imgAvatarPlayer2);
     }
 
     private void playerThreePosition(int position) {
-        movePlayer(position, playerPosition.playerThreePositions6, imgAvatarPlayer1);
+        movePlayer(position, playerPosition.playerThreePositions6, imgAvatarPlayer3);
     }
 
     private void playerFourPosition(int position) {
-        movePlayer(position, playerPosition.playerFourPositions6, imgAvatarPlayer1);
+        movePlayer(position, playerPosition.playerFourPositions6, imgAvatarPlayer4);
     }
 
     private void playerFivePosition(int position) {
-        movePlayer(position, playerPosition.playerFivePositions6, imgAvatarPlayer1);
+        movePlayer(position, playerPosition.playerFivePositions6, imgAvatarPlayer5);
     }
 
     private void playerSixPosition(int position) {
-        movePlayer(position, playerPosition.playerSixPositions6, imgAvatarPlayer1);
+        movePlayer(position, playerPosition.playerSixPositions6, imgAvatarPlayer6);
     }
 
     private void darkenIcons() {
