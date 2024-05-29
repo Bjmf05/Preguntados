@@ -9,6 +9,7 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -47,14 +48,20 @@ public class PartidaService {
         }
     }
 
-    public RespuestaEnt getGames(String id, String nombre, String cantidadJugadores, String dificultad, String fecha) {
+    public RespuestaEnt getGames(String id, String nombre, String cantidadJugadores, String dificultad, LocalDate fecha) {
         try {
-            Query query = em.createNamedQuery("Partida.findByIdNomJugaFecha", Partida.class);
+            StringBuilder queryString = new StringBuilder("SELECT p FROM Partida p WHERE UPPER(p.id) LIKE :id AND UPPER(p.nombre) LIKE :nombre AND UPPER(p.dificultad) LIKE :dificultad AND UPPER(p.jugadores) LIKE :jugadores");
+            if (fecha != null) {
+                queryString.append(" AND p.fecha = :fecha");
+            }
+            Query query = em.createQuery(queryString.toString(), Partida.class);
             query.setParameter("id", id);
             query.setParameter("nombre", nombre);
             query.setParameter("jugadores", cantidadJugadores);
             query.setParameter("dificultad", dificultad);
-            query.setParameter("fecha", fecha);
+            if (fecha != null) {
+                query.setParameter("fecha", fecha);
+            }
             List<Partida> games = (List<Partida>) query.getResultList();
             List<PartidaDto> gamesDto = new ArrayList<>();
             for (Partida game : games) {

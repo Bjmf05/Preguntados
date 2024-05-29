@@ -103,7 +103,7 @@ public class Jugador implements Serializable {
         this.nombre = jugadorDto.getNombre();
         this.partidasJugadas = jugadorDto.getPartidasJugadas();
         this.partidasGanadas = jugadorDto.getPartidasGanadas();
-        this.cantidadPreguntas = jugadorDto.getPartidasJugadas();
+        this.cantidadPreguntas = jugadorDto.getCantidadPreguntas();
         this.cantidadAciertos = jugadorDto.getCantidadAciertos();
         this.cantidadADeporte = jugadorDto.getCantidadADeporte();
         this.cantidadAHistoria = jugadorDto.getCantidadAHistoria();

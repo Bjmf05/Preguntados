@@ -90,10 +90,10 @@ public class Competidor implements Serializable {
     @Column(name = "COM_VERSION")
     private Long version;
     @JoinColumn(name = "COM_ID_JUGADOR", referencedColumnName = "JUG_ID", insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private Jugador jugador;
     @JoinColumn(name = "COM_ID_PARTIDA", referencedColumnName = "PART_ID", insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private Partida partida;
 
     public Competidor() {
@@ -123,6 +123,7 @@ public class Competidor implements Serializable {
         this.comodinDoble = competidorDto.getComodinDoble();
         this.comodinPasar = competidorDto.getComodinPasar();
         this.comodinTiro = competidorDto.getComodinTiro();
+        this.jugador = competidorDto.getJugador();
         this.version = competidorDto.getVersion();
     }
 

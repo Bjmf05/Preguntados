@@ -18,7 +18,7 @@ import java.util.List;
     @NamedQuery(name = "Partida.findByPartFecha", query = "SELECT p FROM Partida p WHERE p.fecha = :fecha"),
     @NamedQuery(name = "Partida.findByPartNombre", query = "SELECT p FROM Partida p WHERE p.nombre = :nombre"),
     @NamedQuery(name = "Partida.findByPartJugadores", query = "SELECT p FROM Partida p WHERE p.jugadores = :jugadores"),
-    @NamedQuery(name = "Partida.findByIdNomJugaFecha", query = "SELECT p FROM Partida p WHERE UPPER(p.id) like :id and UPPER(p.nombre) LIKE :nombre and UPPER(p.dificultad) LIKE :dificultad and UPPER(p.jugadores)  like :jugadores and UPPER(p.fecha) like :fecha",hints = @QueryHint(name= "eclipselink.refresh", value = "true")),
+    @NamedQuery(name = "Partida.findByIdNomJugaFecha", query = "SELECT p FROM Partida p WHERE UPPER(p.id) like :id and UPPER(p.nombre) LIKE :nombre and UPPER(p.dificultad) LIKE :dificultad and UPPER(p.jugadores)  like :jugadores and p.fecha = :fecha",hints = @QueryHint(name= "eclipselink.refresh", value = "true")),
     @NamedQuery(name = "Partida.findByPartVersion", query = "SELECT p FROM Partida p WHERE p.version = :version")})
 public class Partida implements Serializable {
 

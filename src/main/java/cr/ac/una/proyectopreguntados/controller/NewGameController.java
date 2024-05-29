@@ -1,14 +1,11 @@
 package cr.ac.una.proyectopreguntados.controller;
 
 import cr.ac.una.proyectopreguntados.App;
-import cr.ac.una.proyectopreguntados.model.Competidor;
-import cr.ac.una.proyectopreguntados.model.CompetidorDto;
-import cr.ac.una.proyectopreguntados.model.CompetidorPK;
-import cr.ac.una.proyectopreguntados.model.JugadorDto;
-import cr.ac.una.proyectopreguntados.model.PartidaDto;
+import cr.ac.una.proyectopreguntados.model.*;
 import cr.ac.una.proyectopreguntados.service.CompetidorService;
 import cr.ac.una.proyectopreguntados.service.JugadorService;
 import cr.ac.una.proyectopreguntados.service.PartidaService;
+import cr.ac.una.proyectopreguntados.service.PreguntaService;
 import cr.ac.una.proyectopreguntados.util.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXCheckbox;
@@ -262,7 +259,7 @@ public class NewGameController extends Controller implements Initializable {
                 valid = false;
             }
         }
-         if (!isSelectAvatar) {
+        if (!isSelectAvatar) {
             if (valid) {
                 invalid += "Selecciona Avatar";
             } else {
@@ -293,30 +290,30 @@ public class NewGameController extends Controller implements Initializable {
         return true;
     }
 
-    private void safePlayers(Long idGame) {
-        ObservableList<CompetidorDto> playerSelect = FXCollections.observableArrayList();
-        ObservableList<String> playersAvatar = (ObservableList<String>) AppContext.getInstance().get("Rutes");
-        ObservableList<JugadorDto> playersName = FXCollections.observableArrayList();
-        int numPlayer = cbxAmountPlayer.getValue() == null ? 2 : Integer.parseInt(cbxAmountPlayer.getValue());
-        String difficulty = cbxDifficulty.getValue();
-        int help = 0;
-        if (difficulty.equals("Facil")) {
-            help = 1;
-        }
-        for (int i = 1; i <= numPlayer; i++) {
-            JugadorDto jugador = (JugadorDto) getPlayerCbx(i).getValue();
-            String route = playersAvatar.get(i - 1);
-            if (jugador != null) {
-                CompetidorPK competidorPK = new CompetidorPK(idGame, jugador.getId());
-                CompetidorDto competitor = new CompetidorDto(competidorPK, i, help, route);
-                playerSelect.add(safeCompetitors(competitor));
-                playersName.add(jugador);
-            }
+private void safePlayers(Long idGame) {
 
-        }
-        AppContext.getInstance().set("Competidores", playerSelect);
-        AppContext.getInstance().set("Jugadores", playersName);
+    ObservableList<String> playersAvatar = (ObservableList<String>) AppContext.getInstance().get("Rutes");
+    int numPlayer = cbxAmountPlayer.getValue() == null ? 2 : Integer.parseInt(cbxAmountPlayer.getValue());
+    String difficulty = cbxDifficulty.getValue();
+    int help = 0;
+    if (difficulty.equals("Facil")) {
+        help = 1;
     }
+    JugadorService service = new JugadorService(); // Mover fuera del bucle
+    for (int i = 1; i <= numPlayer; i++) {
+        JugadorDto jugador = (JugadorDto) getPlayerCbx(i).getValue();
+        if (jugador != null) {
+            String route = playersAvatar.get(i - 1);
+            CompetidorPK competidorPK = new CompetidorPK(idGame, jugador.getId());
+            CompetidorDto competitor = new CompetidorDto(competidorPK, i, help, route);
+            jugador.setPartidasJugadas(jugador.getPartidasJugadas() + 1);
+            RespuestaEnt respuesta = service.savePlayer(jugador); // Reutilizar el servicio
+            jugador = (JugadorDto) respuesta.getResultado("Jugador");
+            safeCompetitors(competitor);
+        }
+    }
+    getQuestions();
+}
 
     private PartidaDto safeNewGame() {
         String name = txfNameGame.getText();
@@ -336,7 +333,7 @@ public class NewGameController extends Controller implements Initializable {
         return partidaDto;
     }
 
-    private CompetidorDto safeCompetitors(CompetidorDto competidor) {
+    private void safeCompetitors(CompetidorDto competidor) {
         try {
             CompetidorService serviceCompetitor = new CompetidorService();
             RespuestaEnt respuestaCompetitor = serviceCompetitor.saveCompetitor(competidor);
@@ -344,14 +341,13 @@ public class NewGameController extends Controller implements Initializable {
                 new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar pregunta", getStage(), respuestaCompetitor.getMensaje());
             } else {
                 CompetidorDto competitor = (CompetidorDto) respuestaCompetitor.getResultado("Competidor");
-                return competitor;
             }
 
         } catch (Exception ex) {
             Logger.getLogger(MaintenanceQuestionsController.class.getName()).log(Level.SEVERE, "Error al guardar competidor.", ex);
             new Mensaje().showModal(Alert.AlertType.ERROR, "Iniciar Partida", getStage(), "Ocurrió un error al guardar competidor.");
         }
-        return competidor;
+
     }
 
     @FXML
@@ -378,5 +374,21 @@ public class NewGameController extends Controller implements Initializable {
             Logger.getLogger(LogInController.class.getName()).log(Level.SEVERE, "Error guardando el jugador.", ex);
             new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar jugador", getStage(), "Ocurrió un error guardando el jugador.");
         }
+    }
+    private void getQuestions() {
+        ObservableList<PreguntaDto> questions = FXCollections.observableArrayList();
+        try {
+            PreguntaService service = new PreguntaService();
+            RespuestaEnt respuesta = service.getQuestions();
+            if (respuesta.getEstado()) {
+                questions = FXCollections.observableList((List<PreguntaDto>) respuesta.getResultado("Preguntas"));
+            } else {
+                new Mensaje().showModal(Alert.AlertType.ERROR, "Cargar Preguntas", getStage(), respuesta.getMensaje());
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(MaintenanceQuestionsController.class.getName()).log(Level.SEVERE, "Error consultando las preguntas.", ex);
+            new Mensaje().showModal(Alert.AlertType.ERROR, "Cargar Preguntas", getStage(), "Ocurrio un error consultando las preguntas.");
+        }
+        AppContext.getInstance().set("PreguntasList", questions);
     }
 }

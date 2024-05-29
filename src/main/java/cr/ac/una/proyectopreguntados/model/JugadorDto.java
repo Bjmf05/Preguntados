@@ -30,6 +30,7 @@ public class JugadorDto implements Serializable {
         this.nombre = new SimpleStringProperty("");
         this.partidasJugadas = 0L;
         this.partidasGanadas = 0L;
+        this.cantidadPreguntas= 0L;
         this.cantidadAciertos = 0L;
         this.cantidadADeporte = 0L;
         this.cantidadAHistoria = 0L;
@@ -46,6 +47,7 @@ public class JugadorDto implements Serializable {
         this.nombre.set(jugador.getNombre());
         this.partidasJugadas = jugador.getPartidasJugadas();
         this.partidasGanadas = jugador.getPartidasGanadas();
+        this.cantidadPreguntas= jugador.getCantidadPreguntas();
         this.cantidadAciertos = jugador.getCantidadAciertos();
         this.cantidadADeporte = jugador.getCantidadADeporte();
         this.cantidadAHistoria = jugador.getCantidadAHistoria();

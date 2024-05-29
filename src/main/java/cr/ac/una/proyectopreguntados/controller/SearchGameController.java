@@ -1,10 +1,8 @@
 package cr.ac.una.proyectopreguntados.controller;
 
-import cr.ac.una.proyectopreguntados.model.Competidor;
-import cr.ac.una.proyectopreguntados.model.CompetidorDto;
-import cr.ac.una.proyectopreguntados.model.JugadorDto;
-import cr.ac.una.proyectopreguntados.model.PartidaDto;
+import cr.ac.una.proyectopreguntados.model.*;
 import cr.ac.una.proyectopreguntados.service.PartidaService;
+import cr.ac.una.proyectopreguntados.service.PreguntaService;
 import cr.ac.una.proyectopreguntados.util.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
@@ -17,6 +15,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -73,8 +73,8 @@ public class SearchGameController extends Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        cbxAmountPlayers.getItems().addAll("2", "3", "4", "5", "6","");
-        cbxDificulty.getItems().addAll("Facil", "Intermedio", "Dificil","");
+        cbxAmountPlayers.getItems().addAll("2", "3", "4", "5", "6", "");
+        cbxDificulty.getItems().addAll("Facil", "Intermedio", "Dificil", "");
         tbcIdGame.setCellValueFactory(new PropertyValueFactory<>("id"));
         tbcGameName.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         tbcAmountPlayers.setCellValueFactory(new PropertyValueFactory<>("jugadores"));
@@ -98,10 +98,12 @@ public class SearchGameController extends Controller implements Initializable {
         selectedGame = tbvGame.getSelectionModel().getSelectedItem();
         if (selectedGame == null) {
             new Mensaje().showModal(Alert.AlertType.ERROR, "Cargar Partida", getStage(), "Debe seleccionar una partida");
-        }else {
-        loadGameData(selectedGame);
-        AppContext.getInstance().set("Partida", selectedGame);
-        FlowController.getInstance().goMain();}
+        } else {
+            loadGameData(selectedGame);
+            getQuestions();
+            AppContext.getInstance().set("Partida", selectedGame);
+            FlowController.getInstance().goMain();
+        }
     }
 
     private void makeSearch() {
@@ -115,12 +117,11 @@ public class SearchGameController extends Controller implements Initializable {
         name = name.isEmpty() ? "%" : "%" + name.toUpperCase() + "%";
         players = (players == null || players.isEmpty()) ? "%" : "%" + players.toUpperCase() + "%";
         dificulty = (dificulty == null || dificulty.isEmpty()) ? "%" : "%" + dificulty.toUpperCase() + "%";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        String dateStr = (date == null) ? "%" : "%" + date.toString().toUpperCase() + "%";
-        System.out.println(dateStr);
+        date = (date == null) ? null : date;
+
 
         PartidaService service = new PartidaService();
-        RespuestaEnt respuesta = service.getGames(id, name, players, dificulty, dateStr);
+        RespuestaEnt respuesta = service.getGames(id, name, players, dificulty, date);
         if (respuesta.getEstado()) {
             games.clear();
             games.addAll((List<PartidaDto>) respuesta.getResultado("Games"));
@@ -140,27 +141,37 @@ public class SearchGameController extends Controller implements Initializable {
 
     private void loadGameData(PartidaDto Game) {
         Map<Integer, CompetidorDto> competitorMap = new HashMap<>();
-        Map<Integer, JugadorDto> playerMap = new HashMap<>();
 
         for (Competidor c : Game.getCompetidorList()) {
             CompetidorDto comp = new CompetidorDto(c);
             int index = comp.getNumeroJugador().intValue() - 1;
             competitorMap.put(index, comp);
-            playerMap.put(index, new JugadorDto(comp.getJugador()));
         }
-
         ObservableList<CompetidorDto> competitors = FXCollections.observableArrayList();
-        ObservableList<JugadorDto> players = FXCollections.observableArrayList();
 
         for (int i = 0; i < Game.getJugadores().intValue(); i++) {
             if (competitorMap.containsKey(i)) {
                 competitors.add(competitorMap.get(i));
-                players.add(playerMap.get(i));
             }
         }
-
         AppContext.getInstance().set("Competidores", competitors);
-        AppContext.getInstance().set("Jugadores", players);
+    }
+
+    private void getQuestions() {
+        ObservableList<PreguntaDto> questions = FXCollections.observableArrayList();
+        try {
+            PreguntaService service = new PreguntaService();
+            RespuestaEnt respuesta = service.getQuestions();
+            if (respuesta.getEstado()) {
+                questions = FXCollections.observableList((List<PreguntaDto>) respuesta.getResultado("Preguntas"));
+            } else {
+                new Mensaje().showModal(Alert.AlertType.ERROR, "Cargar Preguntas", getStage(), respuesta.getMensaje());
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(MaintenanceQuestionsController.class.getName()).log(Level.SEVERE, "Error consultando las preguntas.", ex);
+            new Mensaje().showModal(Alert.AlertType.ERROR, "Cargar Preguntas", getStage(), "Ocurrio un error consultando las preguntas.");
+        }
+        AppContext.getInstance().set("PreguntasList", questions);
     }
 
 }
