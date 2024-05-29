@@ -72,8 +72,9 @@ public class GameFuctionController extends Controller implements Initializable {
         imgCardBack.setImage(new Image(inputStream));
         centerX = principalController.getWidth() / 2 - rootCardQuestion.getBoundsInLocal().getWidth() / 2;
         centerY = principalController.getHeight()/ 2 - rootCardQuestion.getBoundsInLocal().getHeight()/ 2;
-        initialX = centerX - rootCardQuestion.getBoundsInLocal().getWidth() / 2;
-        initialY = centerY - rootCardQuestion.getBoundsInLocal().getHeight() / 2;
+        initialX = rootCardQuestion.getTranslateX();
+        initialY = rootCardQuestion.getTranslateY(); 
+        imgStack.setImage(new Image(inputStream));
     }
 
     @Override
@@ -105,9 +106,10 @@ public class GameFuctionController extends Controller implements Initializable {
         inputStream = App.class.getResourceAsStream("/cr/ac/una/proyectopreguntados/resources/" + typeOfCard + "Card.png");
         imgCardBack.setImage(new Image(inputStream));
         shuffleOption();
+        showingFront = true;
         TranslateTransition moveTransition = new TranslateTransition(Duration.seconds(1.5), rootCardQuestion);
-        moveTransition.setToX(100);//-(principalController.getWidth() / 2 - rootCardQuestion.getBoundsInLocal().getWidth() / 2) + 450);
-        moveTransition.setToY(100);//principalController.getHeight() / 2 - rootCardQuestion.getBoundsInLocal().getHeight()/ 2);
+        moveTransition.setToX(principalController.getWidth() / 2 - rootCardQuestion.getBoundsInLocal().getWidth() / 2 + 650);
+        moveTransition.setToY(principalController.getHeight() / 2 - rootCardQuestion.getBoundsInLocal().getHeight()/ 2);
         moveTransition.play();
         moveTransition.setOnFinished(flip -> {
             flipCard();
@@ -152,26 +154,30 @@ public class GameFuctionController extends Controller implements Initializable {
     }
 
     private void restoreCard() {
-         inputStream = App.class.getResourceAsStream("/cr/ac/una/proyectopreguntados/resources/CardBack.png");
+        inputStream = App.class.getResourceAsStream("/cr/ac/una/proyectopreguntados/resources/CardBack.png");
         imgCardBack.setImage(new Image(inputStream));
         TranslateTransition moveBack = new TranslateTransition(Duration.seconds(1), rootCardQuestion);
         moveBack.setToX(initialX);
         moveBack.setToY(initialY);
         moveBack.play();
+        RotateTransition rotateTransition = new RotateTransition(Duration.seconds(1), imgCardBack);
+        rotateTransition.setAxis(Rotate.Y_AXIS);
+        rotateTransition.setToAngle(0);
+        rotateTransition.play();
         //ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(1), rootCardQuestion);
         //scaleTransition.setToX(initialScaleX);
         //scaleTransition.setToY(initialScaleY);
         //rootCardQuestion.setPrefSize(68, 250);
         //scaleTransition.play();
-//        btnOptionOne.setVisible(true);
-//        btnOptionTwo.setVisible(true);
-//        btnOptionThree.setVisible(true);
-//        btnOptionFour.setVisible(true);
-//        // Restablecer la visibilidad de los componentes
-//        rootCardQuestion.setVisible(true);
-//        rootCardQuestion.setVisible(false);
+        // Restablecer la visibilidad de los componentes
+        btnOptionOne.setVisible(true);
+        btnOptionTwo.setVisible(true);
+        btnOptionThree.setVisible(true);
+        btnOptionFour.setVisible(true);       
+        imgCardBack.setVisible(true);
+        imgStack.setImage(new Image (inputStream));
+        rootCardQuestion.setVisible(true);
 //        sliderTime.setValue(0);
-        //btnButton.setVisible(true);
     }
 
 }
