@@ -19,6 +19,7 @@ public class PartidaDto {
     private String tiempoLimite;
     private List<Pregunta> preguntaList;
     private List<Competidor> competidorList;
+    private List<PreguntaDto>preguntasEchas;
     private Long version;
     private boolean modificado;
     
@@ -123,6 +124,14 @@ public class PartidaDto {
 
     public List<Competidor> getCompetidorList() {
         return competidorList;
+    }
+
+    public List<PreguntaDto> getPreguntasEchas() {
+        return preguntasEchas;
+    }
+
+    public void setPreguntasEchas(List<PreguntaDto> preguntasEchas) {
+        this.preguntasEchas = preguntasEchas;
     }
 
     public Long getVersion() {

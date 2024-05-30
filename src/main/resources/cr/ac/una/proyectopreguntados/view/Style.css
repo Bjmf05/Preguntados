@@ -152,3 +152,11 @@
     -fx-font-size: 12px;
 
 }
+/*QuestionView*/
+.button-Question{
+    -fx-background-color: #a19f9f;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-alignment: CENTER;
+}

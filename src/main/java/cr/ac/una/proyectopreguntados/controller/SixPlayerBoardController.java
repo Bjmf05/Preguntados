@@ -144,10 +144,8 @@ public class SixPlayerBoardController extends Controller implements Initializabl
     private CompetidorDto player5;
     private CompetidorDto player6;
     private ObservableList<PreguntaDto> preguntasList = FXCollections.observableArrayList();
-
-    private int topSection;
+    private ObservableList<PreguntaDto> preguntasEchasList = FXCollections.observableArrayList();
     GameFuctionController gameFuctionController = (GameFuctionController) FlowController.getInstance().getController("GameFuctionView");
-
     /**
      * Initializes the controller class.
      */
@@ -415,12 +413,12 @@ public class SixPlayerBoardController extends Controller implements Initializabl
 
     private String typeOfQuestion(int number) {
         return switch (number) {
-            case 1 -> "history";
-            case 2 -> "science";
-            case 3 -> "geography";
-            case 5 -> "entertainment";
-            case 6 -> "art";
-            case 7 -> "sport";
+            case 1 -> "Historia";
+            case 2 -> "Ciencia";
+            case 3 -> "Geografía";
+            case 5 -> "Entretenimiento";
+            case 6 -> "Arte";
+            case 7 -> "Deporte";
             default -> "";
         };
     }
@@ -487,5 +485,37 @@ public class SixPlayerBoardController extends Controller implements Initializabl
         for (ImageView icon : icons) {
             icon.setOpacity(0.5);
         }
+    }
+
+    public PartidaDto getGame() {
+        return game;
+    }
+
+    public void setGame(PartidaDto game) {
+        this.game = game;
+    }
+
+    public ObservableList<PreguntaDto> getPreguntasList() {
+        return preguntasList;
+    }
+
+    public void setPreguntasList(ObservableList<PreguntaDto> preguntasList) {
+        this.preguntasList = preguntasList;
+    }
+
+    public CompetidorDto getCurrentCompetitor() {
+        return currentCompetitor;
+    }
+
+    public void setCurrentCompetitor(CompetidorDto currentCompetitor) {
+        this.currentCompetitor = currentCompetitor;
+    }
+
+    public ObservableList<PreguntaDto> getPreguntasEchasList() {
+        return preguntasEchasList;
+    }
+
+    public void setPreguntasEchasList(ObservableList<PreguntaDto> preguntasEchasList) {
+        this.preguntasEchasList = preguntasEchasList;
     }
 }
