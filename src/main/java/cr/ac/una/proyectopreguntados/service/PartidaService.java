@@ -2,12 +2,11 @@ package cr.ac.una.proyectopreguntados.service;
 
 import cr.ac.una.proyectopreguntados.model.Partida;
 import cr.ac.una.proyectopreguntados.model.PartidaDto;
+import cr.ac.una.proyectopreguntados.model.Pregunta;
+import cr.ac.una.proyectopreguntados.model.PreguntaDto;
 import cr.ac.una.proyectopreguntados.util.EntityManagerHelper;
 import cr.ac.una.proyectopreguntados.util.RespuestaEnt;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.NoResultException;
-import jakarta.persistence.Query;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -75,5 +74,21 @@ public class PartidaService {
             return new RespuestaEnt(false, "Ocurrio un error obteniendo las partidas", "getGames " + ex.getMessage());
         }
 
+    }
+    public RespuestaEnt getGame(Long id) {
+        try {
+            Query qryGame = em.createNamedQuery("Partida.findByPartId", Partida.class);
+            qryGame.setParameter("id", id);
+            PartidaDto partidaDto = new PartidaDto((Partida) qryGame.getSingleResult());
+            return new RespuestaEnt(true, "", "", "Game", partidaDto);
+        } catch (NoResultException ex) {
+            return new RespuestaEnt(false, "No existe una partida con las credenciales ingresadas.", "getGame NoResultException");
+        } catch (NonUniqueResultException ex) {
+            Logger.getLogger(PreguntaService.class.getName()).log(Level.SEVERE, "Ocurrio un error al consultar la partida.", ex);
+            return new RespuestaEnt(false, "Ocurrio un error al consultar la partida.", "getGame NonUniqueResultException");
+        } catch (Exception ex) {
+            Logger.getLogger(PreguntaService.class.getName()).log(Level.SEVERE, "Error obteniendo la partida [" + id + "]", ex);
+            return new RespuestaEnt(false, "Error obteniendo la partida.", "getPartida " + ex.getMessage());
+        }
     }
 }

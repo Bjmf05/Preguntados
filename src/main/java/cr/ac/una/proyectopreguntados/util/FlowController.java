@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
+
+import cr.ac.una.proyectopreguntados.controller.PrincipalController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

@@ -14,7 +14,7 @@ import java.util.List;
 @Table(name = "PLAM_PARTIDAS", schema = "UNA")
 @NamedQueries({
     @NamedQuery(name = "Partida.findAll", query = "SELECT p FROM Partida p"),
-    @NamedQuery(name = "Partida.findByPartId", query = "SELECT p FROM Partida p WHERE p.id = :id"),
+    @NamedQuery(name = "Partida.findByPartId", query = "SELECT p FROM Partida p WHERE p.id = :id",hints = @QueryHint(name= "eclipselink.refresh", value = "true")),
     @NamedQuery(name = "Partida.findByPartFecha", query = "SELECT p FROM Partida p WHERE p.fecha = :fecha"),
     @NamedQuery(name = "Partida.findByPartNombre", query = "SELECT p FROM Partida p WHERE p.nombre = :nombre"),
     @NamedQuery(name = "Partida.findByPartJugadores", query = "SELECT p FROM Partida p WHERE p.jugadores = :jugadores"),

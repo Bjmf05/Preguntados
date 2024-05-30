@@ -191,6 +191,7 @@ public class NewGameController extends Controller implements Initializable {
                 } else {
                     PartidaDto partidaDto = (PartidaDto) respuestaGame.getResultado("Partida");
                     safePlayers(partidaDto.getId());
+                    searchGame(partidaDto.getId());
                     FlowController.getInstance().goMain();
                 }
             }
@@ -329,7 +330,7 @@ private void safePlayers(Long idGame) {
         }
         LocalDate dateNow = LocalDate.now();
         PartidaDto partidaDto = new PartidaDto(name, numberPlayers, time, difficulty, dateNow);
-        AppContext.getInstance().set("Partida", partidaDto);
+
         return partidaDto;
     }
 
@@ -390,5 +391,21 @@ private void safePlayers(Long idGame) {
             new Mensaje().showModal(Alert.AlertType.ERROR, "Cargar Preguntas", getStage(), "Ocurrio un error consultando las preguntas.");
         }
         AppContext.getInstance().set("PreguntasList", questions);
+    }
+    private void searchGame(Long id){
+        try {
+            PartidaDto partidaDto = new PartidaDto();
+            PartidaService service = new PartidaService();
+            RespuestaEnt respuesta = service.getGame(id);
+            if (respuesta.getEstado()) {
+                partidaDto = (PartidaDto) respuesta.getResultado("Game");
+                AppContext.getInstance().set("Partida", partidaDto);
+            } else {
+                new Mensaje().showModal(Alert.AlertType.ERROR, "Cargar Partida", getStage(), respuesta.getMensaje());
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(MaintenanceQuestionsController.class.getName()).log(Level.SEVERE, "Error consultando la partida.", ex);
+            new Mensaje().showModal(Alert.AlertType.ERROR, "Cargar partida", getStage(), "Ocurrio un error consultando la partida.");
+        }
     }
 }
