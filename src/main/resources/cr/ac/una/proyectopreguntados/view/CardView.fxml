@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" fx:id="principalRoot" prefHeight="240.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.proyectopreguntados.controller.CardController">
+   <children>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane prefHeight="313.0" prefWidth="183.0">
+               <children>
+                  <ImageView fx:id="imgStack" fitHeight="243.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <AnchorPane fx:id="rootCardQuestion" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <VBox fx:id="vbCard" alignment="TOP_CENTER" prefHeight="239.0" prefWidth="173.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Slider fx:id="sliderTime" />
+                              <Text fx:id="textOfQuestion" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Cuál es el nombre del primer gran poema épico de la literatura inglesa?" textAlignment="CENTER" wrappingWidth="138.6549174785614">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Text>
+                              <MFXButton fx:id="btnOptionOne" onAction="#onActionBtnOption" prefHeight="20.0" prefWidth="150.0" styleClass="button-Question" text="Dante Alighieri" />
+                              <MFXButton fx:id="btnOptionTwo" onAction="#onActionBtnOption" prefHeight="30.0" prefWidth="150.0" styleClass="button-Question" text="Santiago García-Clairac" />
+                              <MFXButton fx:id="btnOptionThree" onAction="#onActionBtnOption" prefHeight="30.0" prefWidth="150.0" styleClass="button-Question" text="Para mezclar pinturas" />
+                              <MFXButton fx:id="btnOptionFour" onAction="#onActionBtnOption" prefHeight="30.0" prefWidth="150.0" styleClass="button-Question" text="El coronel no tiene quién le escriba" />
+                           </children>
+                        </VBox>
+                        <ImageView fx:id="imgCardBack" fitHeight="244.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

@@ -146,6 +146,7 @@ public class SixPlayerBoardController extends Controller implements Initializabl
     private ObservableList<PreguntaDto> preguntasList = FXCollections.observableArrayList();
     private ObservableList<PreguntaDto> preguntasEchasList = FXCollections.observableArrayList();
     GameFuctionController gameFuctionController = (GameFuctionController) FlowController.getInstance().getController("GameFuctionView");
+    CardController cardController  =  (CardController) FlowController.getInstance().getController("CardView");
     /**
      * Initializes the controller class.
      */
@@ -265,7 +266,9 @@ public class SixPlayerBoardController extends Controller implements Initializabl
             //Llama a corona 
             System.out.println(crownAction());
         } else {
-            gameFuctionController.moveCard(typeOfQuestion(number));
+            //gameFuctionController.moveCard(typeOfQuestion(number));
+            FlowController.getInstance().goViewInWindowModalOfCard("CardView", getStage(), true);
+            cardController.setTypeOfCard(typeOfQuestion(number));
             System.out.println(typeOfQuestion(number));
         }
         //Agregar accion de optener respuesta true o False

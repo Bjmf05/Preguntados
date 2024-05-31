@@ -24,7 +24,13 @@ import javafx.stage.WindowEvent;
 import cr.ac.una.proyectopreguntados.controller.Controller;
 import io.github.palexdev.materialfx.css.themes.MFXThemeManager;
 import io.github.palexdev.materialfx.css.themes.Themes;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 public class FlowController {
 
@@ -220,4 +226,49 @@ public class FlowController {
  public void delete(String parametro){
      loaders.remove(parametro);
  }
+ 
+    public void goViewInWindowModalOfCard(String viewName, Stage parentStage, Boolean resizable) {
+        FXMLLoader loader = getLoader(viewName);
+        Controller controller = loader.getController();
+        controller.initialize();
+        Stage stage = new Stage();
+        stage.setTitle(controller.getNombreVista());
+        stage.setResizable(resizable);
+        stage.setOnHidden((WindowEvent event) -> {
+            controller.getStage().getScene().setRoot(new Pane());
+            controller.setStage(null);
+        });
+        controller.setStage(stage);
+        Parent root = loader.getRoot();
+        Scene scene = new Scene(root);
+        MFXThemeManager.addOn(scene, Themes.DEFAULT, Themes.LEGACY);
+        stage.setScene(scene);
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(parentStage);
+        double startPositionX = (100);
+        double startPositionY = (100);
+        stage.setX(100);
+        stage.setY(100);
+        stage.show();
+        double endPositionX = 400L;
+        double endPositionY = 400L;
+        // Obtener las propiedades x e y del Stage como DoubleProperty
+        DoubleProperty xProperty = new SimpleDoubleProperty(startPositionX);
+        DoubleProperty yProperty = new SimpleDoubleProperty(startPositionY);
+
+        // Crear KeyValue para animar las propiedades x e y
+        KeyValue keyValueX = new KeyValue(xProperty, endPositionX);
+        KeyValue keyValueY = new KeyValue(yProperty, endPositionY);
+
+        Timeline timeline = new Timeline();
+        KeyFrame keyFrame = new KeyFrame(Duration.seconds(3), keyValueX, keyValueY);
+        timeline.getKeyFrames().add(keyFrame);
+
+        // Agregar un listener para actualizar la posición del Stage durante la animación
+        timeline.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
+            stage.setX(xProperty.get());
+            stage.setY(yProperty.get());
+        });
+        timeline.play();
+    }
 }
