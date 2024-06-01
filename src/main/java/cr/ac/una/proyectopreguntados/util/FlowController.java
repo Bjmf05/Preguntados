@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 
+import cr.ac.una.proyectopreguntados.controller.LogInController;
 import cr.ac.una.proyectopreguntados.controller.PrincipalController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -91,11 +92,12 @@ public class FlowController {
 
     public void goMain() {
         try {
-            this.mainStage.setScene(new Scene(FXMLLoader.load(App.class.getResource("view/PrincipalView.fxml"), this.idioma)));
-            MFXThemeManager.addOn(this.mainStage.getScene(), Themes.DEFAULT, Themes.LEGACY);
-            this.mainStage.show();
+            Parent root = FXMLLoader.load(App.class.getResource("view/PrincipalView.fxml"), this.idioma);
+            Scene scene = new Scene(root);
+            MFXThemeManager.addOn(scene, Themes.DEFAULT, Themes.LEGACY);
+            mainStage.setScene(scene);
+            mainStage.show();
             FlowController.getInstance().goView("SixPlayerBoardView");
-            FlowController.getInstance().goView("GameFuctionView", "Left", null);
         } catch (IOException ex) {
             java.util.logging.Logger.getLogger(FlowController.class.getName()).log(Level.SEVERE, "Error inicializando la vista base.", ex);
         }
@@ -203,6 +205,34 @@ public class FlowController {
         java.util.logging.Logger.getLogger(FlowController.class.getName()).log(Level.SEVERE, "Error showing view in VBox.", ex);
     }
 }
+    public void openNewWindowAndCloseCurrent(Stage currentStage) {
+        try {
+            // Cargar el nuevo FXML
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("view/LogInView.fxml"), this.idioma);
+            Parent root = loader.load();
+
+            // Configurar el nuevo Stage
+            Stage newStage = new Stage();
+            Scene scene = new Scene(root);
+            newStage.setScene(scene);
+            MFXThemeManager.addOn(scene, Themes.DEFAULT, Themes.LEGACY);
+            newStage.setTitle("Nueva Ventana");
+
+            // Obtener el controlador del nuevo Stage y configurarlo
+            LogInController controller = loader.getController();
+            controller.setStage(newStage);
+
+            // Mostrar la nueva ventana
+            newStage.show();
+
+            // Cerrar la ventana actual
+            if (currentStage != null) {
+                currentStage.close();
+            }
+        } catch (IOException e) {
+            java.util.logging.Logger.getLogger(FlowController.class.getName()).log(Level.SEVERE, "Error abriendo la nueva ventana.", e);
+        }
+    }
 
     public Controller getController(String viewName) {
         return getLoader(viewName).getController();
@@ -249,7 +279,7 @@ public class FlowController {
         double startPositionY = (100);
         stage.setX(100);
         stage.setY(100);
-        stage.show();
+        stage.showAndWait();
         double endPositionX = 400L;
         double endPositionY = 400L;
         // Obtener las propiedades x e y del Stage como DoubleProperty

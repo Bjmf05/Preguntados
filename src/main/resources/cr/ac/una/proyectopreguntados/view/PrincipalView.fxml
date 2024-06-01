@@ -14,14 +14,8 @@
    <left>
       <VBox prefHeight="625.0" prefWidth="127.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
-            <MFXButton maxWidth="1.7976931348623157E308" prefHeight="40.0" text="Nueva Partida" />
-            <MFXButton maxWidth="1.7976931348623157E308" prefHeight="40.0" text="Guardar y Salir" VBox.vgrow="ALWAYS" />
-            <VBox alignment="CENTER" styleClass="vbxTime">
-               <children>
-                  <Label styleClass="lblTime" text="Tiempo" />
-                  <Label styleClass="lblTime" text="Sin Limite" />
-               </children>
-            </VBox>
+            <MFXButton fx:id="btnSave" maxWidth="1.7976931348623157E308" onAction="#onActionBtnSave" prefHeight="40.0" text="Guardar y Salir" VBox.vgrow="ALWAYS" />
+            <MFXButton fx:id="btnPause" maxWidth="1.7976931348623157E308" onAction="#onActionBtnPause" prefHeight="40.0" text="Pausa" />
          </children>
          <padding>
             <Insets left="5.0" right="5.0" top="5.0" />

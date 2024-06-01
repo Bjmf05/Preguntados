@@ -123,6 +123,7 @@ public class MaintenanceQuestionsController extends Controller implements Initia
         FlowController.getInstance().goViewInWindowModal("SearchQuestionView", getStage(), true);
         PreguntaDto preguntaDto = (PreguntaDto) searchController.getResult();
         if (preguntaDto != null) {
+            newQuestion();
             getQuestion(preguntaDto.getId());
         }
     }

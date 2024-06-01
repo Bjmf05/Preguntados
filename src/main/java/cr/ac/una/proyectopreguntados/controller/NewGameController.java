@@ -82,7 +82,7 @@ public class NewGameController extends Controller implements Initializable {
     @FXML
     private MFXButton btnSavePlayer;
     JugadorDto jugadorDto;
-
+    LogInController controller = (LogInController) FlowController.getInstance().getController("LogInView");
     /**
      * Initializes the controller class.
      */
@@ -193,6 +193,7 @@ public class NewGameController extends Controller implements Initializable {
                     safePlayers(partidaDto.getId());
                     searchGame(partidaDto.getId());
                     FlowController.getInstance().goMain();
+                    controller.exit();
                 }
             }
         } catch (Exception ex) {
@@ -339,7 +340,7 @@ private void safePlayers(Long idGame) {
             CompetidorService serviceCompetitor = new CompetidorService();
             RespuestaEnt respuestaCompetitor = serviceCompetitor.saveCompetitor(competidor);
             if (!respuestaCompetitor.getEstado()) {
-                new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar pregunta", getStage(), respuestaCompetitor.getMensaje());
+                new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar Competidor", getStage(), respuestaCompetitor.getMensaje());
             } else {
                 CompetidorDto competitor = (CompetidorDto) respuestaCompetitor.getResultado("Competidor");
             }

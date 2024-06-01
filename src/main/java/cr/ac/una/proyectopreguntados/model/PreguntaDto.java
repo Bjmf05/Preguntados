@@ -38,6 +38,7 @@ public class PreguntaDto implements Serializable {
         this.cantidadLlamadas.set(pregunta.getCantidadLlamadas().toString());
         this.plamRespuestasList = pregunta.getPlamRespuestasList();
         this.version = pregunta.getVersion();
+        this.modificado = false;
     }
 
     public Long getId() {
@@ -89,6 +90,14 @@ public class PreguntaDto implements Serializable {
 
     public void setPlamRespuestasList(List<Respuesta> plamRespuestasList) {
         this.plamRespuestasList = plamRespuestasList;
+    }
+
+    public boolean isModificado() {
+        return modificado;
+    }
+
+    public void setModificado(boolean modificado) {
+        this.modificado = modificado;
     }
 
     public Long getVersion() {

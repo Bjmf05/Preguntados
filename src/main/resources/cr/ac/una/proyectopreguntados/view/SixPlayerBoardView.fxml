@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="750.0" styleClass="CrownCategory-background" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.proyectopreguntados.controller.SixPlayerBoardController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="575.0" prefWidth="850.0" styleClass="CrownCategory-background" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.proyectopreguntados.controller.SixPlayerBoardController">
    <children>
       <ImageView fitHeight="535.0" fitWidth="520.0" layoutX="117.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="12.06768798828125" AnchorPane.leftAnchor="117.0" AnchorPane.rightAnchor="113.0" AnchorPane.topAnchor="15.0">
          <image>
@@ -240,5 +242,30 @@
             <Button fx:id="btnSpinWheel" mnemonicParsing="false" onAction="#onActionBtnSpinWheel" prefHeight="56.0" prefWidth="71.0" styleClass="triangle-button" text="Girar" />
          </children>
       </StackPane>
+      <VBox layoutX="713.0" layoutY="1.0" prefHeight="200.0" prefWidth="137.0" spacing="10.0">
+         <children>
+            <VBox alignment="CENTER" styleClass="vbxTime">
+               <children>
+                  <Label styleClass="lblTime" text="Tiempo" />
+                  <Label styleClass="lblTime" text="Sin Limite" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" styleClass="vbxTime">
+               <children>
+                  <Label styleClass="lblRound" text="Ronda Actual" />
+                  <Label fx:id="lblCurrentRound" styleClass="lblRound" text="1" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" styleClass="vbxTime">
+               <children>
+                  <Label styleClass="lblCurrentPlayer" text="Jugador Actual" />
+                  <Label fx:id="lblCurrentPlayer" styleClass="lblCurrentPlayer" text="Hola" />
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+      </VBox>
    </children>
 </AnchorPane>

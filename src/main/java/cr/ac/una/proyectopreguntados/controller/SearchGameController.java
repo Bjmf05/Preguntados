@@ -66,6 +66,7 @@ public class SearchGameController extends Controller implements Initializable {
     private MFXButton btnAccept;
     private ObservableList<PartidaDto> games = FXCollections.observableArrayList();
     private PartidaDto selectedGame;
+    LogInController controller = (LogInController) FlowController.getInstance().getController("LogInView");
 
     /**
      * Initializes the controller class.
@@ -103,6 +104,7 @@ public class SearchGameController extends Controller implements Initializable {
             getQuestions();
             AppContext.getInstance().set("Partida", selectedGame);
             FlowController.getInstance().goMain();
+            controller.exit();
         }
     }
 

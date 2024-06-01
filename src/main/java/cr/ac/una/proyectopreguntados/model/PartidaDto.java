@@ -1,5 +1,8 @@
 package cr.ac.una.proyectopreguntados.model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.time.LocalDate;
 import static java.time.LocalDate.now;
 import java.util.List;
@@ -19,18 +22,19 @@ public class PartidaDto {
     private String tiempoLimite;
     private List<Pregunta> preguntaList;
     private List<Competidor> competidorList;
-    private List<PreguntaDto>preguntasEchas;
+    private ObservableList<PreguntaDto> preguntasEchas;
     private Long version;
     private boolean modificado;
     
     public PartidaDto() {
-        id = Long.valueOf(0);
-        fecha = now();
-        nombre = "";
-        jugadores = Long.valueOf(0);
-        modificado = false;
-        dificultad = "";
-        tiempoLimite = null;
+        this.id = Long.valueOf(0);
+        this.fecha = now();
+        this.nombre = "";
+        this.jugadores = Long.valueOf(0);
+        this.modificado = false;
+        this.dificultad = "";
+        this.tiempoLimite = null;
+        this.preguntasEchas = FXCollections.observableArrayList();
     }
 
     public PartidaDto(Partida partida) {
@@ -130,7 +134,7 @@ public class PartidaDto {
         return preguntasEchas;
     }
 
-    public void setPreguntasEchas(List<PreguntaDto> preguntasEchas) {
+    public void setPreguntasEchas(ObservableList<PreguntaDto> preguntasEchas) {
         this.preguntasEchas = preguntasEchas;
     }
 

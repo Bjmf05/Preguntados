@@ -23,8 +23,8 @@ public class CompetidorService {
             et.begin();
             Competidor competidor;
             if (competidorDto.getCompetidorPK().getId() != null && competidorDto.getCompetidorPK().getId() > 0) {
-                competidor = em.find(Competidor.class, competidorDto.getCompetidorPK().getId());
-                if (competidor == null) {
+                competidor = em.find(Competidor.class, competidorDto.getCompetidorPK());
+                    if (competidor == null) {
                     et.rollback();
                     return new RespuestaEnt(false, "No se encontró competidor a modificar.", "guardarCompetidor NoResultException");
                 }

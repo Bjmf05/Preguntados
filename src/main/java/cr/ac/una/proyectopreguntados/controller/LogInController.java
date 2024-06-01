@@ -121,5 +121,8 @@ public class LogInController extends Controller implements Initializable {
     private void onActionBtnNewGame(ActionEvent event) {
         FlowController.getInstance().showViewInVBox("NewGameView", vbxRoot);
     }
+    public void exit(){
+        getStage().close();
+    }
 
 }

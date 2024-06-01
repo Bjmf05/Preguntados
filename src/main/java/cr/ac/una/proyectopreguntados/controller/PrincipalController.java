@@ -1,12 +1,15 @@
 package cr.ac.una.proyectopreguntados.controller;
 
 import cr.ac.una.proyectopreguntados.util.FlowController;
+import io.github.palexdev.materialfx.controls.MFXButton;
+
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
 /**
@@ -19,7 +22,9 @@ public class PrincipalController extends Controller implements Initializable {
     @FXML
     private BorderPane root;
     @FXML
-    private Button button;
+    private MFXButton btnSave;
+    @FXML
+    private MFXButton btnPause;
 
     /**
      * Initializes the controller class.
@@ -28,22 +33,30 @@ public class PrincipalController extends Controller implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
 
-    }    
+    }
 
     @Override
     public void initialize() {
- }
-
-    @FXML
-    private void button(ActionEvent event) {
-        FlowController.getInstance().goView("SixPlayerBoardView");
     }
-    
-    public double getWidth(){
+
+    public double getWidth() {
         return root.getWidth();
     }
-    
-    public double getHeight(){
+
+    public double getHeight() {
         return root.getHeight();
     }
+
+    @FXML
+    private void onActionBtnSave(ActionEvent event) {
+        SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getController("SixPlayerBoardView");
+        sixPlayerBoardController.safeGame();
+       FlowController.getInstance().openNewWindowAndCloseCurrent(getStage());
+       FlowController.getInstance().salir();
+    }
+
+    @FXML
+    private void onActionBtnPause(ActionEvent event) {
+    }
+
 }

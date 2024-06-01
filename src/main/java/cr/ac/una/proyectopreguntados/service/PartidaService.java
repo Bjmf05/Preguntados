@@ -33,6 +33,15 @@ public class PartidaService {
                     return new RespuestaEnt(false, "No se encontró partida a modificar.", "guardarPartida NoResultException");
                 }
                 partida.actualizar(partidaDto);
+                if(!partidaDto.getPreguntasEchas().isEmpty()||partidaDto.getPreguntasEchas()!=null){
+                    for(PreguntaDto preguntaDto: partidaDto.getPreguntasEchas()){
+                        if(preguntaDto.isModificado()){
+                        Pregunta pregunta = em.find(Pregunta.class, preguntaDto.getId());
+                        pregunta.getPartidasList().add(partida);
+                        partida.getPreguntaList().add(pregunta);
+                        }
+                    }
+                }
                 partida = em.merge(partida);
             } else {
                 partida = new Partida(partidaDto);

@@ -135,6 +135,20 @@
      -fx-opacity: 0.7;
     
 }
+.lblRound{
+    -fx-font-family: "Century";
+    -fx-text-fill: #fa0101;
+    -fx-font-size:15px;
+    -fx-padding: 2 0 2 0;
+    -fx-font-weight:bold;
+}
+.lblCurrentPlayer{
+    -fx-font-family: "Century";
+    -fx-text-fill: #034bfd;
+    -fx-font-size:15px;
+    -fx-padding: 2 0 2 0;
+    -fx-font-weight:bold;
+}
 /*LogInView*/
 .backgroundImageLogIn {
     -fx-background-image: url("../resources/Fondo_LogIn.png");

@@ -13,9 +13,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 import java.util.ResourceBundle;
+
+import javafx.animation.PauseTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -82,18 +86,49 @@ public class CardController extends Controller implements Initializable {
 
     @FXML
     private void onActionBtnOption(ActionEvent event) {
-        restoreCard();
-        ((Stage) principalRoot.getScene().getWindow()).close();
+        MFXButton button = (MFXButton) event.getSource();
+        String buttonText = button.getText();
+        SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getController("SixPlayerBoardView");
+        ObservableList<PreguntaDto> preguntasEchas = sixPlayerBoardController.getGame().getPreguntasEchas() != null ? (ObservableList<PreguntaDto>) sixPlayerBoardController.getGame().getPreguntasEchas() : FXCollections.observableArrayList();
+
+        preguntaDto.getPlamRespuestasList().stream()
+                .filter(respuesta -> buttonText.equals(respuesta.getContenido()))
+                .findFirst()
+                .ifPresent(respuesta -> {
+                    respuesta.setCantidadSelecciones(respuesta.getCantidadSelecciones() + 1);
+                    if ("V".equals(respuesta.getTipo())) {
+                        competidorDtoCurrent.getJugador().setCantidadAciertos(competidorDtoCurrent.getJugador().getCantidadAciertos() + 1);
+                        typeQuestionJugador(preguntaDto.getCategoria());
+                        answer = true;
+                        Platform.runLater(() -> button.setStyle("-fx-background-color: #00FF00"));
+                        System.out.println("Respuesta correcta");
+                    } else {
+                        answer = false;
+                        Platform.runLater(() -> button.setStyle("-fx-background-color: #FF0000"));
+                    }
+
+                    PauseTransition pause = new PauseTransition(Duration.seconds(2));
+                    pause.setOnFinished(e -> {
+                        restoreCard();
+                        preguntaDto.setModificado(true);
+                        preguntasEchas.add(preguntaDto);
+                        sixPlayerBoardController.setPreguntasEchasList(preguntasEchas);
+                        ((Stage) principalRoot.getScene().getWindow()).close();
+                    });
+                    pause.play();
+                });
+
     }
 
     public void setTypeOfCard(String typeOfCard) {
+        newQuestion(typeOfCard);
         if (typeOfCard.equals("Geografía")) {
             typeOfCard = "Geografia";
         }
         inputStream = App.class.getResourceAsStream("/cr/ac/una/proyectopreguntados/resources/" + typeOfCard + "Card.png");
         imgCardBack.setImage(new Image(inputStream));
         showingFront = true;
-        newQuestion(typeOfCard);
+
         shuffleOption();
         flipCard();
     }
@@ -104,7 +139,7 @@ public class CardController extends Controller implements Initializable {
         }
         inputStream = App.class.getResourceAsStream("/cr/ac/una/proyectopreguntados/resources/" + typeOfCard + "Card.png");
         imgCardBack.setImage(new Image(inputStream));
-        //newQuestion(typeOfCard);
+
         shuffleOption();
         showingFront = true;
         TranslateTransition moveTransition = new TranslateTransition(Duration.seconds(1.5), rootCardQuestion);
@@ -183,5 +218,43 @@ public class CardController extends Controller implements Initializable {
         competidorDtoCurrent = sixPlayerBoardController.getCurrentCompetitor();
         competidorDtoCurrent.getJugador().setPartidasJugadas(competidorDtoCurrent.getJugador().getPartidasJugadas() + 1);
         sixPlayerBoardController.setPreguntasList(questions);
+    }
+    private void typeQuestionJugador(String typeOfQuestion) {
+        switch (typeOfQuestion) {
+            case "Arte":
+                competidorDtoCurrent.getJugador().setCantidadAArte(competidorDtoCurrent.getJugador().getCantidadAArte() + 1);
+                break;
+            case "Historia":
+                competidorDtoCurrent.getJugador().setCantidadAHistoria(competidorDtoCurrent.getJugador().getCantidadAHistoria() + 1);
+                break;
+            case "Geografía":
+                competidorDtoCurrent.getJugador().setCantidadAGeografia(competidorDtoCurrent.getJugador().getCantidadAGeografia() + 1);
+                break;
+            case "Ciencia":
+                competidorDtoCurrent.getJugador().setCantidadACiencia(competidorDtoCurrent.getJugador().getCantidadACiencia() + 1);
+                break;
+            case "Deporte":
+                competidorDtoCurrent.getJugador().setCantidadADeporte(competidorDtoCurrent.getJugador().getCantidadADeporte() + 1);
+                break;
+            case "Entretenimiento":
+                competidorDtoCurrent.getJugador().setCantidadAEntretenimiento(competidorDtoCurrent.getJugador().getCantidadAEntretenimiento() + 1);
+                break;
+            default:
+                break;
+        }
+    }
+    private void clearButtons() {
+        btnOptionOne.setStyle("-fx-background-color: #FFFFFF");
+        btnOptionTwo.setStyle("-fx-background-color: #FFFFFF");
+        btnOptionThree.setStyle("-fx-background-color: #FFFFFF");
+        btnOptionFour.setStyle("-fx-background-color: #FFFFFF");
+    }
+
+    public boolean isAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(boolean answer) {
+        this.answer = answer;
     }
 }
