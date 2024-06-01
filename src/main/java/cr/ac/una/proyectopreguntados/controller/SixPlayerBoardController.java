@@ -143,7 +143,7 @@ public class SixPlayerBoardController extends Controller implements Initializabl
     private CompetidorDto player4;
     private CompetidorDto player5;
     private CompetidorDto player6;
-    private ObservableList<PreguntaDto> preguntasList = FXCollections.observableArrayList();
+
 
 
     private int round = 1;
@@ -158,10 +158,9 @@ public class SixPlayerBoardController extends Controller implements Initializabl
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        game = (PartidaDto) AppContext.getInstance().get("Partida");
-        preguntasList = (ObservableList<PreguntaDto>) AppContext.getInstance().get("PreguntasList");
-        loadGameData(game);
         darkenIcons();
+        game = (PartidaDto) AppContext.getInstance().get("Partida");
+        loadGameData(game);
         fillPlayersDto();
         fillPlayersAvatar();
         fillPlayersLabels();
@@ -186,7 +185,7 @@ public class SixPlayerBoardController extends Controller implements Initializabl
 
 
     private void changePlayerTurn() {
-        currentCompetitor.setTurno("I");
+        currentCompetitor.setTurno("O");
         savePlayerDto();
         if (currentPlayer == numberOfPlayers) {
             currentPlayer = 1;
@@ -248,7 +247,6 @@ public class SixPlayerBoardController extends Controller implements Initializabl
         public void handle(ActionEvent event) {
             double currentRotation = imgWheel.getRotate();
             int topSection = (int) ((currentRotation + 360 / 14) % 360) / (360 / 7) + 1;
-            checkAnswer(true);
             // Llama a rouletteNumber() después de que la rotación haya sido completada
             Platform.runLater(() -> {
                 rouletteNumber(topSection);
@@ -281,69 +279,78 @@ public class SixPlayerBoardController extends Controller implements Initializabl
             }
         } else if (number == 4) {
             //Llama a corona
-            checkAnswerCrown(cardController.isAnswer(), crownAction());
+
+            checkAnswerCrown(crownAction(), cardController);
 
         } else {
             cardController.setTypeOfCard(typeOfQuestion(number));
             FlowController.getInstance().goViewInWindowModalOfCard("CardView", getStage(), true);
-            checkAnswer(cardController.isAnswer());
+            checkAnswer(cardController.isAnswer(), cardController);
 
         }
-        //Agregar accion de optener respuesta true o False
-        // checkAnswer(true);
+
     }
 
 
-    private void checkAnswer(boolean answer) {
+    private void checkAnswer(boolean answer,CardController cardController) {
         int position = currentCompetitor.getPosicionFicha().intValue();
         if (answer && position != 4) {
             position++;
+            currentCompetitor.setPosicionFicha((long) position);
             positionPlayer(position);
-        } //pasa al siguiente jugador si la fallo, crear funcion para nuevo jugador 
+            savePlayerDto();
+        } //pasa al siguiente jugador si la fallo, crear funcion para nuevo jugador
         else if (!answer) {
             changePlayerTurn();
         }
         if (position == 4) {
             //Accion para cuando haya corona por responder cuatro preguntas bien
-            String corona = crownAction();
+            checkAnswerCrown(crownAction(), cardController);
         }
     }
 
-    private void checkAnswerCrown(boolean answer, String type) {
+    private void checkAnswerCrown( String type,CardController cardController) {
+
+        cardController.setTypeOfCard(type);
+        FlowController.getInstance().goViewInWindowModalOfCard("CardView", getStage(), true);
+        boolean answer = cardController.isAnswer();
         if (answer) {
 //hacer un set al valor del tipo en la clase del jugador y luego llama para actualizar los personages
             setPlayerCharacters(type);
             currentCompetitor.setPosicionFicha(1L);
             positionPlayer(1);
+            savePlayerDto();
         }
         //Mover la posicion del jugador a 1
 
-        //pasa al siguiente jugador si la fallo, crear funcion para nuevo jugador 
+        //pasa al siguiente jugador si la fallo, crear funcion para nuevo jugador
         if (!answer) {
             currentCompetitor.setPosicionFicha(1L);
             changePlayerTurn();
+            positionPlayer(1);
         }
     }
+
 
     private void setPlayerCharacters(String type) {
         //PlayerCategories se llena con un get y los valores de cada categoria en la calse player
         switch (type) {
-            case "history":
+            case "Historia":
                 currentCompetitor.setHistoria("A");
                 break;
-            case "science":
+            case "Ciencia":
                 currentCompetitor.setCiencias("A");
                 break;
-            case "geography":
+            case "Geografía":
                 currentCompetitor.setGeografia("A");
                 break;
-            case "entertainment":
+            case "Entretenimiento":
                 currentCompetitor.setEntretenimiento("A");
                 break;
-            case "art":
+            case "Arte":
                 currentCompetitor.setArte("A");
                 break;
-            case "sport":
+            case "Deporte":
                 currentCompetitor.setDeporte("A");
                 break;
         }
@@ -383,6 +390,21 @@ public class SixPlayerBoardController extends Controller implements Initializabl
         for (int i = 0; i < Game.getJugadores().intValue(); i++) {
             if (competitorMap.containsKey(i)) {
                 competitors.add(competitorMap.get(i));
+            }
+        }
+        for(int i=0;i<game.getJugadores().intValue();i++){
+            CompetidorDto competidorDto = competitors.get(i);
+            String[] playerCategories = {competidorDto.getDeporte(), competidorDto.getEntretenimiento(), competidorDto.getCiencias(), competidorDto.getHistoria(), competidorDto.getGeografia(), competidorDto.getArte()};
+            ImageView[] playerImages = getPlayerImages();
+            for (int j = 0; j < playerCategories.length; j++) {
+                if (playerCategories[j].equals("A")) {
+                    getCharacter(playerImages[j]);
+                }
+            }
+            ImageView[] avatars = {imgAvatarPlayer1, imgAvatarPlayer2, imgAvatarPlayer3, imgAvatarPlayer4, imgAvatarPlayer5, imgAvatarPlayer6};
+            int[][][] playerPositions = {playerPosition.playerOnePositions6, playerPosition.playerTwoPositions6, playerPosition.playerThreePositions6, playerPosition.playerFourPositions6, playerPosition.playerFivePositions6, playerPosition.playerSixPositions6};
+            if (i+1 >= 1 && i+1 <= avatars.length) {
+                movePlayer(competidorDto.getPosicionFicha().intValue(), playerPositions[i], avatars[i]);
             }
         }
     }
@@ -517,13 +539,6 @@ public class SixPlayerBoardController extends Controller implements Initializabl
         this.game = game;
     }
 
-    public ObservableList<PreguntaDto> getPreguntasList() {
-        return preguntasList;
-    }
-
-    public void setPreguntasList(ObservableList<PreguntaDto> preguntasList) {
-        this.preguntasList = preguntasList;
-    }
 
     public CompetidorDto getCurrentCompetitor() {
         return currentCompetitor;
@@ -531,11 +546,6 @@ public class SixPlayerBoardController extends Controller implements Initializabl
 
     public void setCurrentCompetitor(CompetidorDto currentCompetitor) {
         this.currentCompetitor = currentCompetitor;
-    }
-
-
-    public void setPreguntasEchasList(ObservableList<PreguntaDto> preguntasEchasList) {
-        game.setPreguntasEchas(preguntasEchasList);
     }
 
     private void increaseRound() {
@@ -568,3 +578,4 @@ public class SixPlayerBoardController extends Controller implements Initializabl
     }
 
 }
+

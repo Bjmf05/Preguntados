@@ -101,7 +101,7 @@ public class SearchGameController extends Controller implements Initializable {
             new Mensaje().showModal(Alert.AlertType.ERROR, "Cargar Partida", getStage(), "Debe seleccionar una partida");
         } else {
             loadGameData(selectedGame);
-            getQuestions();
+            getQuestions(selectedGame.getPreguntaList());
             AppContext.getInstance().set("Partida", selectedGame);
             FlowController.getInstance().goMain();
             controller.exit();
@@ -159,7 +159,7 @@ public class SearchGameController extends Controller implements Initializable {
         AppContext.getInstance().set("Competidores", competitors);
     }
 
-    private void getQuestions() {
+    private void getQuestions(List<Pregunta> preguntaList){
         ObservableList<PreguntaDto> questions = FXCollections.observableArrayList();
         try {
             PreguntaService service = new PreguntaService();
@@ -173,7 +173,14 @@ public class SearchGameController extends Controller implements Initializable {
             Logger.getLogger(MaintenanceQuestionsController.class.getName()).log(Level.SEVERE, "Error consultando las preguntas.", ex);
             new Mensaje().showModal(Alert.AlertType.ERROR, "Cargar Preguntas", getStage(), "Ocurrio un error consultando las preguntas.");
         }
-        AppContext.getInstance().set("PreguntasList", questions);
+        filterList(preguntaList, questions);
     }
-
+private void filterList(List<Pregunta> preguntaList, ObservableList<PreguntaDto> questions) {
+        if(!preguntaList.isEmpty()  && preguntaList!=null){
+            questions.removeIf(question -> preguntaList.stream().anyMatch(pregunta -> pregunta.getId().equals(question.getId())));
+        }
+    AppContext.getInstance().set("PreguntasList", questions);
+    ObservableList<PreguntaDto> questionsAsked = FXCollections.observableArrayList();
+    AppContext.getInstance().set("PreguntasEchas", questionsAsked);
+}
 }

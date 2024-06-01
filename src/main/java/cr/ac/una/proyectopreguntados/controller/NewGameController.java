@@ -392,6 +392,8 @@ private void safePlayers(Long idGame) {
             new Mensaje().showModal(Alert.AlertType.ERROR, "Cargar Preguntas", getStage(), "Ocurrio un error consultando las preguntas.");
         }
         AppContext.getInstance().set("PreguntasList", questions);
+        ObservableList<PreguntaDto> questionsAsked = FXCollections.observableArrayList();
+        AppContext.getInstance().set("PreguntasEchas", questionsAsked);
     }
     private void searchGame(Long id){
         try {

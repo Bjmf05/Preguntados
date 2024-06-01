@@ -31,7 +31,7 @@ public class CompetidorDto implements Serializable {
         this.competidorPK = new CompetidorPK();
         this.numeroJugador = Long.valueOf(0);
         this.ficha = "";
-        this.posicionFicha = 0L;
+        this.posicionFicha = 1L;
         this.turno = "O";
         this.geografia = "I";
         this.arte = "I";

@@ -6,6 +6,7 @@ import cr.ac.una.proyectopreguntados.service.PartidaService;
 import cr.ac.una.proyectopreguntados.util.AppContext;
 import cr.ac.una.proyectopreguntados.util.Mensaje;
 import cr.ac.una.proyectopreguntados.util.RespuestaEnt;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 
@@ -13,10 +14,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class SaveGame {
-
+    private ObservableList<PreguntaDto> preguntasEchas = FXCollections.observableArrayList();
     public void saveGame() {
         try {
+            preguntasEchas = (ObservableList<PreguntaDto>) AppContext.getInstance().get("PreguntasEchas");
             PartidaDto game = (PartidaDto) AppContext.getInstance().get("PartidaSave");
+            game.getPreguntasEchas().addAll(preguntasEchas);
             PartidaService serviceGame = new PartidaService();
             RespuestaEnt respuestaGame = serviceGame.saveGame(game);
             safeCompetitors();

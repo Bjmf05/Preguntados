@@ -80,7 +80,7 @@ public class SelectCrownCategoryController extends Controller implements Initial
 
     @FXML
     private void onMouseClickedImgSports(MouseEvent event) {
-        playerSelection = "sport";
+        playerSelection = "Deporte";
         getStage().close();
     }
 
@@ -101,7 +101,7 @@ public class SelectCrownCategoryController extends Controller implements Initial
 
     @FXML
     private void onMouseClickedImgEntertainment(MouseEvent event) {
-        playerSelection = "entertainment";
+        playerSelection = "Entretenimiento";
         getStage().close();
     }
 
@@ -122,7 +122,7 @@ public class SelectCrownCategoryController extends Controller implements Initial
 
     @FXML
     private void onMouseClickedImgScience(MouseEvent event) {
-        playerSelection = "science";
+        playerSelection = "Ciencia";
         getStage().close();
     }
 
@@ -144,7 +144,7 @@ public class SelectCrownCategoryController extends Controller implements Initial
 
     @FXML
     private void onMouseClickedImgHistory(MouseEvent event) {
-        playerSelection = "history";
+        playerSelection = "Historia";
         getStage().close();
     }
 
@@ -166,7 +166,7 @@ public class SelectCrownCategoryController extends Controller implements Initial
 
     @FXML
     private void onMouseClickedImgGeography(MouseEvent event) {
-        playerSelection = "geography";
+        playerSelection = "Geografía";
         getStage().close();
     }
 
@@ -187,7 +187,7 @@ public class SelectCrownCategoryController extends Controller implements Initial
 
     @FXML
     private void onMouseClickedImgArt(MouseEvent event) {
-        playerSelection = "art";
+        playerSelection = "Arte";
         getStage().close();
     }
 

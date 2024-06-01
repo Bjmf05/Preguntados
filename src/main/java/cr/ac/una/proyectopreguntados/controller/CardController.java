@@ -4,6 +4,7 @@ import cr.ac.una.proyectopreguntados.App;
 import cr.ac.una.proyectopreguntados.model.CompetidorDto;
 import cr.ac.una.proyectopreguntados.model.PartidaDto;
 import cr.ac.una.proyectopreguntados.model.PreguntaDto;
+import cr.ac.una.proyectopreguntados.util.AppContext;
 import cr.ac.una.proyectopreguntados.util.FlowController;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
@@ -71,7 +72,8 @@ public class CardController extends Controller implements Initializable {
     private VBox vbCard;
     @FXML
     private AnchorPane principalRoot;
-
+    private ObservableList<PreguntaDto> preguntasList = FXCollections.observableArrayList();
+    private ObservableList<PreguntaDto> preguntasEchas = FXCollections.observableArrayList();
     /**
      * Initializes the controller class.
      */
@@ -86,6 +88,8 @@ public class CardController extends Controller implements Initializable {
 
     @FXML
     private void onActionBtnOption(ActionEvent event) {
+        clearButtons();
+        blockButtons();
         MFXButton button = (MFXButton) event.getSource();
         String buttonText = button.getText();
         SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getController("SixPlayerBoardView");
@@ -107,13 +111,13 @@ public class CardController extends Controller implements Initializable {
                         Platform.runLater(() -> button.setStyle("-fx-background-color: #FF0000"));
                     }
 
-                    PauseTransition pause = new PauseTransition(Duration.seconds(2));
+                    PauseTransition pause = new PauseTransition(Duration.seconds(1));
                     pause.setOnFinished(e -> {
                         restoreCard();
                         preguntaDto.setModificado(true);
                         preguntasEchas.add(preguntaDto);
-                        sixPlayerBoardController.setPreguntasEchasList(preguntasEchas);
-                        ((Stage) principalRoot.getScene().getWindow()).close();
+                        unblockButtons();
+                          ((Stage) principalRoot.getScene().getWindow()).close();
                     });
                     pause.play();
                 });
@@ -121,6 +125,7 @@ public class CardController extends Controller implements Initializable {
     }
 
     public void setTypeOfCard(String typeOfCard) {
+        fillQuestions();
         newQuestion(typeOfCard);
         if (typeOfCard.equals("Geografía")) {
             typeOfCard = "Geografia";
@@ -203,8 +208,7 @@ public class CardController extends Controller implements Initializable {
     private void newQuestion(String typeOfQuestion) {
         SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getController("SixPlayerBoardView");
         partidaDto = sixPlayerBoardController.getGame();
-        ObservableList<PreguntaDto> questions = sixPlayerBoardController.getPreguntasList();
-        ObservableList<PreguntaDto> questionFiltered = questions.filtered(question -> question.getCategoria().equals(typeOfQuestion));
+        ObservableList<PreguntaDto> questionFiltered = preguntasList.filtered(question -> question.getCategoria().equals(typeOfQuestion));
         Random random = new Random();
         int index = random.nextInt(questionFiltered.size());
         preguntaDto = questionFiltered.get(index);
@@ -214,10 +218,9 @@ public class CardController extends Controller implements Initializable {
         btnOptionTwo.setText(preguntaDto.getPlamRespuestasList().get(1).getContenido());
         btnOptionThree.setText(preguntaDto.getPlamRespuestasList().get(2).getContenido());
         btnOptionFour.setText(preguntaDto.getPlamRespuestasList().get(3).getContenido());
-        questions.remove(index);
+        preguntasList.remove(index);
         competidorDtoCurrent = sixPlayerBoardController.getCurrentCompetitor();
         competidorDtoCurrent.getJugador().setPartidasJugadas(competidorDtoCurrent.getJugador().getPartidasJugadas() + 1);
-        sixPlayerBoardController.setPreguntasList(questions);
     }
     private void typeQuestionJugador(String typeOfQuestion) {
         switch (typeOfQuestion) {
@@ -256,5 +259,21 @@ public class CardController extends Controller implements Initializable {
 
     public void setAnswer(boolean answer) {
         this.answer = answer;
+    }
+    private void fillQuestions(){
+        preguntasList = (ObservableList<PreguntaDto>) AppContext.getInstance().get("PreguntasList");
+        preguntasEchas = (ObservableList<PreguntaDto>) AppContext.getInstance().get("PreguntasEchas");
+    }
+    private void blockButtons(){
+        btnOptionOne.setDisable(true);
+        btnOptionTwo.setDisable(true);
+        btnOptionThree.setDisable(true);
+        btnOptionFour.setDisable(true);
+    }
+    private void unblockButtons(){
+        btnOptionOne.setDisable(false);
+        btnOptionTwo.setDisable(false);
+        btnOptionThree.setDisable(false);
+        btnOptionFour.setDisable(false);
     }
 }
