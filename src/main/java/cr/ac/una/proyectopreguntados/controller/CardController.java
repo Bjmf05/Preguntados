@@ -74,6 +74,8 @@ public class CardController extends Controller implements Initializable {
     private AnchorPane principalRoot;
     private ObservableList<PreguntaDto> preguntasList = FXCollections.observableArrayList();
     private ObservableList<PreguntaDto> preguntasEchas = FXCollections.observableArrayList();
+    @FXML
+    private MFXButton btnBomb;
     /**
      * Initializes the controller class.
      */
@@ -275,5 +277,31 @@ public class CardController extends Controller implements Initializable {
         btnOptionTwo.setDisable(false);
         btnOptionThree.setDisable(false);
         btnOptionFour.setDisable(false);
+    }
+
+    @FXML
+    private void onActionBtnBomb(ActionEvent event) {
+        ArrayList<MFXButton> buttonList = new ArrayList<>();
+        buttonList.add(btnOptionOne);
+        buttonList.add(btnOptionTwo);
+        buttonList.add(btnOptionThree);
+        buttonList.add(btnOptionFour);
+        // Eliminar dos botones al azar, excepto la respuesta correcta
+        MFXButton correctButton = null;
+        for (MFXButton button : buttonList) {
+            String buttonText = button.getText();
+            boolean correctOpcion = preguntaDto.getPlamRespuestasList().stream().anyMatch(respuesta -> 
+                    buttonText.equals(respuesta.getContenido()) && "V".equals(respuesta.getTipo()));
+            if (correctOpcion) {
+                correctButton = button;
+                break;
+            }
+        }
+        if (correctButton != null) {
+            buttonList.remove(correctButton);
+            buttonList.get(0).setVisible(false);
+            buttonList.get(1).setVisible(false);
+        }
+        buttonList.clear();
     }
 }

@@ -28,6 +28,7 @@ import io.github.palexdev.materialfx.css.themes.Themes;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.stage.StageStyle;
@@ -279,26 +280,28 @@ public class FlowController {
         double startPositionY = (100);
         stage.setX(100);
         stage.setY(100);
-        stage.showAndWait();
-        double endPositionX = 400L;
-        double endPositionY = 400L;
-        // Obtener las propiedades x e y del Stage como DoubleProperty
-        DoubleProperty xProperty = new SimpleDoubleProperty(startPositionX);
-        DoubleProperty yProperty = new SimpleDoubleProperty(startPositionY);
+        Platform.runLater(() -> {
+            double endPositionX = 400L;
+            double endPositionY = 400L;
+            // Obtener las propiedades x e y del Stage como DoubleProperty
+            DoubleProperty xProperty = new SimpleDoubleProperty(startPositionX);
+            DoubleProperty yProperty = new SimpleDoubleProperty(startPositionY);
 
-        // Crear KeyValue para animar las propiedades x e y
-        KeyValue keyValueX = new KeyValue(xProperty, endPositionX);
-        KeyValue keyValueY = new KeyValue(yProperty, endPositionY);
+            // Crear KeyValue para animar las propiedades x e y
+            KeyValue keyValueX = new KeyValue(xProperty, endPositionX);
+            KeyValue keyValueY = new KeyValue(yProperty, endPositionY);
 
-        Timeline timeline = new Timeline();
-        KeyFrame keyFrame = new KeyFrame(Duration.seconds(3), keyValueX, keyValueY);
-        timeline.getKeyFrames().add(keyFrame);
+            Timeline timeline = new Timeline();
+            KeyFrame keyFrame = new KeyFrame(Duration.seconds(3), keyValueX, keyValueY);
+            timeline.getKeyFrames().add(keyFrame);
 
-        // Agregar un listener para actualizar la posición del Stage durante la animación
-        timeline.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
-            stage.setX(xProperty.get());
-            stage.setY(yProperty.get());
+            // Agregar un listener para actualizar la posición del Stage durante la animación
+            timeline.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
+                stage.setX(xProperty.get());
+                stage.setY(yProperty.get());
+            });
+            timeline.play();
         });
-        timeline.play();
+        stage.showAndWait();
     }
 }
