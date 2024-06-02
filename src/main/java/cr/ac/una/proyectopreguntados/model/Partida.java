@@ -55,7 +55,7 @@ public class Partida implements Serializable {
     @JoinTable(name = "PLAM_PREGUNTAS_PARTIDAS", joinColumns = {
         @JoinColumn(name = "EXT_ID_PARTIDA", referencedColumnName = "PART_ID")}, inverseJoinColumns = {
         @JoinColumn(name = "EXT_ID_PREGUNTA", referencedColumnName = "PRE_ID")})
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
     private List<Pregunta> preguntaList;
 
     public Partida() {

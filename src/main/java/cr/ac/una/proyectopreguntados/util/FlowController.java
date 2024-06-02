@@ -206,35 +206,6 @@ public class FlowController {
         java.util.logging.Logger.getLogger(FlowController.class.getName()).log(Level.SEVERE, "Error showing view in VBox.", ex);
     }
 }
-    public void openNewWindowAndCloseCurrent(Stage currentStage) {
-        try {
-            // Cargar el nuevo FXML
-            FXMLLoader loader = new FXMLLoader(App.class.getResource("view/LogInView.fxml"), this.idioma);
-            Parent root = loader.load();
-
-            // Configurar el nuevo Stage
-            Stage newStage = new Stage();
-            Scene scene = new Scene(root);
-            newStage.setScene(scene);
-            MFXThemeManager.addOn(scene, Themes.DEFAULT, Themes.LEGACY);
-            newStage.setTitle("Nueva Ventana");
-
-            // Obtener el controlador del nuevo Stage y configurarlo
-            LogInController controller = loader.getController();
-            controller.setStage(newStage);
-
-            // Mostrar la nueva ventana
-            newStage.show();
-
-            // Cerrar la ventana actual
-            if (currentStage != null) {
-                currentStage.close();
-            }
-        } catch (IOException e) {
-            java.util.logging.Logger.getLogger(FlowController.class.getName()).log(Level.SEVERE, "Error abriendo la nueva ventana.", e);
-        }
-    }
-
     public Controller getController(String viewName) {
         return getLoader(viewName).getController();
     }

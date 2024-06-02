@@ -82,6 +82,7 @@ public class CardController extends Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        fillQuestions();
     }
 
     @Override
@@ -127,7 +128,6 @@ public class CardController extends Controller implements Initializable {
     }
 
     public void setTypeOfCard(String typeOfCard) {
-        fillQuestions();
         newQuestion(typeOfCard);
         if (typeOfCard.equals("Geografía")) {
             typeOfCard = "Geografia";
@@ -220,7 +220,7 @@ public class CardController extends Controller implements Initializable {
         btnOptionTwo.setText(preguntaDto.getPlamRespuestasList().get(1).getContenido());
         btnOptionThree.setText(preguntaDto.getPlamRespuestasList().get(2).getContenido());
         btnOptionFour.setText(preguntaDto.getPlamRespuestasList().get(3).getContenido());
-        preguntasList.remove(index);
+        preguntasList.remove(equals(preguntaDto));
         competidorDtoCurrent = sixPlayerBoardController.getCurrentCompetitor();
         competidorDtoCurrent.getJugador().setPartidasJugadas(competidorDtoCurrent.getJugador().getPartidasJugadas() + 1);
     }

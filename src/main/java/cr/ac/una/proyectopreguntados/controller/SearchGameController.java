@@ -176,9 +176,9 @@ public class SearchGameController extends Controller implements Initializable {
         filterList(preguntaList, questions);
     }
 private void filterList(List<Pregunta> preguntaList, ObservableList<PreguntaDto> questions) {
-        if(!preguntaList.isEmpty()  && preguntaList!=null){
-            questions.removeIf(question -> preguntaList.stream().anyMatch(pregunta -> pregunta.getId().equals(question.getId())));
-        }
+    if(preguntaList != null && !preguntaList.isEmpty()){
+        questions.removeIf(question -> preguntaList.stream().anyMatch(pregunta -> pregunta.getId().equals(question.getId())));
+    }
     AppContext.getInstance().set("PreguntasList", questions);
     ObservableList<PreguntaDto> questionsAsked = FXCollections.observableArrayList();
     AppContext.getInstance().set("PreguntasEchas", questionsAsked);

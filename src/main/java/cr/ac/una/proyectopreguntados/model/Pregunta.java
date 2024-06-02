@@ -47,7 +47,7 @@ public class Pregunta implements Serializable {
     private Long version;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pregunta", fetch = FetchType.LAZY)
     private List<Respuesta> plamRespuestasList;
-    @ManyToMany(mappedBy = "preguntaList", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "preguntaList", fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
     private List<Partida> PartidasList;
     public Pregunta() {
     }

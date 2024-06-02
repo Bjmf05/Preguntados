@@ -2,6 +2,9 @@ package cr.ac.una.proyectopreguntados.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import cr.ac.una.proyectopreguntados.model.CompetidorDto;
+import cr.ac.una.proyectopreguntados.util.FlowController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.effect.DropShadow;
@@ -208,29 +211,31 @@ public class SelectCrownCategoryController extends Controller implements Initial
     }
 
     private void deleteCharacter() {
-        String art = "F";
-        String geography = "F";
-        String enterteinment = "F";
-        String sport = "F";
-        String history = "F";
-        String science = "F";
-        if (science.equals("T")) {
+        SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getController("SixPlayerBoardView");
+        CompetidorDto competidorDto = sixPlayerBoardController.getCurrentCompetitor();
+        String art = competidorDto.getArte();
+        String geography = competidorDto.getGeografia();
+        String enterteinment = competidorDto.getEntretenimiento();
+        String sport = competidorDto.getDeporte();
+        String history = competidorDto.getHistoria();
+        String science = competidorDto.getCiencias();
+        if (science.equals("A")) {
             root2.getChildren().remove(vbxScience);
         }
-        if (enterteinment.equals("T")) {
+        if (enterteinment.equals("A")) {
             root1.getChildren().remove(vbxEntertainment);
         }
-        if (sport.equals("T")) {
+        if (sport.equals("A")) {
             root1.getChildren().remove(vbxSports);
         }
 
-        if (history.equals("T")) {
+        if (history.equals("A")) {
             root2.getChildren().remove(vbxHistory);
         }
-        if (geography.equals("T")) {
+        if (geography.equals("A")) {
             root2.getChildren().remove(vbxGeography);
         }
-        if (art.equals("T")) {
+        if (art.equals("A")) {
             root2.getChildren().remove(vbxArt);
         }
     }

@@ -326,8 +326,8 @@ public class SixPlayerBoardController extends Controller implements Initializabl
         //pasa al siguiente jugador si la fallo, crear funcion para nuevo jugador
         if (!answer) {
             currentCompetitor.setPosicionFicha(1L);
-            changePlayerTurn();
             positionPlayer(1);
+            changePlayerTurn();
         }
     }
 
