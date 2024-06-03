@@ -59,13 +59,12 @@ public class StatisticalGraphController extends Controller implements Initializa
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        //dataOfGrafic();
     }
 
     @FXML
     private void onActionCbxNombre(ActionEvent event) {
         loadPlayer();
-        cbxNombre.getText();
+        //cbxNombre.getText();
         //dataOfGrafic(jugadorDto);
     }
 

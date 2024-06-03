@@ -6,6 +6,7 @@ import cr.ac.una.proyectopreguntados.model.PartidaDto;
 import cr.ac.una.proyectopreguntados.model.PreguntaDto;
 import cr.ac.una.proyectopreguntados.util.AppContext;
 import cr.ac.una.proyectopreguntados.util.FlowController;
+import cr.ac.una.proyectopreguntados.util.Mensaje;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,6 +26,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -74,8 +76,13 @@ public class CardController extends Controller implements Initializable {
     private AnchorPane principalRoot;
     private ObservableList<PreguntaDto> preguntasList = FXCollections.observableArrayList();
     private ObservableList<PreguntaDto> preguntasEchas = FXCollections.observableArrayList();
+    private String question;
     @FXML
     private MFXButton btnBomb;
+    @FXML
+    private MFXButton btnSecondTry;
+    @FXML
+    private MFXButton btnPassQuestion;
     /**
      * Initializes the controller class.
      */
@@ -92,7 +99,7 @@ public class CardController extends Controller implements Initializable {
     @FXML
     private void onActionBtnOption(ActionEvent event) {
         clearButtons();
-        blockButtons();
+        //blockButtons();
         MFXButton button = (MFXButton) event.getSource();
         String buttonText = button.getText();
         SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getController("SixPlayerBoardView");
@@ -129,6 +136,7 @@ public class CardController extends Controller implements Initializable {
 
     public void setTypeOfCard(String typeOfCard) {
         newQuestion(typeOfCard);
+        question = typeOfCard;
         if (typeOfCard.equals("Geografía")) {
             typeOfCard = "Geografia";
         }
@@ -205,6 +213,7 @@ public class CardController extends Controller implements Initializable {
         imgCardBack.setVisible(true);
         rootCardQuestion.setVisible(true);
         showingFront = true;
+        btnSecondTry.setDisable(true);
 }
     
     private void newQuestion(String typeOfQuestion) {
@@ -303,5 +312,31 @@ public class CardController extends Controller implements Initializable {
             buttonList.get(1).setVisible(false);
         }
         buttonList.clear();
+    }
+
+    @FXML
+    private void onActionBtnSecondTry(ActionEvent event) {
+        
+    }
+
+    @FXML
+    private void onActionBtnPassQuestion(ActionEvent event) {
+        SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getController("SixPlayerBoardView");
+        partidaDto = sixPlayerBoardController.getGame();
+        ObservableList<PreguntaDto> questionFiltered = preguntasList.filtered(question -> question.getCategoria().equals(this.question));
+        if (questionFiltered.isEmpty()) {
+            new Mensaje().showModal(Alert.AlertType.INFORMATION, "No hay preguntas disponibles", getStage(), "de"+question);
+            return;
+        }
+        Random random = new Random();
+        int index = random.nextInt(questionFiltered.size());
+        preguntaDto = questionFiltered.get(index);
+        preguntaDto.setCantidadLlamadas(preguntaDto.getCantidadLlamadas() + 1);
+        textOfQuestion.setText(preguntaDto.getContenido());
+        btnOptionOne.setText(preguntaDto.getPlamRespuestasList().get(0).getContenido());
+        btnOptionTwo.setText(preguntaDto.getPlamRespuestasList().get(1).getContenido());
+        btnOptionThree.setText(preguntaDto.getPlamRespuestasList().get(2).getContenido());
+        btnOptionFour.setText(preguntaDto.getPlamRespuestasList().get(3).getContenido());
+        unblockButtons();
     }
 }

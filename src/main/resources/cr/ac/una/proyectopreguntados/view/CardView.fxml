@@ -39,8 +39,8 @@
             </AnchorPane>
             <HBox alignment="CENTER" prefHeight="102.0" prefWidth="200.0" spacing="10.0">
                <children>
-                  <MFXButton text="Intento 2" />
-                  <MFXButton text="Pasar" />
+                  <MFXButton fx:id="btnSecondTry" onAction="#onActionBtnSecondTry" text="Intento 2" />
+                  <MFXButton fx:id="btnPassQuestion" onAction="#onActionBtnPassQuestion" text="Pasar" />
                   <MFXButton fx:id="btnBomb" onAction="#onActionBtnBomb" text="Bomba" />
                </children>
             </HBox>
