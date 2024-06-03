@@ -143,7 +143,7 @@ public class SixPlayerBoardController extends Controller implements Initializabl
     private CompetidorDto player4;
     private CompetidorDto player5;
     private CompetidorDto player6;
-
+    private PrincipalController principalController = (PrincipalController) FlowController.getInstance().getController("PrincipalView");
 
 
     private int round = 1;
@@ -285,7 +285,7 @@ public class SixPlayerBoardController extends Controller implements Initializabl
 
         } else {
             cardController.setTypeOfCard(typeOfQuestion(number));
-            FlowController.getInstance().goViewInWindowModalOfCard("CardView", getStage(), true);
+            FlowController.getInstance().goViewInWindowModalOfCard("CardView", getStage(), true, principalController.getWidth(), principalController.getHeight());
             checkAnswer(cardController.isAnswer(), cardController);
 
         }
@@ -313,7 +313,7 @@ public class SixPlayerBoardController extends Controller implements Initializabl
     private void checkAnswerCrown( String type,CardController cardController) {
        // FlowController.getInstance().delete("CardView");
         cardController.setTypeOfCard(type);
-        FlowController.getInstance().goViewInWindowModalOfCard("CardView", getStage(), true);
+        FlowController.getInstance().goViewInWindowModalOfCard("CardView", getStage(), true, principalController.getWidth(), principalController.getHeight());
         boolean answer = cardController.isAnswer();
         if (answer) {
 //hacer un set al valor del tipo en la clase del jugador y luego llama para actualizar los personages

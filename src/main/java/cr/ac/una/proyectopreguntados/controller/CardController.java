@@ -115,7 +115,7 @@ public class CardController extends Controller implements Initializable {
         String buttonText = button.getText();
         SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getController("SixPlayerBoardView");
         ObservableList<PreguntaDto> preguntasEchas = sixPlayerBoardController.getGame().getPreguntasEchas() != null ? (ObservableList<PreguntaDto>) sixPlayerBoardController.getGame().getPreguntasEchas() : FXCollections.observableArrayList();
-
+        
         preguntaDto.getPlamRespuestasList().stream()
                 .filter(respuesta -> buttonText.equals(respuesta.getContenido()))
                 .findFirst()
@@ -129,7 +129,7 @@ public class CardController extends Controller implements Initializable {
                         System.out.println("Respuesta correcta");
                     } else {
                         answer = false;
-                        Platform.runLater(() -> button.setStyle("-fx-background-color: #FF0000"));
+                        Platform.runLater(() -> button.setStyle("-fx-background-color: #FF0000")); 
                     }
 
                     PauseTransition pause = new PauseTransition(Duration.seconds(1));
@@ -159,31 +159,13 @@ public class CardController extends Controller implements Initializable {
         flipCard();
     }
 
-    public void moveCard(String typeOfCard) {
-        if (typeOfCard.equals("Geografía")) {
-            typeOfCard = "Geografia";
-        }
-        inputStream = App.class.getResourceAsStream("/cr/ac/una/proyectopreguntados/resources/" + typeOfCard + "Card.png");
-        imgCardBack.setImage(new Image(inputStream));
-
-        shuffleOption();
-        showingFront = true;
-        TranslateTransition moveTransition = new TranslateTransition(Duration.seconds(1.5), rootCardQuestion);
-        moveTransition.setToX(principalController.getWidth() / 2 - rootCardQuestion.getBoundsInLocal().getWidth() / 2 + 650);
-        moveTransition.setToY(principalController.getHeight() / 2 - rootCardQuestion.getBoundsInLocal().getHeight() / 2);
-        moveTransition.play();
-        moveTransition.setOnFinished(flip -> {
-            flipCard();
-        });
-    }
-
     private void flipCard() {
-        RotateTransition rotateBack = new RotateTransition(Duration.seconds(2), imgCardBack);
+        RotateTransition rotateBack = new RotateTransition(Duration.seconds(3.5), imgCardBack);
         rotateBack.setAxis(Rotate.Y_AXIS);
         rotateBack.setFromAngle(0);
         rotateBack.setToAngle(90);
         //Rotación hacia adelante 
-        RotateTransition rotateFront = new RotateTransition(Duration.seconds(2), imgCardBack);
+        RotateTransition rotateFront = new RotateTransition(Duration.seconds(3.5), imgCardBack);
         rotateFront.setAxis(Rotate.Y_AXIS);
         rotateFront.setFromAngle(90);
         rotateFront.setToAngle(180);

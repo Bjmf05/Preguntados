@@ -31,6 +31,7 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.stage.Screen;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
@@ -229,7 +230,7 @@ public class FlowController {
      loaders.remove(parametro);
  }
  
-    public void goViewInWindowModalOfCard(String viewName, Stage parentStage, Boolean resizable) {
+    public void goViewInWindowModalOfCard(String viewName, Stage parentStage, Boolean resizable, double width, double height) {
         FXMLLoader loader = getLoader(viewName);
         Controller controller = loader.getController();
         controller.initialize();
@@ -246,14 +247,15 @@ public class FlowController {
         MFXThemeManager.addOn(scene, Themes.DEFAULT, Themes.LEGACY);
         stage.setScene(scene);
         stage.initModality(Modality.WINDOW_MODAL);
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.initOwner(parentStage);
-        double startPositionX = (100);
-        double startPositionY = (100);
-        stage.setX(100);
-        stage.setY(100);
+        double startPositionX = 200;
+        double startPositionY = 400;
+        stage.setX(startPositionX);
+        stage.setY(startPositionY);
         Platform.runLater(() -> {
-            double endPositionX = 400L;
-            double endPositionY = 400L;
+            double endPositionX = (Screen.getPrimary().getVisualBounds().getWidth()) / 2;
+            double endPositionY = (Screen.getPrimary().getVisualBounds().getHeight()) / 2;
             // Obtener las propiedades x e y del Stage como DoubleProperty
             DoubleProperty xProperty = new SimpleDoubleProperty(startPositionX);
             DoubleProperty yProperty = new SimpleDoubleProperty(startPositionY);
