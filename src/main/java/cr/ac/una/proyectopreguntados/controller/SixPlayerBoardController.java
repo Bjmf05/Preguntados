@@ -159,6 +159,7 @@ public class SixPlayerBoardController extends Controller implements Initializabl
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         darkenIcons();
+
         game = (PartidaDto) AppContext.getInstance().get("Partida");
         loadGameData(game);
         fillPlayersDto();
@@ -310,7 +311,7 @@ public class SixPlayerBoardController extends Controller implements Initializabl
     }
 
     private void checkAnswerCrown( String type,CardController cardController) {
-
+       // FlowController.getInstance().delete("CardView");
         cardController.setTypeOfCard(type);
         FlowController.getInstance().goViewInWindowModalOfCard("CardView", getStage(), true);
         boolean answer = cardController.isAnswer();
@@ -394,6 +395,7 @@ public class SixPlayerBoardController extends Controller implements Initializabl
         }
         for(int i=0;i<game.getJugadores().intValue();i++){
             CompetidorDto competidorDto = competitors.get(i);
+            currentPlayer = i+1;
             String[] playerCategories = {competidorDto.getDeporte(), competidorDto.getEntretenimiento(), competidorDto.getCiencias(), competidorDto.getHistoria(), competidorDto.getGeografia(), competidorDto.getArte()};
             ImageView[] playerImages = getPlayerImages();
             for (int j = 0; j < playerCategories.length; j++) {
@@ -407,6 +409,7 @@ public class SixPlayerBoardController extends Controller implements Initializabl
                 movePlayer(competidorDto.getPosicionFicha().intValue(), playerPositions[i], avatars[i]);
             }
         }
+        currentPlayer = 1;
     }
 
     private void fillPlayersDto() {
@@ -449,7 +452,7 @@ public class SixPlayerBoardController extends Controller implements Initializabl
 
     private void fillPlayersAvatar() {
         for (int i = 0; i < numberOfPlayers; i++) {
-            ImageView[] playersImages = getPlayersImages();
+            ImageView[] playersImages = getPlayersImagesAvatar();
             InputStream inputStream = App.class.getResourceAsStream(competitorsPlayer(i).getFicha());
             playersImages[i].setImage(new Image(inputStream));
         }
@@ -491,7 +494,7 @@ public class SixPlayerBoardController extends Controller implements Initializabl
         }
     }
 
-    private ImageView[] getPlayersImages() {
+    private ImageView[] getPlayersImagesAvatar() {
         return new ImageView[]{imgAvatarPlayer1, imgAvatarPlayer2, imgAvatarPlayer3, imgAvatarPlayer4, imgAvatarPlayer5, imgAvatarPlayer6};
     }
 
@@ -576,6 +579,22 @@ public class SixPlayerBoardController extends Controller implements Initializabl
     private void changeLabelPlayer() {
         lblCurrentPlayer.setText(competitorsPlayer(currentPlayer - 1).getJugador().getNombre());
     }
-
+public void getPlayers(){
+        ObservableList <CompetidorDto> competitorsPlayer = FXCollections.observableArrayList();
+    for(int i=0;i<numberOfPlayers;i++){
+        CompetidorDto competidorDto = competitorsPlayer(i);
+        competitorsPlayer.add(competidorDto);
+    }
+    AppContext.getInstance().set("competitorsPlayer", competitorsPlayer);
+}
+public void setPlayers(){
+        competitors.clear();
+        ObservableList<CompetidorDto> competitorsPlayer = (ObservableList<CompetidorDto>) AppContext.getInstance().get("competitorsPlayer");
+        for(int i=0;i<numberOfPlayers;i++){
+            CompetidorDto competidorDto = competitorsPlayer.get(i);
+            competitors.add(competidorDto);
+        }
+        fillPlayersDto();
+}
 }
 

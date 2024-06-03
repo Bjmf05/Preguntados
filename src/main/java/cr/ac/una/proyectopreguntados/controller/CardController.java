@@ -83,17 +83,28 @@ public class CardController extends Controller implements Initializable {
     private MFXButton btnSecondTry;
     @FXML
     private MFXButton btnPassQuestion;
+    SixPlayerBoardController sixPlayerBoardController;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getController("SixPlayerBoardView");
         // TODO
+        this.sixPlayerBoardController = sixPlayerBoardController;
+        competidorDtoCurrent = sixPlayerBoardController.getCurrentCompetitor();
+        disableWildCards();
         fillQuestions();
+
     }
 
     @Override
     public void initialize() {
+        disableWildCards();
+        fillQuestions();
+        SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getController("SixPlayerBoardView");
+        this.sixPlayerBoardController = sixPlayerBoardController;
+        clearButtons();
     }
 
     @FXML
@@ -217,7 +228,7 @@ public class CardController extends Controller implements Initializable {
 }
     
     private void newQuestion(String typeOfQuestion) {
-        SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getController("SixPlayerBoardView");
+
         partidaDto = sixPlayerBoardController.getGame();
         ObservableList<PreguntaDto> questionFiltered = preguntasList.filtered(question -> question.getCategoria().equals(typeOfQuestion));
         Random random = new Random();
@@ -229,9 +240,8 @@ public class CardController extends Controller implements Initializable {
         btnOptionTwo.setText(preguntaDto.getPlamRespuestasList().get(1).getContenido());
         btnOptionThree.setText(preguntaDto.getPlamRespuestasList().get(2).getContenido());
         btnOptionFour.setText(preguntaDto.getPlamRespuestasList().get(3).getContenido());
-        preguntasList.remove(equals(preguntaDto));
-        competidorDtoCurrent = sixPlayerBoardController.getCurrentCompetitor();
-        competidorDtoCurrent.getJugador().setPartidasJugadas(competidorDtoCurrent.getJugador().getPartidasJugadas() + 1);
+        preguntasList.remove(preguntaDto);
+        competidorDtoCurrent.getJugador().setCantidadPreguntas(competidorDtoCurrent.getJugador().getCantidadPreguntas()+1);
     }
     private void typeQuestionJugador(String typeOfQuestion) {
         switch (typeOfQuestion) {
@@ -338,5 +348,17 @@ public class CardController extends Controller implements Initializable {
         btnOptionThree.setText(preguntaDto.getPlamRespuestasList().get(2).getContenido());
         btnOptionFour.setText(preguntaDto.getPlamRespuestasList().get(3).getContenido());
         unblockButtons();
+    }
+    private void disableWildCards(){
+        if(competidorDtoCurrent.getComodinBomba() == 0){
+            btnBomb.setDisable(false);
+        }
+        if (competidorDtoCurrent.getComodinPasar()==0){
+            //btnPass.setDisable(false);
+        }
+        if (competidorDtoCurrent.getComodinDoble()==0){
+            //btnDouble.setDisable(false);
+        }
+
     }
 }

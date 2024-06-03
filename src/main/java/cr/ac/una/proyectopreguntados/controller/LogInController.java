@@ -60,12 +60,13 @@ public class LogInController extends Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    
+
    // setTiempoInicial("23:59:00");
     }
 
     @Override
     public void initialize() {
+        FlowController.getInstance().delete("SixPlayerBoardView");
     }
 
 

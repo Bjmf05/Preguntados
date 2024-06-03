@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="800.0" stylesheets="@Style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="cr.ac.una.proyectopreguntados.controller.DuelController">
+   <children>
+      <VBox alignment="TOP_CENTER" layoutX="48.0" layoutY="89.0" prefHeight="377.0" prefWidth="700.0" styleClass="CrownCategory-background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label styleClass="Title" text="Duelo" />
+            <HBox alignment="CENTER" spacing="20.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="290.0" prefWidth="271.0">
+                     <children>
+                        <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Label fx:id="lblNamePlayer1" alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="lblPlayer" text="Nombre" HBox.hgrow="ALWAYS" />
+                           </children>
+                        </HBox>
+                        <AnchorPane prefHeight="244.0" prefWidth="249.0">
+                           <children>
+                              <ImageView fx:id="imgStack" fitHeight="243.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <AnchorPane fx:id="rootCardQuestion" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <VBox fx:id="vbCard" alignment="TOP_CENTER" prefHeight="240.0" prefWidth="200.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Slider fx:id="sliderTime" prefWidth="200.0" />
+                                          <Text fx:id="textOfQuestion" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Cuál es el nombre del primer gran poema épico de la literatura inglesa?" textAlignment="CENTER" wrappingWidth="138.6549174785614">
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </Text>
+                                          <HBox>
+                                             <children>
+                                                <MFXButton fx:id="btnOptionOne" maxWidth="1.7976931348623157E308" onAction="#onActionBtnOption" prefHeight="20.0" prefWidth="150.0" styleClass="button-Question" text="Dante Alighieri" HBox.hgrow="ALWAYS" />
+                                             </children>
+                                          </HBox>
+                                          <HBox>
+                                             <children>
+                                                <MFXButton fx:id="btnOptionTwo" maxWidth="1.7976931348623157E308" onAction="#onActionBtnOption" prefHeight="30.0" prefWidth="150.0" styleClass="button-Question" text="Santiago García-Clairac" HBox.hgrow="ALWAYS" />
+                                             </children>
+                                          </HBox>
+                                          <HBox>
+                                             <children>
+                                                <MFXButton fx:id="btnOptionThree" maxWidth="1.7976931348623157E308" onAction="#onActionBtnOption" prefHeight="30.0" prefWidth="150.0" styleClass="button-Question" text="Para mezclar pinturas" HBox.hgrow="ALWAYS" />
+                                             </children>
+                                          </HBox>
+                                          <HBox>
+                                             <children>
+                                                <MFXButton fx:id="btnOptionFour" maxWidth="1.7976931348623157E308" onAction="#onActionBtnOption" prefHeight="30.0" prefWidth="150.0" styleClass="button-Question" text="El coronel no tiene quién le escriba" HBox.hgrow="ALWAYS" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <ImageView fx:id="imgCardBack" fitHeight="243.0" fitWidth="271.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
+                        <HBox alignment="CENTER" prefHeight="102.0" prefWidth="200.0" spacing="10.0">
+                           <children>
+                              <MFXButton text="Intento 2" />
+                              <MFXButton text="Pasar" />
+                              <MFXButton fx:id="btnBombPlayer1" onAction="#onActionBtnBombPlayer1" text="Bomba" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <ImageView fx:id="imgTypeQuestion" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
+                  <VBox alignment="CENTER" prefHeight="290.0" prefWidth="271.0">
+                     <children>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <Label fx:id="lblNamePlayer2" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" prefHeight="29.0" prefWidth="59.0" styleClass="lblPlayer" text="Nombre" HBox.hgrow="ALWAYS" />
+                           </children>
+                        </HBox>
+                        <AnchorPane prefHeight="244.0" prefWidth="249.0">
+                           <children>
+                              <ImageView fx:id="imgStack1" fitHeight="243.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <AnchorPane fx:id="rootCardQuestion1" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <VBox fx:id="vbCard1" alignment="TOP_CENTER" prefHeight="240.0" prefWidth="200.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Slider fx:id="sliderTime1" prefWidth="200.0" />
+                                          <Text fx:id="textOfQuestionPlayer2" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Cuál es el nombre del primer gran poema épico de la literatura inglesa?" textAlignment="CENTER" wrappingWidth="138.6549174785614">
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </Text>
+                                          <HBox alignment="CENTER">
+                                             <children>
+                                                <MFXButton fx:id="btnOptionOnePlayer2" maxWidth="1.7976931348623157E308" onAction="#onActionBtnOptionPlayer2" prefHeight="20.0" prefWidth="150.0" styleClass="button-Question" text="Dante Alighieri" HBox.hgrow="ALWAYS" />
+                                             </children>
+                                          </HBox>
+                                          <HBox>
+                                             <children>
+                                                <MFXButton fx:id="btnOptionTwoPlayer2" maxWidth="1.7976931348623157E308" onAction="#onActionBtnOptionPlayer2" prefHeight="30.0" prefWidth="150.0" styleClass="button-Question" text="Santiago García-Clairac" HBox.hgrow="ALWAYS" />
+                                             </children>
+                                          </HBox>
+                                          <HBox>
+                                             <children>
+                                                <MFXButton fx:id="btnOptionThreePlayer2" maxWidth="1.7976931348623157E308" onAction="#onActionBtnOptionPlayer2" prefHeight="30.0" prefWidth="150.0" styleClass="button-Question" text="Para mezclar pinturas" HBox.hgrow="ALWAYS" />
+                                             </children>
+                                          </HBox>
+                                          <HBox>
+                                             <children>
+                                                <MFXButton fx:id="btnOptionFourPlayer2" maxWidth="1.7976931348623157E308" onAction="#onActionBtnOptionPlayer2" prefHeight="30.0" prefWidth="150.0" styleClass="button-Question" text="El coronel no tiene quién le escriba" HBox.hgrow="ALWAYS" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <ImageView fx:id="imgCardBack2" fitHeight="243.0" fitWidth="271.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
+                        <HBox alignment="CENTER" prefHeight="102.0" prefWidth="200.0" spacing="10.0">
+                           <children>
+                              <MFXButton text="Intento 2" />
+                              <MFXButton text="Pasar" />
+                              <MFXButton fx:id="btnBombPlayer2" onAction="#onActionBtnBombPlayer2" text="Bomba" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

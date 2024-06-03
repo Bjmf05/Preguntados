@@ -4,7 +4,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import cr.ac.una.proyectopreguntados.model.CompetidorDto;
+import cr.ac.una.proyectopreguntados.util.AppContext;
 import cr.ac.una.proyectopreguntados.util.FlowController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.effect.DropShadow;
@@ -50,6 +54,9 @@ public class SelectCrownCategoryController extends Controller implements Initial
     @FXML
     private HBox root1;
     private String playerSelection;
+    @FXML
+    private ImageView imgDuel;
+    private ObservableList<CompetidorDto> competitorsDuel= FXCollections.observableArrayList();
 
     /**
      * Initializes the controller class.
@@ -58,7 +65,9 @@ public class SelectCrownCategoryController extends Controller implements Initial
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         clear();
+        disableDuel();
         deleteCharacter();
+
     }
 
     @Override
@@ -208,6 +217,7 @@ public class SelectCrownCategoryController extends Controller implements Initial
         dropShadowBlack(imgHistory);
         dropShadowBlack(imgGeography);
         dropShadowBlack(imgArt);
+        dropShadowBlack(imgDuel);
     }
 
     private void deleteCharacter() {
@@ -247,5 +257,63 @@ public class SelectCrownCategoryController extends Controller implements Initial
     public void setPlayerSelection(String playerSelection) {
         this.playerSelection = playerSelection;
     }
+
+    @FXML
+    private void onMouseExitedImgDuel(MouseEvent event) {
+        dropShadowBlack(imgDuel);
+    }
+
+    @FXML
+    private void onMouseEnteredImgDuel(MouseEvent event) {
+        DropShadow dropShadow = new DropShadow();
+        dropShadow.setRadius(5.0);
+        String hexColor = "#A53C1B";
+        Color color = Color.web(hexColor);
+        dropShadow.setColor(color);
+        imgArt.setEffect(dropShadow);
+    }
+
+    @FXML
+  private void onMouseClickedImgDuel(MouseEvent event) {
+      AppContext.getInstance().set("competitorsDuel", competitorsDuel);
+      FlowController.getInstance().goViewInWindowModal("SelectDuelView", getStage(), true);
+      FlowController.getInstance().delete("SelectDuelView");
+      getStage().close();
+}
+
+private void disableDuel(){
+    SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getController("SixPlayerBoardView");
+    imgDuel.setDisable(true);
+    CompetidorDto competidorDto = sixPlayerBoardController.getCurrentCompetitor();
+    if(hasCrown(competidorDto)){
+        ObservableList<CompetidorDto> competidores = getCompetitors();
+        int playersWithCrown = countPlayersWithCrown(competidores);
+        if(playersWithCrown > 1){
+            imgDuel.setDisable(false);
+        }
+    }
+
+}
+private ObservableList<CompetidorDto> getCompetitors() {
+    SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getController("SixPlayerBoardView");
+    sixPlayerBoardController.getPlayers();
+    return (ObservableList<CompetidorDto>) AppContext.getInstance().get("competitorsPlayer");
+}
+
+private int countPlayersWithCrown(ObservableList<CompetidorDto> competidores) {
+    int playersWithCrown = 0;
+    for (CompetidorDto competidor : competidores) {
+        if (hasCrown(competidor)) {
+            playersWithCrown++;
+            competitorsDuel.add(competidor);
+        }
+    }
+    return playersWithCrown;
+}
+
+private boolean hasCrown(CompetidorDto competidor) {
+    return competidor.getArte().equals("A") || competidor.getGeografia().equals("A") || competidor.getEntretenimiento().equals("A") || competidor.getDeporte().equals("A") || competidor.getHistoria().equals("A") || competidor.getCiencias().equals("A");
+}
+
 
 }
