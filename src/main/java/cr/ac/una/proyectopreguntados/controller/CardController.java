@@ -110,11 +110,10 @@ public class CardController extends Controller implements Initializable {
     @FXML
     private void onActionBtnOption(ActionEvent event) {
         clearButtons();
-        //blockButtons();
         MFXButton button = (MFXButton) event.getSource();
         String buttonText = button.getText();
         SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getController("SixPlayerBoardView");
-        ObservableList<PreguntaDto> preguntasEchas = sixPlayerBoardController.getGame().getPreguntasEchas() != null ? (ObservableList<PreguntaDto>) sixPlayerBoardController.getGame().getPreguntasEchas() : FXCollections.observableArrayList();
+       // ObservableList<PreguntaDto> preguntasEchas = sixPlayerBoardController.getGame().getPreguntasEchas() != null ? (ObservableList<PreguntaDto>) sixPlayerBoardController.getGame().getPreguntasEchas() : FXCollections.observableArrayList();
         
         preguntaDto.getPlamRespuestasList().stream()
                 .filter(respuesta -> buttonText.equals(respuesta.getContenido()))
@@ -137,6 +136,7 @@ public class CardController extends Controller implements Initializable {
                         restoreCard();
                         preguntaDto.setModificado(true);
                         preguntasEchas.add(preguntaDto);
+                        sixPlayerBoardController.setCurrentCompetitor(competidorDtoCurrent);
                         unblockButtons();
                           ((Stage) principalRoot.getScene().getWindow()).close();
                     });

@@ -65,7 +65,7 @@ public class SelectDuelController extends Controller implements Initializable {
     private MFXButton btnDuel;
     private int numberOfPlayer = 0;
     private ObservableList<CompetidorDto> competitorsDuel;
-    private CompetidorDto challengin;
+    private CompetidorDto challenging;
     private CompetidorDto player1;
     private CompetidorDto player2;
     private CompetidorDto player3;
@@ -185,10 +185,10 @@ handleAvatarSelection(playerIndex, route);
         CompetidorDto currentPlayer = sixPlayerBoardController.getCurrentCompetitor();
         for (CompetidorDto player : competitorsDuel) {
             if (player.getCompetidorPK().equals(currentPlayer.getCompetidorPK())) {
-                challengin= player;
+                challenging= player;
                 break;
             }}
-        competitorsDuel.remove(challengin);
+        competitorsDuel.remove(challenging);
     }
 
     private void fillPlayersDto() {
@@ -216,6 +216,9 @@ handleAvatarSelection(playerIndex, route);
 
     @FXML
     private void onActionBtnDuel(ActionEvent event) {
+        FlowController.getInstance().delete("DuelView");
+        prepareDuel();
+        FlowController.getInstance().goViewInWindowModal("DuelView", getStage(),true);
         getStage().close();
     }
 
@@ -230,12 +233,39 @@ handleAvatarSelection(playerIndex, route);
     }
 
     private CompetidorDto competitorsPlayer(int i) {
-        CompetidorDto[] player = {challengin, player1, player2, player3, player4, player5};
+        CompetidorDto[] player = {challenging, player1, player2, player3, player4, player5};
         return player[i];
     }
     private Label lblPlayer(int i) {
         Label[] lblPlayers = {lblJugador1, lblJugador2, lblJugador3, lblJugador4, lblJugador5, lblJugador6};
         return lblPlayers[i];
+    }
+    private String getTypeAvatar(String routeAvatar) {
+        switch (routeAvatar) {
+            case routeArte:
+                return "Arte";
+            case routeGeografia:
+                return "Geografía";
+            case routeHistoria:
+                return "Historia";
+            case routeCiencia:
+                return "Ciencia";
+            case routeDeporte:
+                return "Deporte";
+            case routeEntretenimiento:
+                return "Entretenimiento";
+            default:
+                return "";
+        }
+    }
+    private void prepareDuel() {
+       String typeAvatarChallengin = getTypeAvatar(routechallengin);
+       String typeAvatarChallenged = getTypeAvatar(challengedRoute);
+       AppContext.getInstance().set("typeAvatarChallenging", typeAvatarChallengin);
+       AppContext.getInstance().set("typeAvatarChallenged", typeAvatarChallenged);
+       CompetidorDto challenged = competitorsPlayer(numberChallenged);
+       AppContext.getInstance().set("challenging", challenging);
+       AppContext.getInstance().set("challenged", challenged);
     }
 
    }
