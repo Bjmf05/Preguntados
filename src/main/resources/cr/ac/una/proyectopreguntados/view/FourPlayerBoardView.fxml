@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="575.0" prefWidth="850.0" styleClass="CrownCategory-background" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.proyectopreguntados.controller.SixPlayerBoardController">
+   <children>
+      <ImageView fitHeight="535.0" fitWidth="520.0" layoutX="117.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="12.06768798828125" AnchorPane.leftAnchor="117.0" AnchorPane.rightAnchor="113.0" AnchorPane.topAnchor="15.0">
+         <image>
+            <Image url="@../resources/tablero_4.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgTinaPlayer1" fitHeight="45.0" fitWidth="45.0" layoutX="138.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true" rotate="96.4">
+         <image>
+            <Image url="@../resources/Arte.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgBonzoPlayer1" fitHeight="45.0" fitWidth="45.0" layoutX="186.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true" rotate="128.0">
+         <image>
+            <Image url="@../resources/Bonzo.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgAlbertPlayer1" fitHeight="45.0" fitWidth="45.0" layoutX="269.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true" rotate="160.0">
+         <image>
+            <Image url="@../resources/Ciencia.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgPopPlayer1" fitHeight="45.0" fitWidth="45.0" layoutX="318.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" rotate="167.5">
+         <image>
+            <Image url="@../resources/Entretenimiento.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgTitoPlayer1" fitHeight="45.0" fitWidth="45.0" layoutX="157.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true" rotate="114.6">
+         <image>
+            <Image url="@../resources/Geograf_a.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgHectorPlayer1" fitHeight="45.0" fitWidth="45.0" layoutX="225.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true" rotate="150.3">
+         <image>
+            <Image url="@../resources/Historia.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="lblPlayer1" layoutX="94.0" layoutY="55.0" styleClass="lblPlayer" text="Jugador 1" />
+      <Label fx:id="lblPlayer2" layoutX="578.0" layoutY="55.0" styleClass="lblPlayer" text="Jugador 2" />
+      <Label fx:id="lblPlayer3" layoutX="46.0" layoutY="405.0" styleClass="lblPlayer" text="Jugador 3" />
+      <Label fx:id="lblPlayer4" layoutX="642.0" layoutY="405.0" styleClass="lblPlayer" text="Jugador 4" />
+      <ImageView fx:id="imgTinaPlayer3" fitHeight="45.0" fitWidth="45.0" layoutX="314.0" layoutY="471.0" pickOnBounds="true" preserveRatio="true" rotate="8.899999999999999">
+         <image>
+            <Image url="@../resources/Arte.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgBonzoPlayer3" fitHeight="45.0" fitWidth="45.0" layoutX="210.0" layoutY="417.0" pickOnBounds="true" preserveRatio="true" rotate="46.9">
+         <image>
+            <Image url="@../resources/Bonzo.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgAlbertPlayer3" fitHeight="45.0" fitWidth="45.0" layoutX="153.0" layoutY="335.0" pickOnBounds="true" preserveRatio="true" rotate="68.9">
+         <image>
+            <Image url="@../resources/Ciencia.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgPopPlayer3" fitHeight="45.0" fitWidth="45.0" layoutX="138.0" layoutY="291.0" pickOnBounds="true" preserveRatio="true" rotate="81.9">
+         <image>
+            <Image url="@../resources/Entretenimiento.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgTitoPlayer3" fitHeight="45.0" fitWidth="45.0" layoutX="255.0" layoutY="452.0" pickOnBounds="true" preserveRatio="true" rotate="34.9">
+         <image>
+            <Image url="@../resources/Geograf_a.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgHectorPlayer3" fitHeight="45.0" fitWidth="45.0" layoutX="174.0" layoutY="378.0" pickOnBounds="true" preserveRatio="true" rotate="59.9">
+         <image>
+            <Image url="@../resources/Historia.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgTinaPlayer4" fitHeight="45.0" fitWidth="45.0" layoutX="569.0" layoutY="294.0" pickOnBounds="true" preserveRatio="true" rotate="-82.4">
+         <image>
+            <Image url="@../resources/Arte.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgBonzoPlayer4" fitHeight="45.0" fitWidth="45.0" layoutX="531.0" layoutY="385.0" pickOnBounds="true" preserveRatio="true" rotate="-52.8">
+         <image>
+            <Image url="@../resources/Bonzo.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgAlbertPlayer4" fitHeight="45.0" fitWidth="45.0" layoutX="443.0" layoutY="455.0" pickOnBounds="true" preserveRatio="true" rotate="-26.9">
+         <image>
+            <Image url="@../resources/Ciencia.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgPopPlayer4" fitHeight="45.0" fitWidth="45.0" layoutX="396.0" layoutY="469.0" pickOnBounds="true" preserveRatio="true" rotate="-4.8">
+         <image>
+            <Image url="@../resources/Entretenimiento.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgTitoPlayer4" fitHeight="45.0" fitWidth="45.0" layoutX="556.0" layoutY="343.0" pickOnBounds="true" preserveRatio="true" rotate="-62.5">
+         <image>
+            <Image url="@../resources/Geograf_a.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgHectorPlayer4" fitHeight="45.0" fitWidth="45.0" layoutX="493.0" layoutY="424.0" pickOnBounds="true" preserveRatio="true" rotate="-36.9">
+         <image>
+            <Image url="@../resources/Historia.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgTinaPlayer2" fitHeight="45.0" fitWidth="45.0" layoutX="388.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" rotate="-176.4">
+         <image>
+            <Image url="@../resources/Arte.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgBonzoPlayer2" fitHeight="45.0" fitWidth="45.0" layoutX="480.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true" rotate="-146.0">
+         <image>
+            <Image url="@../resources/Bonzo.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgAlbertPlayer2" fitHeight="45.0" fitWidth="45.0" layoutX="553.0" layoutY="155.0" pickOnBounds="true" preserveRatio="true" rotate="-114.1">
+         <image>
+            <Image url="@../resources/Ciencia.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgPopPlayer2" fitHeight="45.0" fitWidth="45.0" layoutX="572.0" layoutY="211.0" pickOnBounds="true" preserveRatio="true" rotate="-107.30000000000001">
+         <image>
+            <Image url="@../resources/Entretenimiento.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgTitoPlayer2" fitHeight="45.0" fitWidth="45.0" layoutX="435.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true" rotate="-155.0">
+         <image>
+            <Image url="@../resources/Geograf_a.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgAvatarPlayer1" fitHeight="26.0" fitWidth="26.0" layoutX="339.0" layoutY="107.0" pickOnBounds="true" preserveRatio="true" rotate="-105.9">
+         <image>
+            <Image url="@../resources/flecha.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgHectorPlayer2" fitHeight="45.0" fitWidth="45.0" layoutX="520.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true" rotate="-129.0">
+         <image>
+            <Image url="@../resources/Historia.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgAvatarPlayer2" fitHeight="26.0" fitWidth="26.0" layoutX="494.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true" rotate="-41.6">
+         <image>
+            <Image url="@../resources/flecha.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgAvatarPlayer3" fitHeight="26.0" fitWidth="26.0" layoutX="219.0" layoutY="207.0" pickOnBounds="true" preserveRatio="true" rotate="-162.5">
+         <image>
+            <Image url="@../resources/flecha.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgAvatarPlayer4" fitHeight="26.0" fitWidth="26.0" layoutX="516.0" layoutY="325.0" pickOnBounds="true" preserveRatio="true" rotate="7.1">
+         <image>
+            <Image url="@../resources/flecha.png" />
+         </image>
+      </ImageView>
+      <StackPane layoutX="247.0" layoutY="145.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="260.0" prefWidth="260.0">
+         <children>
+            <ImageView fx:id="imgWheel" fitHeight="260.0" fitWidth="260.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resources/ruleta1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="btnSpinWheel" fitHeight="75.0" fitWidth="75.0" onMouseClicked="#onMouseClickedSpinWheel" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resources/Girar.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+      <VBox layoutX="713.0" layoutY="1.0" prefHeight="200.0" prefWidth="137.0" spacing="10.0">
+         <children>
+            <VBox alignment="CENTER" styleClass="vbxTime">
+               <children>
+                  <Label styleClass="lblTime" text="Tiempo" />
+                  <Label styleClass="lblTime" text="Sin Limite" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" styleClass="vbxTime">
+               <children>
+                  <Label styleClass="lblRound" text="Ronda Actual" />
+                  <Label fx:id="lblCurrentRound" styleClass="lblRound" text="1" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" styleClass="vbxTime">
+               <children>
+                  <Label styleClass="lblCurrentPlayer" text="Jugador Actual" />
+                  <Label fx:id="lblCurrentPlayer" styleClass="lblCurrentPlayer" text="Hola" />
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>
