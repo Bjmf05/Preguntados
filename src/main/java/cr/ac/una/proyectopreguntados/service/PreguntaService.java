@@ -55,7 +55,11 @@ public class PreguntaService {
         try {
             Query qryPregunta = em.createNamedQuery("Pregunta.findById", Pregunta.class);
             qryPregunta.setParameter("id", id);
-            PreguntaDto preguntaDto = new PreguntaDto((Pregunta) qryPregunta.getSingleResult());
+            Pregunta pregunta = (Pregunta) qryPregunta.getSingleResult();
+            PreguntaDto preguntaDto = new PreguntaDto((pregunta));
+            for (Respuesta respuesta : pregunta.getPlamRespuestasList()) {
+                preguntaDto.getRespuestasList().add(new RespuestaDto(respuesta));
+            }
             return new RespuestaEnt(true, "", "", "Pregunta", preguntaDto);
         } catch (NoResultException ex) {
             return new RespuestaEnt(false, "No existe una pregunta con las credenciales ingresadas.", "getPregunta NoResultException");

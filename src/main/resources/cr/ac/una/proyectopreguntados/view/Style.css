@@ -23,7 +23,7 @@
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-font-size:14px;
-    -fx-aligment:CENTER_LEFT;
+    -fx-aligment:CENTER;
 }
 
 .button{
@@ -31,7 +31,7 @@
     -fx-opacity: 0.8;
     -fx-content-display: left;
     -fx-text-fill: black;
-    -fx-alignment:CENTER_LEFT;
+    -fx-alignment:CENTER;
     -fx-font-size: 14px;
     -fx-font-weight:bold;
 }
@@ -51,9 +51,11 @@
 .lblPlayer{
     -fx-font-family: Roboto;
     -fx-font-size: 15.0px;
+    -fx-text-fill: #000000;
     -fx-padding: 5 0 5 0;
     -fx-font-weight:bold;
-    -fx-effect:dropshadow(three-pass-box,rgba(0,0,0,0.1), 1, 0.1, 0, 1);
+    -fx-background-color:#ffffff;
+    -fx-opacity: 0.7;
 }
 /*SelectCrownCategory*/
 .CrownCategory-background{
@@ -156,6 +158,69 @@
     -fx-fit-height: 100%;
     -fx-fit-width: 100%;
     -fx-background-position: center;
+}
+.mfx-btn-NewGame{
+    -fx-background-color:#00C853;
+}
+
+.mfx-btn-NewGame>ImageView{
+    -fx-image: url("../resources/newGame.png");
+}
+
+.mfx-btn-NewGame:hover{
+    -fx-background-color:#00ff66;
+}
+.mfx-btn-MaintenanceQuestion{
+    -fx-background-color: #e8de40;
+}
+
+.mfx-btn-MaintenanceQuestion>ImageView{
+    -fx-image: url("../resources/Maitenance.png");
+}
+
+.mfx-btn-MaintenanceQuestion:hover{
+    -fx-background-color: #f0f481;
+}
+.mfx-btn-LoadGame{
+    -fx-background-color: #49f6e2;
+}
+
+.mfx-btn-LoadGame>ImageView{
+    -fx-image: url("../resources/LoadGame.png");
+}
+
+.mfx-btn-LoadGame:hover{
+    -fx-background-color: #81f8d7;
+}
+
+.mfx-btn-Exit{
+    -fx-background-color: #ec5858;
+}
+.mfx-btn-Exit>ImageView{
+    -fx-image: url("../resources/exit.png");
+}
+.mfx-btn-Exit:hover{
+    -fx-background-color: #f489a5;
+}
+.mfx-btn-Statistics{
+    -fx-background-color: #79d1fd;
+}
+.mfx-btn-Statistics>ImageView{
+    -fx-image: url("../resources/Statistics.png");
+}
+
+.mfx-btn-Statistics:hover{
+    -fx-background-color: #a0d3e8;
+}
+.mfx-btn-About{
+    -fx-background-color: #56588e;
+}
+.mfx-btn-About>ImageView{
+    -fx-image: url("../resources/About.png");
+}
+
+.mfx-btn-About:hover{
+    -fx-background-color: #da9fea;
 }
 /*Maintenance question*/
 /*Search question*/

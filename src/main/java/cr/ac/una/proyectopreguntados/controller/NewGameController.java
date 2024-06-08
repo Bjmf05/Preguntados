@@ -129,7 +129,7 @@ public class NewGameController extends Controller implements Initializable {
     }
 
     private void imageBoard(int number) {
-        String[] imageBoards = {"boardSixPlayer.jpg", "boardSixPlayer.jpg", "boardSixPlayer.jpg", "boardSixPlayer.jpg", "boardSixPlayer.jpg"};
+        String[] imageBoards = {"pre_tablero_2.png", "pre_tablero_3.png", "pre_tablero_4.png", "pre_tablero_5.png", "pre_tablero_6.png"};
         InputStream inputStream = App.class.getResourceAsStream("/cr/ac/una/proyectopreguntados/resources/" + imageBoards[number - 2]);
         imgBoard.setImage(new Image(inputStream));
     }
