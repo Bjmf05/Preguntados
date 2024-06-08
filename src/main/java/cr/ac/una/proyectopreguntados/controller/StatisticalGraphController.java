@@ -44,7 +44,7 @@ public class StatisticalGraphController extends Controller implements Initializa
     @FXML
     private StackPane stpBarChart;
     @FXML
-    private BarChart<Long, String> barChartGraph;
+    private BarChart<Number, String> barChartGraph;
     @FXML
     private CategoryAxis categoryYAxis;
     @FXML
@@ -53,25 +53,29 @@ public class StatisticalGraphController extends Controller implements Initializa
     private MFXButton btnExit;
     private JugadorDto jugadorDto;
     private ObservableList<JugadorDto> players = FXCollections.observableArrayList();
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        loadPlayer();
+        categoryYAxis.setCategories(FXCollections.observableArrayList(
+                "Total de Preguntas", "Acertadas", "Historia", "Arte", "Geografía", "Ciencias", "Entretenimiento"
+        ));
     }
 
     @FXML
     private void onActionCbxNombre(ActionEvent event) {
-        loadPlayer();
-        //cbxNombre.getText();
-        //dataOfGrafic(jugadorDto);
+        players.stream().filter(player -> player.getNombre().equals(cbxNombre.getValue())).findFirst().ifPresent(this::dataOfGrafic);
     }
 
     private void dataOfGrafic(JugadorDto jugador) {
-        categoryYAxis = (CategoryAxis) barChartGraph.getYAxis();
-        // Crear la serie de datos para "Respondidas"
-        XYChart.Series<Long, String> serieOfData = new XYChart.Series<>();
+        barChartGraph.getData().clear();
+        //categoryYAxis = (CategoryAxis) barChartGraph.getYAxis();
+        // Crear la serie de datos
+        XYChart.Series<Number, String> serieOfData = new XYChart.Series<>();
         serieOfData.setName("Preguntas Respondidas");
         serieOfData.getData().add(new XYChart.Data<>(jugador.getCantidadPreguntas(), "Total de Preguntas"));
         serieOfData.getData().add(new XYChart.Data<>(jugador.getCantidadAciertos(), "Acertadas"));
@@ -82,8 +86,8 @@ public class StatisticalGraphController extends Controller implements Initializa
         serieOfData.getData().add(new XYChart.Data<>(jugador.getCantidadAEntretenimiento(), "Entretenimiento"));
 
         barChartGraph.getData().addAll(serieOfData);
-        for (XYChart.Series<Long, String> series : barChartGraph.getData()) {
-            for (XYChart.Data<Long, String> data : series.getData()) {
+        for (XYChart.Series<Number, String> series : barChartGraph.getData()) {
+            for (XYChart.Data<Number, String> data : series.getData()) {
                 data.nodeProperty().addListener((observable, oldNode, newNode) -> {
                     if (newNode != null) {
                         setValueBarChart(data);
@@ -96,9 +100,9 @@ public class StatisticalGraphController extends Controller implements Initializa
         }
     }
 
-    private void setValueBarChart(XYChart.Data<Long, String> data) {
+    private void setValueBarChart(XYChart.Data<Number, String> data) {
         stpBarChart = (StackPane) data.getNode();
-        Label label = new Label(data.getXValue().toString());
+        Label label = new Label(String.format("%d", data.getXValue().intValue()));//data.getXValue().toString());
         stpBarChart.setMinHeight(40); // Ajusta el tamaño mínimo de las barras
         stpBarChart.getChildren().add(label);
         StackPane.setAlignment(label, javafx.geometry.Pos.CENTER_RIGHT);

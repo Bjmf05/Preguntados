@@ -91,21 +91,22 @@ public class LogInController extends Controller implements Initializable {
     }
     @FXML
     private void onActionBtnStatistics(ActionEvent event) {
-                if (timeline != null) {
-            timeline.stop();
-        }
-        timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> actualizarCronometro()));
-        timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.play();
-    }
-        private void actualizarCronometro() {
-        tiempoInicial = tiempoInicial.minusSeconds(1);
-        String tiempo = tiempoInicial.format(formatter);
-        idPruebaTime.setText(tiempo);
-
-        if (tiempoInicial.getHour() == 0 && tiempoInicial.getMinute() == 0 && tiempoInicial.getSecond() == 0) {
-            timeline.stop();
-        }
+//                if (timeline != null) {
+//            timeline.stop();
+//        }
+//        timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> actualizarCronometro()));
+//        timeline.setCycleCount(Animation.INDEFINITE);
+//        timeline.play();
+//    }
+//        private void actualizarCronometro() {
+//        tiempoInicial = tiempoInicial.minusSeconds(1);
+//        String tiempo = tiempoInicial.format(formatter);
+//        idPruebaTime.setText(tiempo);
+//
+//        if (tiempoInicial.getHour() == 0 && tiempoInicial.getMinute() == 0 && tiempoInicial.getSecond() == 0) {
+//            timeline.stop();
+//        }
+        FlowController.getInstance().goViewInWindowModal("StatisticalGraphView", getStage(), true);
     }
 
     @FXML
