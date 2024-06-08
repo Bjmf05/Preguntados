@@ -103,7 +103,7 @@
             <Image url="@../resources/Geograf_a.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgAvatarPlayer1" fitHeight="26.0" fitWidth="26.0" layoutX="475.0" layoutY="174.0" pickOnBounds="true" preserveRatio="true" rotate="-56.9">
+      <ImageView fx:id="imgAvatarPlayer1" fitHeight="26.0" fitWidth="26.0" layoutX="476.0" layoutY="178.0" pickOnBounds="true" preserveRatio="true" rotate="-137.9">
          <image>
             <Image url="@../resources/flecha.png" />
          </image>
@@ -113,12 +113,12 @@
             <Image url="@../resources/Historia.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgAvatarPlayer2" fitHeight="26.0" fitWidth="26.0" layoutX="216.0" layoutY="254.0" pickOnBounds="true" preserveRatio="true" rotate="-171.6">
+      <ImageView fx:id="imgAvatarPlayer2" fitHeight="26.0" fitWidth="26.0" layoutX="221.0" layoutY="255.0" pickOnBounds="true" preserveRatio="true" rotate="108.1">
          <image>
             <Image url="@../resources/flecha.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgAvatarPlayer3" fitHeight="26.0" fitWidth="26.0" layoutX="419.0" layoutY="438.0" pickOnBounds="true" preserveRatio="true" rotate="-298.5">
+      <ImageView fx:id="imgAvatarPlayer3" fitHeight="26.0" fitWidth="26.0" layoutX="416.0" layoutY="435.0" pickOnBounds="true" preserveRatio="true" rotate="-32.8">
          <image>
             <Image url="@../resources/flecha.png" />
          </image>

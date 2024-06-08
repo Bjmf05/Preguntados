@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -72,17 +73,20 @@
             <Image url="@../resources/Geograf_a.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgAvatarPlayer1" fitHeight="26.0" fitWidth="26.0" layoutX="339.0" layoutY="107.0" pickOnBounds="true" preserveRatio="true" rotate="-105.9">
+      <ImageView fx:id="imgAvatarPlayer1" fitHeight="26.0" fitWidth="26.0" layoutX="225.0" layoutY="210.0" pickOnBounds="true" preserveRatio="true" rotate="-108.6">
          <image>
             <Image url="@../resources/flecha.png" />
          </image>
+         <rotationAxis>
+            <Point3D z="-4.0" />
+         </rotationAxis>
       </ImageView>
       <ImageView fx:id="imgHectorPlayer2" fitHeight="56.0" fitWidth="55.0" layoutX="273.0" layoutY="468.0" pickOnBounds="true" preserveRatio="true" rotate="-159.0">
          <image>
             <Image url="@../resources/Historia.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgAvatarPlayer2" fitHeight="26.0" fitWidth="26.0" layoutX="494.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true" rotate="-41.6">
+      <ImageView fx:id="imgAvatarPlayer2" fitHeight="26.0" fitWidth="26.0" layoutX="225.0" layoutY="342.0" pickOnBounds="true" preserveRatio="true" rotate="58.2">
          <image>
             <Image url="@../resources/flecha.png" />
          </image>

@@ -165,7 +165,7 @@
             <Image url="@../resources/Geograf_a.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgAvatarPlayer1" fitHeight="26.0" fitWidth="26.0" layoutX="434.0" layoutY="149.0" pickOnBounds="true" preserveRatio="true" rotate="-56.9">
+      <ImageView fx:id="imgAvatarPlayer1" fitHeight="26.0" fitWidth="26.0" layoutX="435.0" layoutY="151.0" pickOnBounds="true" preserveRatio="true" rotate="-150.4">
          <image>
             <Image url="@../resources/flecha.png" />
          </image>
@@ -175,22 +175,22 @@
             <Image url="@../resources/Historia.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgAvatarPlayer2" fitHeight="26.0" fitWidth="26.0" layoutX="256.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true" rotate="-154.6">
+      <ImageView fx:id="imgAvatarPlayer2" fitHeight="26.0" fitWidth="26.0" layoutX="260.0" layoutY="185.0" pickOnBounds="true" preserveRatio="true" rotate="118.0">
          <image>
             <Image url="@../resources/flecha.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgAvatarPlayer3" fitHeight="26.0" fitWidth="26.0" layoutX="232.0" layoutY="365.0" pickOnBounds="true" preserveRatio="true" rotate="-216.5">
+      <ImageView fx:id="imgAvatarPlayer3" fitHeight="26.0" fitWidth="26.0" layoutX="233.0" layoutY="363.0" pickOnBounds="true" preserveRatio="true" rotate="57.3">
          <image>
             <Image url="@../resources/flecha.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgAvatarPlayer5" fitHeight="26.0" fitWidth="26.0" layoutX="525.0" layoutY="309.0" pickOnBounds="true" preserveRatio="true" rotate="-0.5">
+      <ImageView fx:id="imgAvatarPlayer5" fitHeight="26.0" fitWidth="26.0" layoutX="523.0" layoutY="309.0" pickOnBounds="true" preserveRatio="true" rotate="-79.0">
          <image>
             <Image url="@../resources/flecha.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgAvatarPlayer4" fitHeight="26.0" fitWidth="26.0" layoutX="401.0" layoutY="442.0" pickOnBounds="true" preserveRatio="true" rotate="71.1">
+      <ImageView fx:id="imgAvatarPlayer4" fitHeight="26.0" fitWidth="26.0" layoutX="397.0" layoutY="441.0" pickOnBounds="true" preserveRatio="true" rotate="-19.2">
          <image>
             <Image url="@../resources/flecha.png" />
          </image>

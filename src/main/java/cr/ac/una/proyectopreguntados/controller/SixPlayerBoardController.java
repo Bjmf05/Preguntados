@@ -98,8 +98,6 @@ public class SixPlayerBoardController extends Controller implements Initializabl
     @FXML
     private ImageView imgWheel;
     @FXML
-    private Button btnSpinWheel;
-    @FXML
     private ImageView imgAlbertPlayer3;
     @FXML
     private ImageView imgPopPlayer3;
@@ -172,8 +170,6 @@ public class SixPlayerBoardController extends Controller implements Initializabl
 
 
     }
-
-    /////Nuevas funciones
     private void checkGame() {
         ObservableList<CompetidorDto> competitorsFiltered = competitors.filtered(competitor -> competitor.getTurno().equals("A"));
         if (competitorsFiltered.size() == 1) {
@@ -226,26 +222,8 @@ public class SixPlayerBoardController extends Controller implements Initializabl
         }
     }
 
-    /////////////
     @FXML
-    private void onActionBtnSpinWheel(ActionEvent event) {
-        RotateTransition rotateTransition = new RotateTransition(Duration.seconds(1), imgWheel);
-        Random random = new Random();
-        int randomAngle = random.nextInt(1081) + 1080;
-        rotateTransition.setByAngle(randomAngle);
-        rotateTransition.setCycleCount(1);
-
-        // Crea una instancia de la clase interna que implementa EventHandler<ActionEvent>
-        EventHandler<ActionEvent> eventHandler = new TransitionFinishedEventHandler();
-
-        // Asigna la instancia como el oyente de la transición
-        rotateTransition.setOnFinished(eventHandler);
-
-        // Inicia la rotación
-        rotateTransition.play();
-    }
-
-    private void onMousePressedSpinWheel(MouseEvent event) {
+    private void onMouseClickedSpinWheel(MouseEvent event) {
                 RotateTransition rotateTransition = new RotateTransition(Duration.seconds(1), imgWheel);
         Random random = new Random();
         int randomAngle = random.nextInt(1081) + 1080;
@@ -260,10 +238,6 @@ public class SixPlayerBoardController extends Controller implements Initializabl
 
         // Inicia la rotación
         rotateTransition.play();
-    }
-
-    @FXML
-    private void onMouseClickedSpinWheel(MouseEvent event) {
     }
 
     class TransitionFinishedEventHandler implements EventHandler<ActionEvent> {
