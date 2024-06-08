@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -16,32 +15,32 @@
             <Image url="@../resources/tablero_6.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgTinaPlayer1" fitHeight="35.0" fitWidth="35.0" layoutX="165.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true" rotate="119.1">
+      <ImageView fx:id="imgTinaPlayer1" fitHeight="42.0" fitWidth="42.0" layoutX="181.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" rotate="127.4">
          <image>
             <Image url="@../resources/Arte.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgBonzoPlayer1" fitHeight="35.0" fitWidth="35.0" layoutX="221.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" rotate="145.0">
+      <ImageView fx:id="imgBonzoPlayer1" fitHeight="45.0" fitWidth="45.0" layoutX="235.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" rotate="145.0">
          <image>
             <Image url="@../resources/Bonzo.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgAlbertPlayer1" fitHeight="35.0" fitWidth="35.0" layoutX="294.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true" rotate="160.0">
+      <ImageView fx:id="imgAlbertPlayer1" fitHeight="45.0" fitWidth="45.0" layoutX="290.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true" rotate="160.0">
          <image>
             <Image url="@../resources/Ciencia.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgPopPlayer1" fitHeight="35.0" fitWidth="35.0" layoutX="324.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" rotate="167.5">
+      <ImageView fx:id="imgPopPlayer1" fitHeight="45.0" fitWidth="45.0" layoutX="324.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true" rotate="167.5">
          <image>
             <Image url="@../resources/Entretenimiento.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgTitoPlayer1" fitHeight="35.0" fitWidth="35.0" layoutX="193.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true" rotate="135.6">
+      <ImageView fx:id="imgTitoPlayer1" fitHeight="45.0" fitWidth="45.0" layoutX="207.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" rotate="135.6">
          <image>
             <Image url="@../resources/Geograf_a.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgHectorPlayer1" fitHeight="35.0" fitWidth="35.0" layoutX="264.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true" rotate="150.3">
+      <ImageView fx:id="imgHectorPlayer1" fitHeight="45.0" fitWidth="45.0" layoutX="263.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" rotate="150.3">
          <image>
             <Image url="@../resources/Historia.png" />
          </image>
@@ -197,9 +196,9 @@
             <Image url="@../resources/Geograf_a.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgAvatarPlayer1" fitHeight="26.0" fitWidth="26.0" layoutX="332.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true" rotate="-105.9">
+      <ImageView fx:id="imgAvatarPlayer1" fitHeight="26.0" fitWidth="26.0" layoutX="339.0" layoutY="107.0" pickOnBounds="true" preserveRatio="true" rotate="-105.9">
          <image>
-            <Image url="@../resources/2-AnyEraser.png" />
+            <Image url="@../resources/flecha.png" />
          </image>
       </ImageView>
       <ImageView fx:id="imgHectorPlayer2" fitHeight="35.0" fitWidth="35.0" layoutX="499.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true" rotate="-146.0">
@@ -232,14 +231,18 @@
             <Image url="@../resources/flecha.png" />
          </image>
       </ImageView>
-      <StackPane layoutX="204.0" layoutY="104.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="345.0" prefWidth="345.0">
+      <StackPane layoutX="247.0" layoutY="145.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="260.0" prefWidth="260.0">
          <children>
-            <ImageView fx:id="imgWheel" fitHeight="345.0" fitWidth="345.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgWheel" fitHeight="260.0" fitWidth="260.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../resources/ruleta.png" />
+                  <Image url="@../resources/ruleta1.png" />
                </image>
             </ImageView>
-            <Button fx:id="btnSpinWheel" mnemonicParsing="false" onAction="#onActionBtnSpinWheel" prefHeight="56.0" prefWidth="71.0" styleClass="triangle-button" text="Girar" />
+            <ImageView fx:id="btnSpinWheel" fitHeight="75.0" fitWidth="75.0" onMouseClicked="#onMouseClickedSpinWheel" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resources/Girar.png" />
+               </image>
+            </ImageView>
          </children>
       </StackPane>
       <VBox layoutX="713.0" layoutY="1.0" prefHeight="200.0" prefWidth="137.0" spacing="10.0">

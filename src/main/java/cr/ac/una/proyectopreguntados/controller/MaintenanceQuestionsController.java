@@ -79,7 +79,7 @@ public class MaintenanceQuestionsController extends Controller implements Initia
     RespuestaDto respuestaDtoIncorrect2;
     RespuestaDto respuestaDtoIncorrect3;
     List<Node> required = new ArrayList<>();
-    ObservableList<Respuesta> answers = FXCollections.observableArrayList();
+    ObservableList<RespuestaDto> answers = FXCollections.observableArrayList();
 
     /**
      * Initializes the controller class.
@@ -312,18 +312,16 @@ public class MaintenanceQuestionsController extends Controller implements Initia
     }
 
     private void getAnswer(PreguntaDto preguntaDto) {
-        answers.addAll(preguntaDto.getPlamRespuestasList());
-        for (Respuesta answer : answers) {
-            RespuestaDto respuestaDto = new RespuestaDto(answer);
-
+        answers.addAll(preguntaDto.getRespuestasList());
+        for (RespuestaDto answer : answers) {
             if (answer.getTipo().equals("V")) {
-                respuestaDtoCorrect = respuestaDto;
+                respuestaDtoCorrect = answer;
             } else if (respuestaDtoIncorrect1.getId() == null) {
-                respuestaDtoIncorrect1 = respuestaDto;
+                respuestaDtoIncorrect1 = answer;
             } else if (respuestaDtoIncorrect2.getId() == null) {
-                respuestaDtoIncorrect2 = respuestaDto;
+                respuestaDtoIncorrect2 = answer;
             } else if (respuestaDtoIncorrect3.getId() == null) {
-                respuestaDtoIncorrect3 = respuestaDto;
+                respuestaDtoIncorrect3 = answer;
             }
         }
 

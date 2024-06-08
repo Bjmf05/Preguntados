@@ -2,6 +2,8 @@ package cr.ac.una.proyectopreguntados.service;
 
 import cr.ac.una.proyectopreguntados.model.Pregunta;
 import cr.ac.una.proyectopreguntados.model.PreguntaDto;
+import cr.ac.una.proyectopreguntados.model.Respuesta;
+import cr.ac.una.proyectopreguntados.model.RespuestaDto;
 import cr.ac.una.proyectopreguntados.util.EntityManagerHelper;
 import cr.ac.una.proyectopreguntados.util.RespuestaEnt;
 import jakarta.persistence.EntityManager;
@@ -70,11 +72,18 @@ public class PreguntaService {
         try {
             Query query = em.createNamedQuery("Pregunta.findAll", Pregunta.class);
             List<Pregunta> preguntas = (List<Pregunta>) query.getResultList();
-            List<PreguntaDto> preguntaDto = new ArrayList<>();
+            List<PreguntaDto> preguntasDto = new ArrayList<>();
             for (Pregunta pre : preguntas) {
-                preguntaDto.add(new PreguntaDto(pre));
+                
+                PreguntaDto preg = new PreguntaDto(pre);
+                for (Respuesta respuesta : pre.getPlamRespuestasList()) {
+                    preg.getRespuestasList().add(new RespuestaDto(respuesta));
+                }
+                
+                preguntasDto.add(preg);
+                
             }
-            return new RespuestaEnt(true, "", "", "Preguntas", preguntaDto);
+            return new RespuestaEnt(true, "", "", "Preguntas", preguntasDto);
         } catch (NoResultException ex) {
             return new RespuestaEnt(false, "No existen Preguntas.", "getPreguntas NoResultException");
         } catch (Exception ex) {

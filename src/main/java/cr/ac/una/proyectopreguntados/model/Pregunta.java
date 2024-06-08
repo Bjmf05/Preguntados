@@ -3,6 +3,7 @@ package cr.ac.una.proyectopreguntados.model;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -50,13 +51,18 @@ public class Pregunta implements Serializable {
     @ManyToMany(mappedBy = "preguntaList", fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
     private List<Partida> PartidasList;
     public Pregunta() {
-    }
+        PartidasList = new ArrayList<>();
+        plamRespuestasList = new ArrayList<>();
+                
+             }
 
     public Pregunta(Long id) {
+        this();
         this.id = id;
     }
 
     public Pregunta(PreguntaDto preguntaDto) {
+        this();
         this.id = preguntaDto.getId();
         actualizar(preguntaDto);
     }

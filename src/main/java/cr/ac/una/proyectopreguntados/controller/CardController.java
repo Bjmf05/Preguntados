@@ -113,9 +113,8 @@ public class CardController extends Controller implements Initializable {
         MFXButton button = (MFXButton) event.getSource();
         String buttonText = button.getText();
         SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getController("SixPlayerBoardView");
-       // ObservableList<PreguntaDto> preguntasEchas = sixPlayerBoardController.getGame().getPreguntasEchas() != null ? (ObservableList<PreguntaDto>) sixPlayerBoardController.getGame().getPreguntasEchas() : FXCollections.observableArrayList();
-        
-        preguntaDto.getPlamRespuestasList().stream()
+
+        preguntaDto.getRespuestasList().stream()
                 .filter(respuesta -> buttonText.equals(respuesta.getContenido()))
                 .findFirst()
                 .ifPresent(respuesta -> {
@@ -218,10 +217,10 @@ public class CardController extends Controller implements Initializable {
         preguntaDto = questionFiltered.get(index);
         preguntaDto.setCantidadLlamadas(preguntaDto.getCantidadLlamadas() + 1);
         textOfQuestion.setText(preguntaDto.getContenido());
-        btnOptionOne.setText(preguntaDto.getPlamRespuestasList().get(0).getContenido());
-        btnOptionTwo.setText(preguntaDto.getPlamRespuestasList().get(1).getContenido());
-        btnOptionThree.setText(preguntaDto.getPlamRespuestasList().get(2).getContenido());
-        btnOptionFour.setText(preguntaDto.getPlamRespuestasList().get(3).getContenido());
+        btnOptionOne.setText(preguntaDto.getRespuestasList().get(0).getContenido());
+        btnOptionTwo.setText(preguntaDto.getRespuestasList().get(1).getContenido());
+        btnOptionThree.setText(preguntaDto.getRespuestasList().get(2).getContenido());
+        btnOptionFour.setText(preguntaDto.getRespuestasList().get(3).getContenido());
         preguntasList.remove(preguntaDto);
         competidorDtoCurrent.getJugador().setCantidadPreguntas(competidorDtoCurrent.getJugador().getCantidadPreguntas()+1);
     }
@@ -291,7 +290,7 @@ public class CardController extends Controller implements Initializable {
         MFXButton correctButton = null;
         for (MFXButton button : buttonList) {
             String buttonText = button.getText();
-            boolean correctOpcion = preguntaDto.getPlamRespuestasList().stream().anyMatch(respuesta -> 
+            boolean correctOpcion = preguntaDto.getRespuestasList().stream().anyMatch(respuesta -> 
                     buttonText.equals(respuesta.getContenido()) && "V".equals(respuesta.getTipo()));
             if (correctOpcion) {
                 correctButton = button;
@@ -325,10 +324,10 @@ public class CardController extends Controller implements Initializable {
         preguntaDto = questionFiltered.get(index);
         preguntaDto.setCantidadLlamadas(preguntaDto.getCantidadLlamadas() + 1);
         textOfQuestion.setText(preguntaDto.getContenido());
-        btnOptionOne.setText(preguntaDto.getPlamRespuestasList().get(0).getContenido());
-        btnOptionTwo.setText(preguntaDto.getPlamRespuestasList().get(1).getContenido());
-        btnOptionThree.setText(preguntaDto.getPlamRespuestasList().get(2).getContenido());
-        btnOptionFour.setText(preguntaDto.getPlamRespuestasList().get(3).getContenido());
+        btnOptionOne.setText(preguntaDto.getRespuestasList().get(0).getContenido());
+        btnOptionTwo.setText(preguntaDto.getRespuestasList().get(1).getContenido());
+        btnOptionThree.setText(preguntaDto.getRespuestasList().get(2).getContenido());
+        btnOptionFour.setText(preguntaDto.getRespuestasList().get(3).getContenido());
         unblockButtons();
     }
     private void disableWildCards(){

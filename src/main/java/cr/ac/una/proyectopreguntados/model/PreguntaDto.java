@@ -1,6 +1,7 @@
 package cr.ac.una.proyectopreguntados.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -18,7 +19,7 @@ public class PreguntaDto implements Serializable {
     public SimpleBooleanProperty estado;
     public SimpleStringProperty cantidadLlamadas;
     public Long version;
-    private List<Respuesta> plamRespuestasList;
+    private List<RespuestaDto> respuestasList;
     public boolean modificado;
 
     public PreguntaDto() {
@@ -27,6 +28,7 @@ public class PreguntaDto implements Serializable {
         this.categoria = new SimpleStringProperty("");
         this.estado = new SimpleBooleanProperty(true);
         this.cantidadLlamadas = new SimpleStringProperty("0");
+        this.respuestasList = new ArrayList<>();
     }
 
     public PreguntaDto(Pregunta pregunta) {
@@ -36,7 +38,6 @@ public class PreguntaDto implements Serializable {
         this.categoria.set(pregunta.getCategoria());
         this.estado.setValue(pregunta.getEstado().equalsIgnoreCase("A"));
         this.cantidadLlamadas.set(pregunta.getCantidadLlamadas().toString());
-        this.plamRespuestasList = pregunta.getPlamRespuestasList();
         this.version = pregunta.getVersion();
         this.modificado = false;
     }
@@ -84,12 +85,12 @@ public class PreguntaDto implements Serializable {
     public void setCantidadLlamadas(Long cantidadLlamadas) {
         this.cantidadLlamadas.set(cantidadLlamadas.toString()); 
     }
-    public List<Respuesta> getPlamRespuestasList() {
-        return plamRespuestasList;
+    public List<RespuestaDto> getRespuestasList() {
+        return respuestasList;
     }
 
-    public void setPlamRespuestasList(List<Respuesta> plamRespuestasList) {
-        this.plamRespuestasList = plamRespuestasList;
+    public void setRespuestasList(List<RespuestaDto> RespuestasList) {
+        this.respuestasList = RespuestasList;
     }
 
     public boolean isModificado() {

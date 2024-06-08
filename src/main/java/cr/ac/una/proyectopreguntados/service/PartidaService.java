@@ -4,6 +4,8 @@ import cr.ac.una.proyectopreguntados.model.Partida;
 import cr.ac.una.proyectopreguntados.model.PartidaDto;
 import cr.ac.una.proyectopreguntados.model.Pregunta;
 import cr.ac.una.proyectopreguntados.model.PreguntaDto;
+import cr.ac.una.proyectopreguntados.model.Respuesta;
+import cr.ac.una.proyectopreguntados.model.RespuestaDto;
 import cr.ac.una.proyectopreguntados.util.EntityManagerHelper;
 import cr.ac.una.proyectopreguntados.util.RespuestaEnt;
 import jakarta.persistence.*;
@@ -11,6 +13,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,6 +21,7 @@ import java.util.logging.Logger;
  * @author PC
  */
 public class PartidaService {
+
     private EntityManager em = EntityManagerHelper.getInstance().getManager();
     private EntityTransaction et;
 
@@ -33,12 +37,19 @@ public class PartidaService {
                     return new RespuestaEnt(false, "No se encontró partida a modificar.", "guardarPartida NoResultException");
                 }
                 partida.actualizar(partidaDto);
-                if(!partidaDto.getPreguntasEchas().isEmpty()||partidaDto.getPreguntasEchas()!=null){
-                    for(PreguntaDto preguntaDto: partidaDto.getPreguntasEchas()){
-                        if(preguntaDto.isModificado()){
-                        Pregunta pregunta = em.find(Pregunta.class, preguntaDto.getId());
-                        pregunta.getPartidasList().add(partida);
-                        partida.getPreguntaList().add(pregunta);
+                if (!partidaDto.getPreguntasEchas().isEmpty() || partidaDto.getPreguntasEchas() != null) {
+                    for (PreguntaDto preguntaDto : partidaDto.getPreguntasEchas()) {
+                        if (preguntaDto.isModificado()) {
+                            Pregunta pregunta = em.find(Pregunta.class, preguntaDto.getId());
+                            pregunta.actualizar(preguntaDto);
+                            for (Respuesta respuesta : pregunta.getPlamRespuestasList()) {
+                                Optional<RespuestaDto> resDto = preguntaDto.getRespuestasList().stream().filter(r->r.getRespuestaPK().getId().equals(respuesta.getRespuestaPK().getId())).findFirst();
+                                if(resDto.isPresent()){
+                                    respuesta.actualizar(resDto.get());
+                                }
+                            }                            
+                            pregunta.getPartidasList().add(partida);
+                            partida.getPreguntaList().add(pregunta);
                         }
                     }
                 }
@@ -84,6 +95,7 @@ public class PartidaService {
         }
 
     }
+
     public RespuestaEnt getGame(Long id) {
         try {
             Query qryGame = em.createNamedQuery("Partida.findByPartId", Partida.class);

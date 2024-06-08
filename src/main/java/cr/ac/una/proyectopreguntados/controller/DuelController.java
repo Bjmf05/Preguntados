@@ -5,6 +5,7 @@ import cr.ac.una.proyectopreguntados.App;
 import cr.ac.una.proyectopreguntados.model.CompetidorDto;
 import cr.ac.una.proyectopreguntados.model.PreguntaDto;
 import cr.ac.una.proyectopreguntados.util.AppContext;
+import cr.ac.una.proyectopreguntados.util.FlowController;
 import io.github.palexdev.materialfx.controls.MFXButton;
 
 import java.io.InputStream;
@@ -14,6 +15,8 @@ import java.util.Collections;
 import java.util.Random;
 import java.util.ResourceBundle;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,6 +29,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -112,6 +117,38 @@ public class DuelController extends Controller implements Initializable {
 
     @FXML
     private void onActionBtnOption(ActionEvent event) {
+        MFXButton button = (MFXButton) event.getSource();
+        String buttonText = button.getText();
+        SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getController("SixPlayerBoardView");
+
+        preguntaDto.getRespuestasList().stream()
+                .filter(respuesta -> buttonText.equals(respuesta.getContenido()))
+                .findFirst()
+                .ifPresent(respuesta -> {
+                    respuesta.setCantidadSelecciones(respuesta.getCantidadSelecciones() + 1);
+                    if ("V".equals(respuesta.getTipo())) {
+                        challenging.getJugador().setCantidadAciertos(challenging.getJugador().getCantidadAciertos() + 1);
+                        typeQuestionJugador(preguntaDto.getCategoria(), challenging);
+                      //  answer = true;
+                        Platform.runLater(() -> button.setStyle("-fx-background-color: #00FF00"));
+                        System.out.println("Respuesta correcta");
+                    } else {
+                      //  answer = false;
+                        System.err.println("Respuesta incorrecta");
+                        Platform.runLater(() -> button.setStyle("-fx-background-color: #FF0000"));
+                    }
+
+                    PauseTransition pause = new PauseTransition(Duration.seconds(1));
+                    pause.setOnFinished(e -> {
+                        //restoreCard();
+                      //  preguntaDto.setModificado(true);
+                       // preguntasEchas.add(preguntaDto);
+                      //  sixPlayerBoardController.setCurrentCompetitor(challenging);
+                        //unblockButtons();
+                    });
+                    pause.play();
+                });
+
     }
 
     @FXML
@@ -120,6 +157,34 @@ public class DuelController extends Controller implements Initializable {
 
     @FXML
     private void onActionBtnOptionPlayer2(ActionEvent event) {
+        MFXButton button = (MFXButton) event.getSource();
+        String buttonText = button.getText();
+             preguntaDto.getRespuestasList().stream()
+                .filter(respuesta -> buttonText.equals(respuesta.getContenido()))
+                .findFirst()
+                .ifPresent(respuesta -> {
+                    respuesta.setCantidadSelecciones(respuesta.getCantidadSelecciones() + 1);
+                    if ("V".equals(respuesta.getTipo())) {
+                        challenged.getJugador().setCantidadAciertos(challenged.getJugador().getCantidadAciertos() + 1);
+                        typeQuestionJugador(preguntaDto.getCategoria(), challenged);
+                        //  answer = true;
+                        Platform.runLater(() -> button.setStyle("-fx-background-color: #00FF00"));
+                        System.out.println("Respuesta correcta");
+                    } else {
+                        //  answer = false;
+                        Platform.runLater(() -> button.setStyle("-fx-background-color: #FF0000"));
+                    }
+
+                    PauseTransition pause = new PauseTransition(Duration.seconds(1));
+                    pause.setOnFinished(e -> {
+                        //restoreCard();
+                       // preguntaDto.setModificado(true);
+                     //   preguntasEchas.add(preguntaDto);
+                        //  sixPlayerBoardController.setCurrentCompetitor(challenging);
+                        //unblockButtons();
+                    });
+                    pause.play();
+                });
     }
 
     @FXML
@@ -167,10 +232,10 @@ private void displayQuestionPlayer2(PreguntaDto question) {
 }
 
 private void setOptions(MFXButton btn1, MFXButton btn2, MFXButton btn3, MFXButton btn4, PreguntaDto question) {
-    btn1.setText(question.getPlamRespuestasList().get(0).getContenido());
-    btn2.setText(question.getPlamRespuestasList().get(1).getContenido());
-    btn3.setText(question.getPlamRespuestasList().get(2).getContenido());
-    btn4.setText(question.getPlamRespuestasList().get(3).getContenido());
+    btn1.setText(question.getRespuestasList().get(0).getContenido());
+    btn2.setText(question.getRespuestasList().get(1).getContenido());
+    btn3.setText(question.getRespuestasList().get(2).getContenido());
+    btn4.setText(question.getRespuestasList().get(3).getContenido());
 }
 
 private void updateQuestionLists(PreguntaDto question) {
@@ -193,4 +258,28 @@ private void shuffleOption() {
     shuffleOptions(btnOptionOne, btnOptionTwo, btnOptionThree, btnOptionFour);
     shuffleOptions(btnOptionOnePlayer2, btnOptionTwoPlayer2, btnOptionThreePlayer2, btnOptionFourPlayer2);
 }
+    private void typeQuestionJugador(String typeOfQuestion, CompetidorDto competidorDto){
+        switch (typeOfQuestion) {
+            case "Arte":
+                competidorDto.getJugador().setCantidadAArte(competidorDto.getJugador().getCantidadAArte() + 1);
+                break;
+            case "Historia":
+                competidorDto.getJugador().setCantidadAHistoria(competidorDto.getJugador().getCantidadAHistoria() + 1);
+                break;
+            case "Geografía":
+                competidorDto.getJugador().setCantidadAGeografia(competidorDto.getJugador().getCantidadAGeografia() + 1);
+                break;
+            case "Ciencia":
+                competidorDto.getJugador().setCantidadACiencia(competidorDto.getJugador().getCantidadACiencia() + 1);
+                break;
+            case "Deporte":
+                competidorDto.getJugador().setCantidadADeporte(competidorDto.getJugador().getCantidadADeporte() + 1);
+                break;
+            case "Entretenimiento":
+                competidorDto.getJugador().setCantidadAEntretenimiento(competidorDto.getJugador().getCantidadAEntretenimiento() + 1);
+                break;
+            default:
+                break;
+        }
+    }
 }
