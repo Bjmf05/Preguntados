@@ -106,7 +106,7 @@ public class LogInController extends Controller implements Initializable {
 //        if (tiempoInicial.getHour() == 0 && tiempoInicial.getMinute() == 0 && tiempoInicial.getSecond() == 0) {
 //            timeline.stop();
 //        }
-        FlowController.getInstance().goViewInWindowModal("StatisticalGraphView", getStage(), true);
+        FlowController.getInstance().showViewInVBox("StatisticalGraphView", vbxRoot);
     }
 
     @FXML

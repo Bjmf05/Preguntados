@@ -8,6 +8,8 @@
     -fx-base-color-etiquetas:#4d4d4d;
     -fx-base-color-titulos:#51b6cd;
     -fx-base-color-id:#00c853;
+    -mfx-main:-fx-base-color-focus;
+    -mfx-purple:-fx-base-color-focus;
 }
 .Title{
     -fx-text-fill: #5271ff;
@@ -238,4 +240,67 @@
     -fx-font-weight: bold;
     -fx-font-size: 12px;
     -fx-alignment: CENTER;
+}
+
+/*StatisticalGraph*/
+.statisticalGraph{
+    -fx-background-insets: 0, 2;
+    -fx-background-radius: 5px;
+    -fx-bar-fill: #3498db;
+}
+
+.playerLabel{
+    -fx-font-family: Roboto;
+    -fx-text-fill: #000000;
+    -fx-font-size: 16px;
+    -fx-padding: 5 0 5 0;
+    -fx-font-weight:bold;
+}
+
+.mfx-btn-new,.mfx-btn-new:armed,.mfx-btn-new:focused{
+    -fx-background-color:#2196F3;
+}
+
+.mfx-btn-new>ImageView{
+    -fx-image: url("../resources/Agregar-48.png");
+}
+
+.mfx-btn-new:hover{
+    -fx-background-color:#00ffcc;
+}
+
+.mfx-btn-Search{
+    -fx-background-color:#00bcd4;
+}
+
+.mfx-btn-Search>ImageView{
+    -fx-image: url("../resources/Buscar-48.png");
+}
+
+.mfx-btn-Search:hover{
+    -fx-background-color:#006666;
+}
+
+.mfx-btn-Delete{
+    -fx-background-color:#f44336;
+}
+
+.mfx-btn-Delete>ImageView{
+    -fx-image: url("../resources/Eliminar-48.png");
+}
+
+.mfx-btn-Delete:hover{
+    -fx-background-color:#ff0000;
+}
+
+.mfx-btn-Save{
+    -fx-background-color:#00C853;
+}
+
+.mfx-btn-Save>ImageView{
+    -fx-image: url("../resources/Guardar-48.png");
+}
+
+.mfx-btn-Save:hover{
+    -fx-background-color:#00ff66;
 }
