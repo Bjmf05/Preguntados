@@ -131,7 +131,7 @@ public class SixPlayerBoardController extends Controller implements Initializabl
     @FXML
     private ImageView imgAvatarPlayer4;
     private int currentPlayer = 1;
-    private final int numberOfPlayers = 6;
+    private int numberOfPlayers = 2;
     private CompetidorDto currentCompetitor;
     private PartidaDto game = new PartidaDto();
     private ObservableList<CompetidorDto> competitors = FXCollections.observableArrayList();
@@ -159,10 +159,9 @@ public class SixPlayerBoardController extends Controller implements Initializabl
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        darkenIcons();
-
         game = (PartidaDto) AppContext.getInstance().get("Partida");
         loadGameData(game);
+        darkenIcons();
         fillPlayersDto();
         fillPlayersAvatar();
         fillPlayersLabels();
@@ -379,19 +378,19 @@ public class SixPlayerBoardController extends Controller implements Initializabl
 
     private void loadGameData(PartidaDto Game) {
         Map<Integer, CompetidorDto> competitorMap = new HashMap<>();
-
+        numberOfPlayers = Game.getJugadores().intValue();
         for (Competidor c : Game.getCompetidorList()) {
             CompetidorDto comp = new CompetidorDto(c);
             int index = comp.getNumeroJugador().intValue() - 1;
             competitorMap.put(index, comp);
         }
 
-        for (int i = 0; i < Game.getJugadores().intValue(); i++) {
+        for (int i = 0; i < numberOfPlayers; i++) {
             if (competitorMap.containsKey(i)) {
                 competitors.add(competitorMap.get(i));
             }
         }
-        for(int i=0;i<game.getJugadores().intValue();i++){
+        for(int i=0;i<numberOfPlayers;i++){
             CompetidorDto competidorDto = competitors.get(i);
             currentPlayer = i+1;
             String[] playerCategories = {competidorDto.getDeporte(), competidorDto.getEntretenimiento(), competidorDto.getCiencias(), competidorDto.getHistoria(), competidorDto.getGeografia(), competidorDto.getArte()};
@@ -402,12 +401,13 @@ public class SixPlayerBoardController extends Controller implements Initializabl
                 }
             }
             ImageView[] avatars = {imgAvatarPlayer1, imgAvatarPlayer2, imgAvatarPlayer3, imgAvatarPlayer4, imgAvatarPlayer5, imgAvatarPlayer6};
-            int[][][] playerPositions = {playerPosition.playerOnePositions6, playerPosition.playerTwoPositions6, playerPosition.playerThreePositions6, playerPosition.playerFourPositions6, playerPosition.playerFivePositions6, playerPosition.playerSixPositions6};
+            int[][][] playerPositions = {playerPosition.playerOnePositions(numberOfPlayers), playerPosition.playerTwoPositions(numberOfPlayers), playerPosition.playerThreePositions(numberOfPlayers), playerPosition.playerFourPositions(numberOfPlayers), playerPosition.playerFivePositions(numberOfPlayers), playerPosition.playerSixPositions6};
             if (i+1 >= 1 && i+1 <= avatars.length) {
                 movePlayer(competidorDto.getPosicionFicha().intValue(), playerPositions[i], avatars[i]);
             }
         }
         currentPlayer = 1;
+
     }
 
     private void fillPlayersDto() {
@@ -498,7 +498,7 @@ public class SixPlayerBoardController extends Controller implements Initializabl
 
     private void positionPlayer(int position) {
         ImageView[] avatars = {imgAvatarPlayer1, imgAvatarPlayer2, imgAvatarPlayer3, imgAvatarPlayer4, imgAvatarPlayer5, imgAvatarPlayer6};
-        int[][][] playerPositions = {playerPosition.playerOnePositions6, playerPosition.playerTwoPositions6, playerPosition.playerThreePositions6, playerPosition.playerFourPositions6, playerPosition.playerFivePositions6, playerPosition.playerSixPositions6};
+        int[][][] playerPositions = {playerPosition.playerOnePositions(numberOfPlayers), playerPosition.playerTwoPositions(numberOfPlayers), playerPosition.playerThreePositions(numberOfPlayers), playerPosition.playerFourPositions(numberOfPlayers), playerPosition.playerFivePositions(numberOfPlayers), playerPosition.playerSixPositions6};
 
         if (currentPlayer >= 1 && currentPlayer <= avatars.length) {
             movePlayer(position, playerPositions[currentPlayer - 1], avatars[currentPlayer - 1]);
@@ -517,20 +517,22 @@ public class SixPlayerBoardController extends Controller implements Initializabl
         avatar.setLayoutY(y);
     }
 
-    private void darkenIcons() {
-        List<ImageView> icons = Arrays.asList(
-                imgTinaPlayer1, imgBonzoPlayer1, imgAlbertPlayer1, imgPopPlayer1, imgTitoPlayer1, imgHectorPlayer1,
-                imgTinaPlayer3, imgBonzoPlayer3, imgHectorPlayer3, imgTitoPlayer3, imgAlbertPlayer3, imgPopPlayer3,
-                imgTinaPlayer5, imgBonzoPlayer5, imgHectorPlayer5, imgTitoPlayer5, imgAlbertPlayer5, imgPopPlayer5,
-                imgTinaPlayer6, imgBonzoPlayer6, imgHectorPlayer6, imgTitoPlayer6, imgAlbertPlayer6, imgPopPlayer6,
-                imgTinaPlayer4, imgBonzoPlayer4, imgHectorPlayer4, imgTitoPlayer4, imgAlbertPlayer4, imgPopPlayer4,
-                imgTinaPlayer2, imgBonzoPlayer2, imgHectorPlayer2, imgTitoPlayer2, imgAlbertPlayer2, imgPopPlayer2
-        );
+private void darkenIcons() {
+    List<List<ImageView>> icons = Arrays.asList(
+            Arrays.asList(imgTinaPlayer1, imgBonzoPlayer1, imgAlbertPlayer1, imgPopPlayer1, imgTitoPlayer1, imgHectorPlayer1),
+            Arrays.asList(imgTinaPlayer2, imgBonzoPlayer2, imgAlbertPlayer2, imgPopPlayer2, imgTitoPlayer2, imgHectorPlayer2),
+            Arrays.asList(imgTinaPlayer3, imgBonzoPlayer3, imgAlbertPlayer3, imgPopPlayer3, imgTitoPlayer3, imgHectorPlayer3),
+            Arrays.asList(imgTinaPlayer4, imgBonzoPlayer4, imgAlbertPlayer4, imgPopPlayer4, imgTitoPlayer4, imgHectorPlayer4),
+            Arrays.asList(imgTinaPlayer5, imgBonzoPlayer5, imgAlbertPlayer5, imgPopPlayer5, imgTitoPlayer5, imgHectorPlayer5),
+            Arrays.asList(imgTinaPlayer6, imgBonzoPlayer6, imgAlbertPlayer6, imgPopPlayer6, imgTitoPlayer6, imgHectorPlayer6)
+    );
 
-        for (ImageView icon : icons) {
+    for (int i = 0; i < numberOfPlayers; i++) {
+        for (ImageView icon : icons.get(i)) {
             icon.setOpacity(0.5);
         }
     }
+}
 
     public PartidaDto getGame() {
         return game;

@@ -53,7 +53,7 @@ public class PrincipalController extends Controller implements Initializable {
         sixPlayerBoardController.safeGame();
         FlowController.getInstance().delete("LogInView");
         FlowController.getInstance().goViewInWindow("LogInView");
-       FlowController.getInstance().salir();
+        FlowController.getInstance().salir();
     }
 
     @FXML

@@ -117,4 +117,72 @@ public class PlayerPosition {
         {426, 407},
         {457, 388},
         {484, 360},};
+    public int[][] playerOnePositions(int numPlayers) {
+        switch (numPlayers) {
+            case 2:
+                return playerOnePositions2;
+            case 3:
+                return playerOnePositions3;
+            case 4:
+                return playerOnePositions4;
+            case 5:
+                return playerOnePositions5;
+            case 6:
+                return playerOnePositions6;
+            default:
+                return null;
+        }
+    }
+    public int[][] playerTwoPositions(int numPlayers) {
+        switch (numPlayers) {
+            case 2:
+                return playerTwoPositions2;
+            case 3:
+                return playerTwoPositions3;
+            case 4:
+                return playerTwoPositions4;
+            case 5:
+                return playerTwoPositions5;
+            case 6:
+                return playerTwoPositions6;
+            default:
+                return null;
+        }
+    }
+    public int[][] playerThreePositions(int numPlayers) {
+        switch (numPlayers) {
+            case 3:
+                return playerThreePositions3;
+            case 4:
+                return playerThreePositions4;
+            case 5:
+                return playerThreePositions5;
+            case 6:
+                return playerThreePositions6;
+            default:
+                return null;
+        }
+    }
+    public int[][] playerFourPositions(int numPlayers) {
+        switch (numPlayers) {
+            case 4:
+                return playerFourPositions4;
+            case 5:
+                return playerFourPositions5;
+            case 6:
+                return playerFourPositions6;
+            default:
+                return null;
+        }
+    }
+    public int[][] playerFivePositions(int numPlayers) {
+        switch (numPlayers) {
+            case 5:
+                return playerFivePositions5;
+            case 6:
+                return playerFivePositions6;
+            default:
+                return null;
+        }
+    }
 }

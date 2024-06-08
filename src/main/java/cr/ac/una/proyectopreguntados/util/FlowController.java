@@ -13,6 +13,8 @@ import java.util.logging.Level;
 
 import cr.ac.una.proyectopreguntados.controller.LogInController;
 import cr.ac.una.proyectopreguntados.controller.PrincipalController;
+import cr.ac.una.proyectopreguntados.model.Partida;
+import cr.ac.una.proyectopreguntados.model.PartidaDto;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -99,12 +101,30 @@ public class FlowController {
             MFXThemeManager.addOn(scene, Themes.DEFAULT, Themes.LEGACY);
             mainStage.setScene(scene);
             mainStage.show();
-            FlowController.getInstance().goView("SixPlayerBoardView");
+            boardView();
         } catch (IOException ex) {
             java.util.logging.Logger.getLogger(FlowController.class.getName()).log(Level.SEVERE, "Error inicializando la vista base.", ex);
         }
     }
+    private void boardView(){
+        PartidaDto partida = (PartidaDto) AppContext.getInstance().get("Partida");
+        int numPlayers = partida.getJugadores().intValue();
+        switch (numPlayers) {
+            case 2:
+                FlowController.getInstance().goView("TwoPlayerBoardView");
+            case 3:
+                FlowController.getInstance().goView("ThreePlayerBoardView");
+            case 4:
+                FlowController.getInstance().goView("FourPlayerBoardView");
+            case 5:
+                FlowController.getInstance().goView("FivePlayerBoardView");
+            case 6:
+                FlowController.getInstance().goView("SixPlayerBoardView");
+            default:
+                FlowController.getInstance().goView("TwoPlayerBoardView");
+        }
 
+    }
     public void goView(String viewName) {
         goView(viewName, "Center", null);
     }
