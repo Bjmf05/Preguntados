@@ -7,9 +7,14 @@ import cr.ac.una.proyectopreguntados.util.FlowController;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
 import javafx.animation.RotateTransition;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,6 +28,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
+
+import javax.imageio.spi.ServiceRegistry;
+import javax.xml.transform.Source;
 
 /**
  * FXML Controller class
@@ -131,7 +139,7 @@ public class SixPlayerBoardController extends Controller implements Initializabl
     @FXML
     private ImageView imgAvatarPlayer4;
     private int currentPlayer = 1;
-    private int numberOfPlayers = 2;
+    private int numberOfPlayers = 3;
     private CompetidorDto currentCompetitor;
     private PartidaDto game = new PartidaDto();
     private ObservableList<CompetidorDto> competitors = FXCollections.observableArrayList();
@@ -143,7 +151,9 @@ public class SixPlayerBoardController extends Controller implements Initializabl
     private CompetidorDto player5;
     private CompetidorDto player6;
     private PrincipalController principalController = (PrincipalController) FlowController.getInstance().getController("PrincipalView");
-
+    private Timeline timeline;
+    private LocalTime tiempoInicial;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
     private int round = 1;
     @FXML
@@ -151,8 +161,9 @@ public class SixPlayerBoardController extends Controller implements Initializabl
     @FXML
     private Label lblCurrentPlayer;
     @FXML
-    private ImageView btnSpinWheel1;
-
+    private Label lblTime;
+    @FXML
+    private ImageView btnSpinWheel;
     /**
      * Initializes the controller class.
      */
@@ -160,6 +171,7 @@ public class SixPlayerBoardController extends Controller implements Initializabl
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         game = (PartidaDto) AppContext.getInstance().get("Partida");
+        numberOfPlayers = game.getJugadores().intValue();
         loadGameData(game);
         darkenIcons();
         fillPlayersDto();
@@ -407,9 +419,22 @@ public class SixPlayerBoardController extends Controller implements Initializabl
             }
         }
         currentPlayer = 1;
+        if(game.getTiempoLimite()!=null){
+            tiempoInicial = LocalTime.parse(game.getTiempoLimite(), formatter);
+            timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> actualizarCronometro()));
+            timeline.setCycleCount(Animation.INDEFINITE);
+            timeline.play();
+        }
+}
+    private void actualizarCronometro() {
+        tiempoInicial = tiempoInicial.minusSeconds(1);
+        String tiempo = tiempoInicial.format(formatter);
+        lblTime.setText(tiempo);
 
+        if (tiempoInicial.getHour() == 0 && tiempoInicial.getMinute() == 0 && tiempoInicial.getSecond() == 0) {
+            timeline.stop();
+        }
     }
-
     private void fillPlayersDto() {
         for (int i = 0; i < numberOfPlayers; i++) {
             CompetidorDto competidorDto = competitors.get(i);

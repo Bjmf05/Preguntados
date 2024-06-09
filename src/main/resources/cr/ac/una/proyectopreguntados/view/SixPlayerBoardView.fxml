@@ -250,7 +250,7 @@
             <VBox alignment="CENTER" styleClass="vbxTime">
                <children>
                   <Label styleClass="lblTime" text="Tiempo" />
-                  <Label styleClass="lblTime" text="Sin Limite" />
+                  <Label fx:id="lblTime" styleClass="lblTime" text="Sin Limite" />
                </children>
             </VBox>
             <VBox alignment="CENTER" styleClass="vbxTime">

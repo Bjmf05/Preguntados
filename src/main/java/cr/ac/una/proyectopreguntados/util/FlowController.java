@@ -112,16 +112,19 @@ public class FlowController {
         switch (numPlayers) {
             case 2:
                 FlowController.getInstance().goView("TwoPlayerBoardView");
+                break;
             case 3:
                 FlowController.getInstance().goView("ThreePlayerBoardView");
+                break;
             case 4:
                 FlowController.getInstance().goView("FourPlayerBoardView");
+                break;
             case 5:
                 FlowController.getInstance().goView("FivePlayerBoardView");
+                break;
             case 6:
                 FlowController.getInstance().goView("SixPlayerBoardView");
-            default:
-                FlowController.getInstance().goView("TwoPlayerBoardView");
+                break;
         }
 
     }

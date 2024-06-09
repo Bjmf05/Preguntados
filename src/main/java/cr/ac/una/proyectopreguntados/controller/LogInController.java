@@ -41,11 +41,7 @@ public class LogInController extends Controller implements Initializable {
     @FXML
     private MFXButton btnMaintenanceQuestions;
     private MFXTextField txfNewPlayer;
-    JugadorDto jugadorDto;
-    private Label idPruebaTime;
-        private Timeline timeline;
-    private LocalTime tiempoInicial;
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+
     @FXML
     private VBox vbxRoot;
     @FXML
@@ -61,7 +57,6 @@ public class LogInController extends Controller implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
 
-   // setTiempoInicial("23:59:00");
     }
 
     @Override
@@ -69,15 +64,9 @@ public class LogInController extends Controller implements Initializable {
         FlowController.getInstance().delete("SixPlayerBoardView");
     }
 
-
-
-    private void onActionBtnPlay(ActionEvent event) {
-
-    }
-
-
     @FXML
     private void onActionBtnExit(ActionEvent event) {
+        exit();
 
     }
 
@@ -85,27 +74,9 @@ public class LogInController extends Controller implements Initializable {
     private void onActionBtnAbout(ActionEvent event) {
                 FlowController.getInstance().goViewInWindowModal("NewGameView", getStage(), true);
     }
-    public void setTiempoInicial(String tiempo) {
-        tiempoInicial = LocalTime.parse(tiempo, formatter);
-        idPruebaTime.setText(tiempo);
-    }
+
     @FXML
     private void onActionBtnStatistics(ActionEvent event) {
-//                if (timeline != null) {
-//            timeline.stop();
-//        }
-//        timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> actualizarCronometro()));
-//        timeline.setCycleCount(Animation.INDEFINITE);
-//        timeline.play();
-//    }
-//        private void actualizarCronometro() {
-//        tiempoInicial = tiempoInicial.minusSeconds(1);
-//        String tiempo = tiempoInicial.format(formatter);
-//        idPruebaTime.setText(tiempo);
-//
-//        if (tiempoInicial.getHour() == 0 && tiempoInicial.getMinute() == 0 && tiempoInicial.getSecond() == 0) {
-//            timeline.stop();
-//        }
         FlowController.getInstance().showViewInVBox("StatisticalGraphView", vbxRoot);
     }
 
