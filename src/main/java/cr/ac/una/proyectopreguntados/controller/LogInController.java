@@ -72,7 +72,7 @@ public class LogInController extends Controller implements Initializable {
 
     @FXML
     private void onActionBtnAbout(ActionEvent event) {
-                FlowController.getInstance().goViewInWindowModal("NewGameView", getStage(), true);
+                FlowController.getInstance().showViewInVBox("aboutView", vbxRoot);
     }
 
     @FXML

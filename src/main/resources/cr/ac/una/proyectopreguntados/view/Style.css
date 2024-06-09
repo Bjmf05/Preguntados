@@ -313,3 +313,12 @@
     -fx-font-weight:bold;
     -fx-effect:dropshadow(three-pass-box,rgba(0,0,0,0.6),2,0.0,1,2);
 }
+
+.lbl-About{
+    -fx-font-family: Roboto;
+    -fx-text-fill: #000000;
+    -fx-font-size: 16px;
+    -fx-padding: 5 0 5 0;
+    -fx-font-weight:bold;
+    -fx-background-color:#cccccc;
+}

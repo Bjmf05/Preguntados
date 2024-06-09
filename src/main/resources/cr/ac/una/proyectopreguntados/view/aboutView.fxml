@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="440.0" prefWidth="600.0" stylesheets="@Style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21">
+   <children>
+      <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox alignment="TOP_CENTER" prefHeight="430.0" prefWidth="518.0" spacing="15.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <ImageView fitHeight="70.0" fitWidth="98.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/Corona.png" />
+                     </image>
+                  </ImageView>
+                  <Label styleClass="lbl-About" text=" Proyecto de programacion 2 " />
+                  <Label styleClass="lbl-About" text=" Nombre del proyecto: Preguntdos " />
+                  <Label styleClass="lbl-About" text=" Universidad Nacional Sede Reginal Brunca Campus Perez Zeledon " />
+                  <Label styleClass="lbl-About" text=" Ciclo I " />
+                  <Label styleClass="lbl-About" text=" Año 2024 " />
+                  <HBox alignment="CENTER" prefHeight="42.0" prefWidth="600.0" spacing="20.0">
+                     <children>
+                        <Label styleClass="lbl-About" text=" Nombre de los estudiates: " />
+                        <VBox alignment="CENTER" prefHeight="44.0" prefWidth="204.0" spacing="10.0">
+                           <children>
+                              <Label styleClass="lbl-About" text=" Breiner Muñoz Fallas " />
+                              <Label styleClass="lbl-About" text=" Marconi Calvo Campos " />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <Label styleClass="lbl-About" text=" Profesor: Carlos Carranza Blanco " />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
