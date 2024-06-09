@@ -304,3 +304,12 @@
 .mfx-btn-Save:hover{
     -fx-background-color:#00ff66;
 }
+/*EndGameView*/
+.lbl-EndGame{
+    -fx-font-family: Roboto;
+    -fx-text-fill: #5B1958;
+    -fx-font-size:23px;
+    -fx-padding: 5 0 5 0;
+    -fx-font-weight:bold;
+    -fx-effect:dropshadow(three-pass-box,rgba(0,0,0,0.6),2,0.0,1,2);
+}

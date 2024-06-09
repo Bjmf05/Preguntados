@@ -7,6 +7,7 @@ package cr.ac.una.proyectopreguntados.util;
 
 import cr.ac.una.proyectopreguntados.App;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -36,6 +37,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.stage.Screen;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import javafx.scene.image.Image;
 
 public class FlowController {
 
@@ -182,8 +184,9 @@ public class FlowController {
         Controller controller = loader.getController();
         controller.initialize();
         Stage stage = new Stage();
-      //  stage.getIcons().add(new Image("cr/ac/una/unaplanilla/resources/LogoUNArojo.png"));
-        stage.setTitle(controller.getNombreVista());
+        InputStream inputStream = App.class.getResourceAsStream("/cr/ac/una/proyectopreguntados/resources/Corona.png");
+      stage.getIcons().add(new Image(inputStream));
+        stage.setTitle("Preguntados");
         stage.setOnHidden((WindowEvent event) -> {
             controller.getStage().getScene().setRoot(new Pane());
             controller.setStage(null);
@@ -252,6 +255,8 @@ public class FlowController {
  public void delete(String parametro){
      loaders.remove(parametro);
  }
+ public void deleteAll(){
+     loaders.clear();}
  
     public void goViewInWindowModalOfCard(String viewName, Stage parentStage, Boolean resizable, double width, double height) {
         FXMLLoader loader = getLoader(viewName);

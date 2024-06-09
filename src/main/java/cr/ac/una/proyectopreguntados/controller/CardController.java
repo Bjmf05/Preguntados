@@ -212,17 +212,22 @@ public class CardController extends Controller implements Initializable {
 
         partidaDto = sixPlayerBoardController.getGame();
         ObservableList<PreguntaDto> questionFiltered = preguntasList.filtered(question -> question.getCategoria().equals(typeOfQuestion));
-        Random random = new Random();
-        int index = random.nextInt(questionFiltered.size());
-        preguntaDto = questionFiltered.get(index);
-        preguntaDto.setCantidadLlamadas(preguntaDto.getCantidadLlamadas() + 1);
-        textOfQuestion.setText(preguntaDto.getContenido());
-        btnOptionOne.setText(preguntaDto.getRespuestasList().get(0).getContenido());
-        btnOptionTwo.setText(preguntaDto.getRespuestasList().get(1).getContenido());
-        btnOptionThree.setText(preguntaDto.getRespuestasList().get(2).getContenido());
-        btnOptionFour.setText(preguntaDto.getRespuestasList().get(3).getContenido());
-        preguntasList.remove(preguntaDto);
-        competidorDtoCurrent.getJugador().setCantidadPreguntas(competidorDtoCurrent.getJugador().getCantidadPreguntas()+1);
+        if (questionFiltered.isEmpty()) {
+            sixPlayerBoardController.finishGame("no hay preguntas disponibles.");
+            getStage().close();
+        }else {
+            Random random = new Random();
+            int index = random.nextInt(questionFiltered.size());
+            preguntaDto = questionFiltered.get(index);
+            preguntaDto.setCantidadLlamadas(preguntaDto.getCantidadLlamadas() + 1);
+            textOfQuestion.setText(preguntaDto.getContenido());
+            btnOptionOne.setText(preguntaDto.getRespuestasList().get(0).getContenido());
+            btnOptionTwo.setText(preguntaDto.getRespuestasList().get(1).getContenido());
+            btnOptionThree.setText(preguntaDto.getRespuestasList().get(2).getContenido());
+            btnOptionFour.setText(preguntaDto.getRespuestasList().get(3).getContenido());
+            preguntasList.remove(preguntaDto);
+            competidorDtoCurrent.getJugador().setCantidadPreguntas(competidorDtoCurrent.getJugador().getCantidadPreguntas() + 1);
+        }
     }
     private void typeQuestionJugador(String typeOfQuestion) {
         switch (typeOfQuestion) {

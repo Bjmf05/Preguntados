@@ -164,6 +164,7 @@ public class SixPlayerBoardController extends Controller implements Initializabl
     private Label lblTime;
     @FXML
     private ImageView btnSpinWheel;
+
     /**
      * Initializes the controller class.
      */
@@ -172,8 +173,8 @@ public class SixPlayerBoardController extends Controller implements Initializabl
         // TODO
         game = (PartidaDto) AppContext.getInstance().get("Partida");
         numberOfPlayers = game.getJugadores().intValue();
-        loadGameData(game);
         darkenIcons();
+        loadGameData(game);
         fillPlayersDto();
         fillPlayersAvatar();
         fillPlayersLabels();
@@ -181,6 +182,7 @@ public class SixPlayerBoardController extends Controller implements Initializabl
 
 
     }
+
     private void checkGame() {
         ObservableList<CompetidorDto> competitorsFiltered = competitors.filtered(competitor -> competitor.getTurno().equals("A"));
         if (competitorsFiltered.size() == 1) {
@@ -235,7 +237,7 @@ public class SixPlayerBoardController extends Controller implements Initializabl
 
     @FXML
     private void onMouseClickedSpinWheel(MouseEvent event) {
-                RotateTransition rotateTransition = new RotateTransition(Duration.seconds(1), imgWheel);
+        RotateTransition rotateTransition = new RotateTransition(Duration.seconds(1), imgWheel);
         Random random = new Random();
         int randomAngle = random.nextInt(1081) + 1080;
         rotateTransition.setByAngle(randomAngle);
@@ -302,7 +304,7 @@ public class SixPlayerBoardController extends Controller implements Initializabl
     }
 
 
-    private void checkAnswer(boolean answer,CardController cardController) {
+    private void checkAnswer(boolean answer, CardController cardController) {
         int position = currentCompetitor.getPosicionFicha().intValue();
         if (answer && position != 4) {
             position++;
@@ -319,8 +321,8 @@ public class SixPlayerBoardController extends Controller implements Initializabl
         }
     }
 
-    private void checkAnswerCrown( String type,CardController cardController) {
-       // FlowController.getInstance().delete("CardView");
+    private void checkAnswerCrown(String type, CardController cardController) {
+        // FlowController.getInstance().delete("CardView");
         cardController.setTypeOfCard(type);
         FlowController.getInstance().goViewInWindowModalOfCard("CardView", getStage(), true, principalController.getWidth(), principalController.getHeight());
         boolean answer = cardController.isAnswer();
@@ -367,10 +369,15 @@ public class SixPlayerBoardController extends Controller implements Initializabl
 
         String[] playerCategories = {currentCompetitor.getDeporte(), currentCompetitor.getEntretenimiento(), currentCompetitor.getCiencias(), currentCompetitor.getHistoria(), currentCompetitor.getGeografia(), currentCompetitor.getArte()};
         ImageView[] playerImages = getPlayerImages();
+        int amountAvatars = 0;
         for (int i = 0; i < playerCategories.length; i++) {
             if (playerCategories[i].equals("A")) {
                 getCharacter(playerImages[i]);
+                amountAvatars++;
             }
+        }
+        if (amountAvatars == 6) {
+            finishGame("corona");
         }
     }
 
@@ -390,7 +397,6 @@ public class SixPlayerBoardController extends Controller implements Initializabl
 
     private void loadGameData(PartidaDto Game) {
         Map<Integer, CompetidorDto> competitorMap = new HashMap<>();
-        numberOfPlayers = Game.getJugadores().intValue();
         for (Competidor c : Game.getCompetidorList()) {
             CompetidorDto comp = new CompetidorDto(c);
             int index = comp.getNumeroJugador().intValue() - 1;
@@ -402,9 +408,9 @@ public class SixPlayerBoardController extends Controller implements Initializabl
                 competitors.add(competitorMap.get(i));
             }
         }
-        for(int i=0;i<numberOfPlayers;i++){
+        for (int i = 0; i < numberOfPlayers; i++) {
             CompetidorDto competidorDto = competitors.get(i);
-            currentPlayer = i+1;
+            currentPlayer = i + 1;
             String[] playerCategories = {competidorDto.getDeporte(), competidorDto.getEntretenimiento(), competidorDto.getCiencias(), competidorDto.getHistoria(), competidorDto.getGeografia(), competidorDto.getArte()};
             ImageView[] playerImages = getPlayerImages();
             for (int j = 0; j < playerCategories.length; j++) {
@@ -414,18 +420,19 @@ public class SixPlayerBoardController extends Controller implements Initializabl
             }
             ImageView[] avatars = {imgAvatarPlayer1, imgAvatarPlayer2, imgAvatarPlayer3, imgAvatarPlayer4, imgAvatarPlayer5, imgAvatarPlayer6};
             int[][][] playerPositions = {playerPosition.playerOnePositions(numberOfPlayers), playerPosition.playerTwoPositions(numberOfPlayers), playerPosition.playerThreePositions(numberOfPlayers), playerPosition.playerFourPositions(numberOfPlayers), playerPosition.playerFivePositions(numberOfPlayers), playerPosition.playerSixPositions6};
-            if (i+1 >= 1 && i+1 <= avatars.length) {
+            if (i + 1 >= 1 && i + 1 <= avatars.length) {
                 movePlayer(competidorDto.getPosicionFicha().intValue(), playerPositions[i], avatars[i]);
             }
         }
         currentPlayer = 1;
-        if(game.getTiempoLimite()!=null){
+        if (game.getTiempoLimite() != null) {
             tiempoInicial = LocalTime.parse(game.getTiempoLimite(), formatter);
             timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> actualizarCronometro()));
             timeline.setCycleCount(Animation.INDEFINITE);
             timeline.play();
         }
-}
+    }
+
     private void actualizarCronometro() {
         tiempoInicial = tiempoInicial.minusSeconds(1);
         String tiempo = tiempoInicial.format(formatter);
@@ -433,8 +440,10 @@ public class SixPlayerBoardController extends Controller implements Initializabl
 
         if (tiempoInicial.getHour() == 0 && tiempoInicial.getMinute() == 0 && tiempoInicial.getSecond() == 0) {
             timeline.stop();
+            Platform.runLater(() -> finishGame("tiempo"));
         }
     }
+
     private void fillPlayersDto() {
         for (int i = 0; i < numberOfPlayers; i++) {
             CompetidorDto competidorDto = competitors.get(i);
@@ -542,22 +551,22 @@ public class SixPlayerBoardController extends Controller implements Initializabl
         avatar.setLayoutY(y);
     }
 
-private void darkenIcons() {
-    List<List<ImageView>> icons = Arrays.asList(
-            Arrays.asList(imgTinaPlayer1, imgBonzoPlayer1, imgAlbertPlayer1, imgPopPlayer1, imgTitoPlayer1, imgHectorPlayer1),
-            Arrays.asList(imgTinaPlayer2, imgBonzoPlayer2, imgAlbertPlayer2, imgPopPlayer2, imgTitoPlayer2, imgHectorPlayer2),
-            Arrays.asList(imgTinaPlayer3, imgBonzoPlayer3, imgAlbertPlayer3, imgPopPlayer3, imgTitoPlayer3, imgHectorPlayer3),
-            Arrays.asList(imgTinaPlayer4, imgBonzoPlayer4, imgAlbertPlayer4, imgPopPlayer4, imgTitoPlayer4, imgHectorPlayer4),
-            Arrays.asList(imgTinaPlayer5, imgBonzoPlayer5, imgAlbertPlayer5, imgPopPlayer5, imgTitoPlayer5, imgHectorPlayer5),
-            Arrays.asList(imgTinaPlayer6, imgBonzoPlayer6, imgAlbertPlayer6, imgPopPlayer6, imgTitoPlayer6, imgHectorPlayer6)
-    );
+    private void darkenIcons() {
+        List<List<ImageView>> icons = Arrays.asList(
+                Arrays.asList(imgTinaPlayer1, imgBonzoPlayer1, imgAlbertPlayer1, imgPopPlayer1, imgTitoPlayer1, imgHectorPlayer1),
+                Arrays.asList(imgTinaPlayer2, imgBonzoPlayer2, imgAlbertPlayer2, imgPopPlayer2, imgTitoPlayer2, imgHectorPlayer2),
+                Arrays.asList(imgTinaPlayer3, imgBonzoPlayer3, imgAlbertPlayer3, imgPopPlayer3, imgTitoPlayer3, imgHectorPlayer3),
+                Arrays.asList(imgTinaPlayer4, imgBonzoPlayer4, imgAlbertPlayer4, imgPopPlayer4, imgTitoPlayer4, imgHectorPlayer4),
+                Arrays.asList(imgTinaPlayer5, imgBonzoPlayer5, imgAlbertPlayer5, imgPopPlayer5, imgTitoPlayer5, imgHectorPlayer5),
+                Arrays.asList(imgTinaPlayer6, imgBonzoPlayer6, imgAlbertPlayer6, imgPopPlayer6, imgTitoPlayer6, imgHectorPlayer6)
+        );
 
-    for (int i = 0; i < numberOfPlayers; i++) {
-        for (ImageView icon : icons.get(i)) {
-            icon.setOpacity(0.5);
+        for (int i = 0; i < numberOfPlayers; i++) {
+            for (ImageView icon : icons.get(i)) {
+                icon.setOpacity(0.5);
+            }
         }
     }
-}
 
     public PartidaDto getGame() {
         return game;
@@ -579,18 +588,59 @@ private void darkenIcons() {
     private void increaseRound() {
         round++;
         if (round == 26) {
-            finishGame();
+            finishGame("rondas");
         } else {
             lblCurrentRound.setText(String.valueOf(round));
         }
     }
 
-    private void finishGame() {
+    public void finishGame(String typeFinish) {
+        String winnerBy = "Fin del juego por " + typeFinish;
+        String winner = "";
+        savePlayerDto();
+        if (typeFinish.equals("corona")) {
+            winnerBy = "Ganador por corona";
+            currentCompetitor.getJugador().setPartidasGanadas(currentCompetitor.getJugador().getPartidasGanadas() + 1);
+            winner = "Ganador " + currentCompetitor.getJugador().getNombre();
+        } else {
+            winnerBy = "Fin del juego por " + typeFinish;
+            winner = "Ganadores ";
+            int maxAvatars = 0;
+            List<CompetidorDto> maxAvatarCompetitors = new ArrayList<>();
 
+            for (int i = 0; i < numberOfPlayers; i++) {
+                CompetidorDto competidorDto = competitorsPlayer(i);
+                int amountAvatars = (int) Arrays.stream(new String[]{competidorDto.getDeporte(), competidorDto.getEntretenimiento(), competidorDto.getCiencias(), competidorDto.getHistoria(),
+                        competidorDto.getGeografia(), competidorDto.getArte()}).filter(category -> category.equals("A")).count();
+                if (amountAvatars > maxAvatars) {
+                    maxAvatars = amountAvatars;
+                    maxAvatarCompetitors.clear();
+                    maxAvatarCompetitors.add(competidorDto);
+                } else if (amountAvatars == maxAvatars) {
+                    maxAvatarCompetitors.add(competidorDto);
+                }
+            }
+
+            for (CompetidorDto competitor : maxAvatarCompetitors) {
+                currentCompetitor = competitor;
+                currentCompetitor.getJugador().setPartidasGanadas(currentCompetitor.getJugador().getPartidasGanadas() + 1);
+                currentPlayer = currentCompetitor.getNumeroJugador().intValue();
+                savePlayerDto();
+                winner += currentCompetitor.getJugador().getNombre() + " ";
+            }
+        }
+        safeGame();
+        EndGameController endGameController = (EndGameController) FlowController.getInstance().getController("EndGameView");
+        endGameController.getLblFinishBy().setText(winnerBy);
+        endGameController.getLblWinner().setText(winner);
+        FlowController.getInstance().goViewInWindowModal("EndGameView", getStage(), true);
+        PrincipalController principalController = (PrincipalController) FlowController.getInstance().getController("PrincipalView");
+        principalController.exit();
     }
 
     public void safeGame() {
         AppContext.getInstance().set("PartidaSave", game);
+        savePlayerDto();
         competitors.clear();
         for (int i = 0; i < numberOfPlayers; i++) {
             CompetidorDto competidorDto = competitorsPlayer(i);
@@ -604,22 +654,24 @@ private void darkenIcons() {
     private void changeLabelPlayer() {
         lblCurrentPlayer.setText(competitorsPlayer(currentPlayer - 1).getJugador().getNombre());
     }
-public void getPlayers(){
-        ObservableList <CompetidorDto> competitorsPlayer = FXCollections.observableArrayList();
-    for(int i=0;i<numberOfPlayers;i++){
-        CompetidorDto competidorDto = competitorsPlayer(i);
-        competitorsPlayer.add(competidorDto);
+
+    public void getPlayers() {
+        ObservableList<CompetidorDto> competitorsPlayer = FXCollections.observableArrayList();
+        for (int i = 0; i < numberOfPlayers; i++) {
+            CompetidorDto competidorDto = competitorsPlayer(i);
+            competitorsPlayer.add(competidorDto);
+        }
+        AppContext.getInstance().set("competitorsPlayer", competitorsPlayer);
     }
-    AppContext.getInstance().set("competitorsPlayer", competitorsPlayer);
-}
-public void setPlayers(){
+
+    public void setPlayers() {
         competitors.clear();
         ObservableList<CompetidorDto> competitorsPlayer = (ObservableList<CompetidorDto>) AppContext.getInstance().get("competitorsPlayer");
-        for(int i=0;i<numberOfPlayers;i++){
+        for (int i = 0; i < numberOfPlayers; i++) {
             CompetidorDto competidorDto = competitorsPlayer.get(i);
             competitors.add(competidorDto);
         }
         fillPlayersDto();
-}
+    }
 }
 

@@ -51,11 +51,15 @@ public class PrincipalController extends Controller implements Initializable {
     private void onActionBtnSave(ActionEvent event) {
         SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getController("SixPlayerBoardView");
         sixPlayerBoardController.safeGame();
-        FlowController.getInstance().delete("LogInView");
+        FlowController.getInstance().deleteAll();
         FlowController.getInstance().goViewInWindow("LogInView");
         FlowController.getInstance().salir();
     }
-
+public void exit(){
+    FlowController.getInstance().deleteAll();
+    FlowController.getInstance().goViewInWindow("LogInView");
+    FlowController.getInstance().salir();
+    }
     @FXML
     private void onActionBtnPause(ActionEvent event) {
     }
