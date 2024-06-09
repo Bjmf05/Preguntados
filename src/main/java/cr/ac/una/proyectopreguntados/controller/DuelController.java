@@ -16,6 +16,8 @@ import java.util.Random;
 import java.util.ResourceBundle;
 
 import javafx.animation.PauseTransition;
+import javafx.animation.RotateTransition;
+import javafx.animation.SequentialTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,6 +31,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -97,6 +100,9 @@ public class DuelController extends Controller implements Initializable {
     private ObservableList<PreguntaDto> preguntasEchas = FXCollections.observableArrayList();
     private PreguntaDto preguntaDto;
     private InputStream inputStream;
+    private String question;
+    private Boolean showingFrontCardOne = true;
+    private Boolean showingFrontCardTwo = true;
     /**
      * Initializes the controller class.
      */
@@ -185,10 +191,12 @@ public class DuelController extends Controller implements Initializable {
                     });
                     pause.play();
                 });
+        flipCardPlayerTwo();
     }
 
     @FXML
     private void onActionBtnBombPlayer2(ActionEvent event) {
+        flipCardPlayerOne();
     }
     public void setTypeOfCard(String typeOfCard) {
         newQuestion(typeOfCard);
@@ -198,7 +206,7 @@ public class DuelController extends Controller implements Initializable {
         }
         inputStream = App.class.getResourceAsStream("/cr/ac/una/proyectopreguntados/resources/" + typeOfCard + "Card.png");
         imgCardBack.setImage(new Image(inputStream));
-       // showingFront = true;
+        //showingFront = true;
 
         shuffleOption();
         //flipCard();
@@ -281,5 +289,42 @@ private void shuffleOption() {
             default:
                 break;
         }
+    }   
+    private void flipCardPlayerOne(){
+        RotateTransition rotateBack = new RotateTransition(Duration.seconds(2), imgCardBack);
+        rotateBack.setAxis(Rotate.Y_AXIS);
+        rotateBack.setFromAngle(0);
+        rotateBack.setToAngle(90);
+        //Rotación hacia adelante 
+        RotateTransition rotateFront = new RotateTransition(Duration.seconds(2), imgCardBack);
+        rotateFront.setAxis(Rotate.Y_AXIS);
+        rotateFront.setFromAngle(90);
+        rotateFront.setToAngle(180);
+        rotateBack.setOnFinished(event -> {
+            rootCardQuestion.setVisible(!showingFrontCardOne);
+            imgCardBack.setVisible(showingFrontCardOne);
+        });
+        SequentialTransition flipAnimation = new SequentialTransition(rotateBack, rotateFront);
+        flipAnimation.play();
+        showingFrontCardOne = !showingFrontCardOne;
+    }
+    
+    private void flipCardPlayerTwo(){
+        RotateTransition rotateBack = new RotateTransition(Duration.seconds(2), imgCardBack2);
+        rotateBack.setAxis(Rotate.Y_AXIS);
+        rotateBack.setFromAngle(0);
+        rotateBack.setToAngle(90);
+        //Rotación hacia adelante 
+        RotateTransition rotateFront = new RotateTransition(Duration.seconds(2), imgCardBack2);
+        rotateFront.setAxis(Rotate.Y_AXIS);
+        rotateFront.setFromAngle(90);
+        rotateFront.setToAngle(180);
+        rotateBack.setOnFinished(event -> {
+            rootCardQuestion1.setVisible(!showingFrontCardTwo);
+            imgCardBack2.setVisible(showingFrontCardTwo);
+        });
+        SequentialTransition flipAnimation = new SequentialTransition(rotateBack, rotateFront);
+        flipAnimation.play();
+        showingFrontCardTwo = !showingFrontCardTwo;
     }
 }
