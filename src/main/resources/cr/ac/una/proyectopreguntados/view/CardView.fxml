@@ -9,27 +9,27 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" fx:id="principalRoot" prefHeight="300.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.proyectopreguntados.controller.CardController">
+<AnchorPane id="AnchorPane" fx:id="principalRoot" prefHeight="300.0" prefWidth="200.0" styleClass="cardBackground" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.proyectopreguntados.controller.CardController">
    <children>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
          <children>
-            <AnchorPane prefHeight="244.0" prefWidth="249.0">
+            <AnchorPane prefHeight="244.0" prefWidth="200.0">
                <children>
                   <ImageView fx:id="imgStack" fitHeight="243.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <AnchorPane fx:id="rootCardQuestion" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane fx:id="rootCardQuestion" prefHeight="270.0" prefWidth="200.0" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <VBox fx:id="vbCard" alignment="TOP_CENTER" prefHeight="240.0" prefWidth="200.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox fx:id="vbCard" alignment="TOP_CENTER" prefHeight="243.0" prefWidth="200.0" spacing="10.0" styleClass="vboxCard" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <Slider fx:id="sliderTime" prefWidth="200.0" />
-                              <Text fx:id="textOfQuestion" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Cuál es el nombre del primer gran poema épico de la literatura inglesa?" textAlignment="CENTER" wrappingWidth="138.6549174785614">
+                              <Text fx:id="textOfQuestion" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="questionText" text="¿Cuál es el nombre del primer gran poema épico de la literatura inglesa?" textAlignment="CENTER" wrappingWidth="138.6549174785614">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
                               </Text>
-                              <MFXButton fx:id="btnOptionOne" onAction="#onActionBtnOption" prefHeight="20.0" prefWidth="150.0" styleClass="button-Question" text="Dante Alighieri" />
-                              <MFXButton fx:id="btnOptionTwo" onAction="#onActionBtnOption" prefHeight="30.0" prefWidth="150.0" styleClass="button-Question" text="Santiago García-Clairac" />
-                              <MFXButton fx:id="btnOptionThree" onAction="#onActionBtnOption" prefHeight="30.0" prefWidth="150.0" styleClass="button-Question" text="Para mezclar pinturas" />
-                              <MFXButton fx:id="btnOptionFour" onAction="#onActionBtnOption" prefHeight="30.0" prefWidth="150.0" styleClass="button-Question" text="El coronel no tiene quién le escriba" />
+                              <MFXButton fx:id="btnOptionOne" onAction="#onActionBtnOption" prefHeight="20.0" prefWidth="180.0" styleClass="button-Question" text="Dante Alighieri" />
+                              <MFXButton fx:id="btnOptionTwo" onAction="#onActionBtnOption" prefHeight="30.0" prefWidth="180.0" styleClass="button-Question" text="Santiago García-Clairac" />
+                              <MFXButton fx:id="btnOptionThree" onAction="#onActionBtnOption" prefHeight="30.0" prefWidth="180.0" styleClass="button-Question" text="Para mezclar pinturas" />
+                              <MFXButton fx:id="btnOptionFour" onAction="#onActionBtnOption" prefHeight="30.0" prefWidth="180.0" styleClass="button-Question" text="El coronel no tiene quién le escriba" />
                            </children>
                         </VBox>
                         <ImageView fx:id="imgCardBack" fitHeight="243.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -37,11 +37,11 @@
                   </AnchorPane>
                </children>
             </AnchorPane>
-            <HBox alignment="CENTER" prefHeight="102.0" prefWidth="200.0" spacing="10.0">
+            <HBox alignment="CENTER" prefHeight="54.0" prefWidth="200.0" spacing="10.0">
                <children>
-                  <MFXButton fx:id="btnSecondTry" onAction="#onActionBtnSecondTry" text="Intento 2" />
-                  <MFXButton fx:id="btnPassQuestion" onAction="#onActionBtnPassQuestion" text="Pasar" />
-                  <MFXButton fx:id="btnBomb" onAction="#onActionBtnBomb" text="Bomba" />
+                  <MFXButton fx:id="btnSecondTry" onAction="#onActionBtnSecondTry" styleClass="button-Help" text=" Intento 2 " />
+                  <MFXButton fx:id="btnPassQuestion" onAction="#onActionBtnPassQuestion" styleClass="button-Help" text=" Pasar " />
+                  <MFXButton fx:id="btnBomb" onAction="#onActionBtnBomb" styleClass="button-Help" text=" Bomba " />
                </children>
             </HBox>
          </children>

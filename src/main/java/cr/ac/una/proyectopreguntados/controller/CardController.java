@@ -164,17 +164,13 @@ public class CardController extends Controller implements Initializable {
         rotateBack.setFromAngle(0);
         rotateBack.setToAngle(90);
         //Rotación hacia adelante 
-        RotateTransition rotateFront = new RotateTransition(Duration.seconds(3.5), imgCardBack);
+        RotateTransition rotateFront = new RotateTransition(Duration.seconds(2.5), vbCard);
         rotateFront.setAxis(Rotate.Y_AXIS);
-        rotateFront.setFromAngle(90);
-        rotateFront.setToAngle(180);
+        rotateFront.setFromAngle(-90);
+        rotateFront.setToAngle(0);
         rotateBack.setOnFinished(event -> {
             rootCardQuestion.setVisible(!showingFront);
             imgCardBack.setVisible(showingFront);
-//            btnOptionOne.setPrefSize(170, 20);
-//            btnOptionTwo.setPrefSize(170, 20);
-//            btnOptionThree.setPrefSize(170, 20);
-//            btnOptionFour.setPrefSize(170, 20);
         });
         SequentialTransition flipAnimation = new SequentialTransition(rotateBack, rotateFront);
         flipAnimation.play();

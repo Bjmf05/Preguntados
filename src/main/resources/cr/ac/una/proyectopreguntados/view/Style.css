@@ -236,7 +236,7 @@
 /*QuestionView*/
 .button-Question{
     -fx-background-color: #a19f9f;
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-font-weight: bold;
     -fx-font-size: 12px;
     -fx-alignment: CENTER;
@@ -321,4 +321,31 @@
     -fx-padding: 5 0 5 0;
     -fx-font-weight:bold;
     -fx-background-color:#cccccc;
+}
+
+.vboxCard{
+    -fx-background-color:#1A1A1A;
+}
+
+.cardBackground{
+    -fx-background-color:#56588e;
+}
+
+.questionText{
+    -fx-fill:#ffffff; 
+    -fx-font-size: 12px; 
+    -fx-font-weight: bold;
+}
+
+.button-Help{
+    -fx-font-family: Roboto;
+    -fx-text-fill: #000000;
+    -fx-font-size: 14px;
+    -fx-padding: 5 0 5 0;
+    -fx-font-weight:bold;
+    -fx-background-color:#cccccc;
+}
+
+.button-Help:hover{
+    -fx-background-color:#272dce;
 }
