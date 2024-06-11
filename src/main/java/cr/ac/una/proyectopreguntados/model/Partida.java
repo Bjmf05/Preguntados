@@ -1,9 +1,9 @@
 package cr.ac.una.proyectopreguntados.model;
 
 import jakarta.persistence.*;
-
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,7 +22,7 @@ import java.util.List;
     @NamedQuery(name = "Partida.findByPartVersion", query = "SELECT p FROM Partida p WHERE p.version = :version")})
 public class Partida implements Serializable {
 
- 
+
 
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -47,6 +47,12 @@ public class Partida implements Serializable {
     @Basic(optional = false)
     @Column(name = "PART_JUGADORES")
     private Long jugadores;
+    @Basic(optional = false)
+    @Column(name = "PART_ESTADO")
+    private String estado;
+    @Basic(optional = false)
+    @Column(name = "PART_RONDA")
+    private Integer ronda;
     @Version
     @Column(name = "PART_VERSION")
     private Long version;
@@ -59,6 +65,8 @@ public class Partida implements Serializable {
     private List<Pregunta> preguntaList;
 
     public Partida() {
+        this.preguntaList = new ArrayList<>();
+        this.competidorList = new ArrayList<>();
     }
 
     public Partida(Long id) {
@@ -76,7 +84,8 @@ public class Partida implements Serializable {
         this.jugadores = partidaDto.getJugadores();
         this.tiempoLimite = partidaDto.getTiempoLimite();
         this.dificultad = partidaDto.getDificultad();
-        //this.preguntaList = partidaDto.getPreguntaList();
+        this.ronda = partidaDto.getRonda();
+        this.estado = partidaDto.getEstado();
         this.version = partidaDto.getVersion();
     }
 
@@ -128,6 +137,23 @@ public class Partida implements Serializable {
         this.tiempoLimite = tiempoLimite;
     }
 
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public Integer getRonda() {
+        return ronda;
+    }
+
+    public void setRonda(Integer ronda) {
+        this.ronda = ronda;
+    }
+    
+
     public Long getVersion() {
         return version;
     }
@@ -177,5 +203,5 @@ public class Partida implements Serializable {
         return "cr.ac.una.proyectopreguntados.model.Partida[ partId=" + id + " ]";
     }
 
-
+   
 }

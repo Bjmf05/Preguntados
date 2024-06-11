@@ -1,11 +1,6 @@
 package cr.ac.una.proyectopreguntados.service;
 
-import cr.ac.una.proyectopreguntados.model.Partida;
-import cr.ac.una.proyectopreguntados.model.PartidaDto;
-import cr.ac.una.proyectopreguntados.model.Pregunta;
-import cr.ac.una.proyectopreguntados.model.PreguntaDto;
-import cr.ac.una.proyectopreguntados.model.Respuesta;
-import cr.ac.una.proyectopreguntados.model.RespuestaDto;
+import cr.ac.una.proyectopreguntados.model.*;
 import cr.ac.una.proyectopreguntados.util.EntityManagerHelper;
 import cr.ac.una.proyectopreguntados.util.RespuestaEnt;
 import jakarta.persistence.*;
@@ -43,11 +38,11 @@ public class PartidaService {
                             Pregunta pregunta = em.find(Pregunta.class, preguntaDto.getId());
                             pregunta.actualizar(preguntaDto);
                             for (Respuesta respuesta : pregunta.getPlamRespuestasList()) {
-                                Optional<RespuestaDto> resDto = preguntaDto.getRespuestasList().stream().filter(r->r.getRespuestaPK().getId().equals(respuesta.getRespuestaPK().getId())).findFirst();
-                                if(resDto.isPresent()){
+                                Optional<RespuestaDto> resDto = preguntaDto.getRespuestasList().stream().filter(r -> r.getRespuestaPK().getId().equals(respuesta.getRespuestaPK().getId())).findFirst();
+                                if (resDto.isPresent()) {
                                     respuesta.actualizar(resDto.get());
                                 }
-                            }                            
+                            }
                             pregunta.getPartidasList().add(partida);
                             partida.getPreguntaList().add(pregunta);
                         }
@@ -84,7 +79,14 @@ public class PartidaService {
             List<Partida> games = (List<Partida>) query.getResultList();
             List<PartidaDto> gamesDto = new ArrayList<>();
             for (Partida game : games) {
-                gamesDto.add(new PartidaDto(game));
+                PartidaDto partidaDto = new PartidaDto(game);
+                for (Pregunta pregunta : game.getPreguntaList()) {
+                    partidaDto.getPreguntaList().add(new PreguntaDto(pregunta));
+                }
+                for (Competidor competidor : game.getCompetidorList()) {
+                    partidaDto.getCompetidorList().add(new CompetidorDto(competidor));
+                }
+                gamesDto.add(partidaDto);
             }
             return new RespuestaEnt(true, "", "", "Games", gamesDto);
         } catch (NoResultException ex) {
@@ -100,7 +102,14 @@ public class PartidaService {
         try {
             Query qryGame = em.createNamedQuery("Partida.findByPartId", Partida.class);
             qryGame.setParameter("id", id);
-            PartidaDto partidaDto = new PartidaDto((Partida) qryGame.getSingleResult());
+            Partida partida = (Partida) qryGame.getSingleResult();
+            PartidaDto partidaDto = new PartidaDto(partida);
+            for (Pregunta pregunta : partida.getPreguntaList()) {
+                partidaDto.getPreguntaList().add(new PreguntaDto(pregunta));
+            }
+            for (Competidor competidor : partida.getCompetidorList()) {
+                partidaDto.getCompetidorList().add(new CompetidorDto(competidor));
+            }
             return new RespuestaEnt(true, "", "", "Game", partidaDto);
         } catch (NoResultException ex) {
             return new RespuestaEnt(false, "No existe una partida con las credenciales ingresadas.", "getGame NoResultException");

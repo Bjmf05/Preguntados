@@ -196,7 +196,6 @@ public class SixPlayerBoardController extends Controller implements Initializabl
         }
     }
 
-
     private void changePlayerTurn() {
         currentCompetitor.setTurno("O");
         savePlayerDto();
@@ -398,11 +397,11 @@ public class SixPlayerBoardController extends Controller implements Initializabl
     }
 
     private void loadGameData(PartidaDto Game) {
+        round = Game.getRonda();
         Map<Integer, CompetidorDto> competitorMap = new HashMap<>();
-        for (Competidor c : Game.getCompetidorList()) {
-            CompetidorDto comp = new CompetidorDto(c);
-            int index = comp.getNumeroJugador().intValue() - 1;
-            competitorMap.put(index, comp);
+        for (CompetidorDto c : Game.getCompetidorList()) {
+            int index = c.getNumeroJugador().intValue() - 1;
+            competitorMap.put(index, c);
         }
 
         for (int i = 0; i < numberOfPlayers; i++) {
@@ -631,24 +630,24 @@ public class SixPlayerBoardController extends Controller implements Initializabl
                 winner += currentCompetitor.getJugador().getNombre() + " ";
             }
         }
-        safeGame();
         EndGameController endGameController = (EndGameController) FlowController.getInstance().getController("EndGameView");
         endGameController.getLblFinishBy().setText(winnerBy);
         endGameController.getLblWinner().setText(winner);
         FlowController.getInstance().goViewInWindowModal("EndGameView", getStage(), true);
+        game.setEstado("F");
+        safeGame();
         PrincipalController principalController = (PrincipalController) FlowController.getInstance().getController("PrincipalView");
         principalController.exit();
     }
 
     public void safeGame() {
+        game.setRonda(round);
         AppContext.getInstance().set("PartidaSave", game);
-       savePlayerDto();
+        savePlayerDto();
         competitors.clear();
-
-
         for (int i = 0; i < numberOfPlayers; i++) {
             CompetidorDto competidorDto = competitorsPlayer(i);
-           competitors.add(competidorDto);
+            competitors.add(competidorDto);
         }
         AppContext.getInstance().set("CompetidoresSave", competitors);
         SaveGame saveGame = new SaveGame();

@@ -15,6 +15,7 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Version;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -88,6 +89,7 @@ public class Jugador implements Serializable {
     private List<Competidor> competidorList;
 
     public Jugador() {
+        this.competidorList = new ArrayList<>();
     }
 
     public Jugador(Long id) {

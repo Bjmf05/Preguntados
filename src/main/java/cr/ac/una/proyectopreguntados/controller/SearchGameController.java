@@ -144,10 +144,9 @@ public class SearchGameController extends Controller implements Initializable {
     private void loadGameData(PartidaDto Game) {
         Map<Integer, CompetidorDto> competitorMap = new HashMap<>();
 
-        for (Competidor c : Game.getCompetidorList()) {
-            CompetidorDto comp = new CompetidorDto(c);
-            int index = comp.getNumeroJugador().intValue() - 1;
-            competitorMap.put(index, comp);
+        for (CompetidorDto c : Game.getCompetidorList()) {
+            int index = c.getNumeroJugador().intValue() - 1;
+            competitorMap.put(index, c);
         }
         ObservableList<CompetidorDto> competitors = FXCollections.observableArrayList();
 
@@ -159,7 +158,7 @@ public class SearchGameController extends Controller implements Initializable {
         AppContext.getInstance().set("Competidores", competitors);
     }
 
-    private void getQuestions(List<Pregunta> preguntaList){
+    private void getQuestions(List<PreguntaDto> preguntaList){
         ObservableList<PreguntaDto> questions = FXCollections.observableArrayList();
         try {
             PreguntaService service = new PreguntaService();
@@ -175,7 +174,7 @@ public class SearchGameController extends Controller implements Initializable {
         }
         filterList(preguntaList, questions);
     }
-private void filterList(List<Pregunta> preguntaList, ObservableList<PreguntaDto> questions) {
+private void filterList(List<PreguntaDto> preguntaList, ObservableList<PreguntaDto> questions) {
     if(preguntaList != null && !preguntaList.isEmpty()){
         questions.removeIf(question -> preguntaList.stream().anyMatch(pregunta -> pregunta.getId().equals(question.getId())));
     }
