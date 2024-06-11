@@ -322,23 +322,25 @@ public class SixPlayerBoardController extends Controller implements Initializabl
     }
 
     private void checkAnswerCrown(String type, CardController cardController) {
-        // FlowController.getInstance().delete("CardView");
-        cardController.setTypeOfCard(type);
-        FlowController.getInstance().goViewInWindowModalOfCard("CardView", getStage(), true, principalController.getWidth(), principalController.getHeight());
-        boolean answer = cardController.isAnswer();
-        if (answer) {
-//hacer un set al valor del tipo en la clase del jugador y luego llama para actualizar los personages
-            setPlayerCharacters(type);
-            currentCompetitor.setPosicionFicha(1L);
-            positionPlayer(1);
-            savePlayerDto();
+        boolean answer = false;
+        if (!type.equals("Duelo")) {
+            cardController.setTypeOfCard(type);
+            FlowController.getInstance().goViewInWindowModalOfCard("CardView", getStage(), true, principalController.getWidth(), principalController.getHeight());
+            answer = cardController.isAnswer();
+        } else {
+            DuelController duelController = (DuelController) FlowController.getInstance().getController("DuelView");
+            answer = duelController.isWinner();
         }
-        //Mover la posicion del jugador a 1
 
-        //pasa al siguiente jugador si la fallo, crear funcion para nuevo jugador
+        if (answer) {
+            setPlayerCharacters(type);
+        }
+
+        currentCompetitor.setPosicionFicha(1L);
+        positionPlayer(1);
+        savePlayerDto();
+
         if (!answer) {
-            currentCompetitor.setPosicionFicha(1L);
-            positionPlayer(1);
             changePlayerTurn();
         }
     }
@@ -502,11 +504,11 @@ public class SixPlayerBoardController extends Controller implements Initializabl
         };
     }
 
-    private void getCharacter(ImageView image) {
+    public void getCharacter(ImageView image) {
         image.setOpacity(1);
     }
 
-    private ImageView[] getPlayerImages() {
+    public ImageView[] getPlayerImages() {
         switch (currentPlayer) {
             case 1:
                 return new ImageView[]{imgBonzoPlayer1, imgPopPlayer1, imgAlbertPlayer1, imgHectorPlayer1, imgTitoPlayer1, imgTinaPlayer1};
@@ -640,11 +642,13 @@ public class SixPlayerBoardController extends Controller implements Initializabl
 
     public void safeGame() {
         AppContext.getInstance().set("PartidaSave", game);
-        savePlayerDto();
+       savePlayerDto();
         competitors.clear();
+
+
         for (int i = 0; i < numberOfPlayers; i++) {
             CompetidorDto competidorDto = competitorsPlayer(i);
-            competitors.add(competidorDto);
+           competitors.add(competidorDto);
         }
         AppContext.getInstance().set("CompetidoresSave", competitors);
         SaveGame saveGame = new SaveGame();
@@ -672,6 +676,14 @@ public class SixPlayerBoardController extends Controller implements Initializabl
             competitors.add(competidorDto);
         }
         fillPlayersDto();
+    }
+
+    public int getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(int currentPlayer) {
+        this.currentPlayer = currentPlayer;
     }
 }
 

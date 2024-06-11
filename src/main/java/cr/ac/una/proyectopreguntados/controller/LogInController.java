@@ -61,7 +61,6 @@ public class LogInController extends Controller implements Initializable {
 
     @Override
     public void initialize() {
-        FlowController.getInstance().delete("SixPlayerBoardView");
     }
 
     @FXML

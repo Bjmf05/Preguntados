@@ -6,6 +6,7 @@
 package cr.ac.una.proyectopreguntados.util;
 
 import cr.ac.una.proyectopreguntados.App;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -14,6 +15,7 @@ import java.util.logging.Level;
 
 import cr.ac.una.proyectopreguntados.controller.LogInController;
 import cr.ac.una.proyectopreguntados.controller.PrincipalController;
+import cr.ac.una.proyectopreguntados.controller.SixPlayerBoardController;
 import cr.ac.una.proyectopreguntados.model.Partida;
 import cr.ac.una.proyectopreguntados.model.PartidaDto;
 import javafx.fxml.FXMLLoader;
@@ -108,7 +110,8 @@ public class FlowController {
             java.util.logging.Logger.getLogger(FlowController.class.getName()).log(Level.SEVERE, "Error inicializando la vista base.", ex);
         }
     }
-    private void boardView(){
+
+    private void boardView() {
         PartidaDto partida = (PartidaDto) AppContext.getInstance().get("Partida");
         int numPlayers = partida.getJugadores().intValue();
         switch (numPlayers) {
@@ -130,6 +133,32 @@ public class FlowController {
         }
 
     }
+
+    public Object getControllerBoard() {
+
+        PartidaDto partida = (PartidaDto) AppContext.getInstance().get("Partida");
+        int numPlayers = partida.getJugadores().intValue();
+        SixPlayerBoardController controller;
+        switch (numPlayers) {
+            case 2:
+                return controller = (SixPlayerBoardController) FlowController.getInstance().getController("TwoPlayerBoardView");
+            case 3:
+                return controller = (SixPlayerBoardController) FlowController.getInstance().getController("ThreePlayerBoardView");
+            case 4:
+                return controller = (SixPlayerBoardController) FlowController.getInstance().getController("FourPlayerBoardView");
+            case 5:
+                return controller = (SixPlayerBoardController) FlowController.getInstance().getController("FivePlayerBoardView");
+            case 6:
+                return controller = (SixPlayerBoardController) FlowController.getInstance().getController("SixPlayerBoardView");
+            default:
+                return null;
+        }
+
+    }
+    public void deleteAll() {
+        loaders.clear();
+    }
+
     public void goView(String viewName) {
         goView(viewName, "Center", null);
     }
@@ -176,7 +205,7 @@ public class FlowController {
         controller.setStage(stage);
         stage.getScene().setRoot(loader.getRoot());
         MFXThemeManager.addOn(stage.getScene(), Themes.DEFAULT, Themes.LEGACY);
-        
+
     }
 
     public void goViewInWindow(String viewName) {
@@ -185,7 +214,7 @@ public class FlowController {
         controller.initialize();
         Stage stage = new Stage();
         InputStream inputStream = App.class.getResourceAsStream("/cr/ac/una/proyectopreguntados/resources/Corona.png");
-      stage.getIcons().add(new Image(inputStream));
+        stage.getIcons().add(new Image(inputStream));
         stage.setTitle("Preguntados");
         stage.setOnHidden((WindowEvent event) -> {
             controller.getStage().getScene().setRoot(new Pane());
@@ -223,28 +252,30 @@ public class FlowController {
         stage.showAndWait();
 
     }
+
     public void showViewInVBox(String viewName, VBox vbox) {
-    try {
-        FXMLLoader loader = getLoader(viewName);
-        Parent view = loader.getRoot();
-        vbox.getChildren().clear();
-        vbox.getChildren().add(view);
-    } catch (Exception ex) {
-        java.util.logging.Logger.getLogger(FlowController.class.getName()).log(Level.SEVERE, "Error showing view in VBox.", ex);
+        try {
+            FXMLLoader loader = getLoader(viewName);
+            Parent view = loader.getRoot();
+            vbox.getChildren().clear();
+            vbox.getChildren().add(view);
+        } catch (Exception ex) {
+            java.util.logging.Logger.getLogger(FlowController.class.getName()).log(Level.SEVERE, "Error showing view in VBox.", ex);
+        }
     }
-}
+
     public Controller getController(String viewName) {
         return getLoader(viewName).getController();
     }
-    
-    public void limpiarLoader(String view){
+
+    public void limpiarLoader(String view) {
         this.loaders.remove(view);
     }
 
     public static void setIdioma(ResourceBundle idioma) {
         FlowController.idioma = idioma;
     }
-    
+
     public void initialize() {
         this.loaders.clear();
     }
@@ -252,12 +283,11 @@ public class FlowController {
     public void salir() {
         this.mainStage.close();
     }
- public void delete(String parametro){
-     loaders.remove(parametro);
- }
- public void deleteAll(){
-     loaders.clear();}
- 
+
+    public void delete(String parametro) {
+        loaders.remove(parametro);
+    }
+
     public void goViewInWindowModalOfCard(String viewName, Stage parentStage, Boolean resizable, double width, double height) {
         FXMLLoader loader = getLoader(viewName);
         Controller controller = loader.getController();

@@ -84,27 +84,29 @@ public class CardController extends Controller implements Initializable {
     @FXML
     private MFXButton btnPassQuestion;
     SixPlayerBoardController sixPlayerBoardController;
+    private Boolean isDuel = false;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getController("SixPlayerBoardView");
+        SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getControllerBoard();
         // TODO
         this.sixPlayerBoardController = sixPlayerBoardController;
         competidorDtoCurrent = sixPlayerBoardController.getCurrentCompetitor();
         disableWildCards();
         fillQuestions();
-
+        clearButtons();
     }
 
     @Override
     public void initialize() {
         disableWildCards();
         fillQuestions();
-        SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getController("SixPlayerBoardView");
+        SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getControllerBoard();
         this.sixPlayerBoardController = sixPlayerBoardController;
         clearButtons();
+
     }
 
     @FXML
@@ -112,7 +114,7 @@ public class CardController extends Controller implements Initializable {
         clearButtons();
         MFXButton button = (MFXButton) event.getSource();
         String buttonText = button.getText();
-        SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getController("SixPlayerBoardView");
+        SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getControllerBoard();
 
         preguntaDto.getRespuestasList().stream()
                 .filter(respuesta -> buttonText.equals(respuesta.getContenido()))
@@ -124,7 +126,6 @@ public class CardController extends Controller implements Initializable {
                         typeQuestionJugador(preguntaDto.getCategoria());
                         answer = true;
                         Platform.runLater(() -> button.setStyle("-fx-background-color: #00FF00"));
-                        System.out.println("Respuesta correcta");
                     } else {
                         answer = false;
                         Platform.runLater(() -> button.setStyle("-fx-background-color: #FF0000")); 
@@ -313,7 +314,7 @@ public class CardController extends Controller implements Initializable {
 
     @FXML
     private void onActionBtnPassQuestion(ActionEvent event) {
-        SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getController("SixPlayerBoardView");
+        SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getControllerBoard();
         partidaDto = sixPlayerBoardController.getGame();
         ObservableList<PreguntaDto> questionFiltered = preguntasList.filtered(question -> question.getCategoria().equals(this.question));
         if (questionFiltered.isEmpty()) {
@@ -343,4 +344,5 @@ public class CardController extends Controller implements Initializable {
         }
 
     }
+
 }

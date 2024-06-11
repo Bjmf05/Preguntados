@@ -181,7 +181,7 @@ handleAvatarSelection(playerIndex, route);
         }}
 
     private void fillChallengin() {
-        SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getController("SixPlayerBoardView");
+        SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController)FlowController.getInstance().getControllerBoard();
         CompetidorDto currentPlayer = sixPlayerBoardController.getCurrentCompetitor();
         for (CompetidorDto player : competitorsDuel) {
             if (player.getCompetidorPK().equals(currentPlayer.getCompetidorPK())) {

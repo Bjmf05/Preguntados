@@ -57,6 +57,7 @@ public class SelectCrownCategoryController extends Controller implements Initial
     @FXML
     private ImageView imgDuel;
     private ObservableList<CompetidorDto> competitorsDuel= FXCollections.observableArrayList();
+    private boolean competitorsIsFilled = false;
 
     /**
      * Initializes the controller class.
@@ -65,13 +66,17 @@ public class SelectCrownCategoryController extends Controller implements Initial
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         clear();
+        competitorsDuel= FXCollections.observableArrayList();
+        competitorsIsFilled = false;
         disableDuel();
         deleteCharacter();
+
 
     }
 
     @Override
     public void initialize() {
+
     }
 
     @FXML
@@ -221,7 +226,7 @@ public class SelectCrownCategoryController extends Controller implements Initial
     }
 
     private void deleteCharacter() {
-        SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getController("SixPlayerBoardView");
+        SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getControllerBoard();
         CompetidorDto competidorDto = sixPlayerBoardController.getCurrentCompetitor();
         String art = competidorDto.getArte();
         String geography = competidorDto.getGeografia();
@@ -275,6 +280,7 @@ public class SelectCrownCategoryController extends Controller implements Initial
 
     @FXML
   private void onMouseClickedImgDuel(MouseEvent event) {
+        playerSelection = "Duelo";
       AppContext.getInstance().set("competitorsDuel", competitorsDuel);
       FlowController.getInstance().goViewInWindowModal("SelectDuelView", getStage(), true);
       FlowController.getInstance().delete("SelectDuelView");
@@ -282,7 +288,7 @@ public class SelectCrownCategoryController extends Controller implements Initial
 }
 
 private void disableDuel(){
-    SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getController("SixPlayerBoardView");
+    SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getControllerBoard();
     imgDuel.setDisable(true);
     CompetidorDto competidorDto = sixPlayerBoardController.getCurrentCompetitor();
     if(hasCrown(competidorDto)){
@@ -295,25 +301,27 @@ private void disableDuel(){
 
 }
 private ObservableList<CompetidorDto> getCompetitors() {
-    SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getController("SixPlayerBoardView");
+    SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getControllerBoard();
     sixPlayerBoardController.getPlayers();
     return (ObservableList<CompetidorDto>) AppContext.getInstance().get("competitorsPlayer");
 }
 
 private int countPlayersWithCrown(ObservableList<CompetidorDto> competidores) {
+
     int playersWithCrown = 0;
     for (CompetidorDto competidor : competidores) {
         if (hasCrown(competidor)) {
             playersWithCrown++;
-            competitorsDuel.add(competidor);
+            if (!competitorsIsFilled){
+            competitorsDuel.add(competidor);}
         }
     }
+    competitorsIsFilled = true;
     return playersWithCrown;
 }
 
 private boolean hasCrown(CompetidorDto competidor) {
     return competidor.getArte().equals("A") || competidor.getGeografia().equals("A") || competidor.getEntretenimiento().equals("A") || competidor.getDeporte().equals("A") || competidor.getHistoria().equals("A") || competidor.getCiencias().equals("A");
 }
-
 
 }
