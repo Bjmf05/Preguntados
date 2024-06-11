@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -198,5 +199,6 @@
             <Insets top="10.0" />
          </padding>
       </VBox>
+      <MFXButton fx:id="btnTurnAgain" layoutX="727.0" layoutY="192.0" onAction="#onActionBtnTurnAgain" text="Volver a Girar" />
    </children>
 </AnchorPane>

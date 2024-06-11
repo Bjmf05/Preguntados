@@ -4,6 +4,7 @@ import cr.ac.una.proyectopreguntados.App;
 import cr.ac.una.proyectopreguntados.model.*;
 import cr.ac.una.proyectopreguntados.util.AppContext;
 import cr.ac.una.proyectopreguntados.util.FlowController;
+import io.github.palexdev.materialfx.controls.MFXButton;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -11,26 +12,19 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.RotateTransition;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 
-import javax.imageio.spi.ServiceRegistry;
-import javax.xml.transform.Source;
 
 /**
  * FXML Controller class
@@ -164,7 +158,10 @@ public class SixPlayerBoardController extends Controller implements Initializabl
     private Label lblTime;
     @FXML
     private ImageView btnSpinWheel;
-
+    @FXML
+    private MFXButton btnTurnAgain;
+    private boolean turnAgain = false;
+    private boolean isEasyGame = false;
     /**
      * Initializes the controller class.
      */
@@ -179,7 +176,6 @@ public class SixPlayerBoardController extends Controller implements Initializabl
         fillPlayersAvatar();
         fillPlayersLabels();
         checkGame();
-
 
     }
 
@@ -234,52 +230,55 @@ public class SixPlayerBoardController extends Controller implements Initializabl
         }
     }
 
-@FXML
-private void onMouseClickedSpinWheel(MouseEvent event) {
-    RotateTransition rotateTransition = new RotateTransition(Duration.seconds(1), imgWheel);
-    rotateTransition.setByAngle(new Random().nextInt(1081) + 1080);
-    rotateTransition.setCycleCount(1);
-    rotateTransition.setOnFinished(evento -> Platform.runLater(() -> rouletteNumber((int) ((imgWheel.getRotate() + 360 / 14) % 360) / (360 / 7) + 1)));
-    rotateTransition.play();
-}
+    @FXML
+    private void onMouseClickedSpinWheel(MouseEvent event) {
+        RotateTransition rotateTransition = new RotateTransition(Duration.seconds(1), imgWheel);
+        rotateTransition.setByAngle(new Random().nextInt(1081) + 1080);
+        rotateTransition.setCycleCount(1);
+        rotateTransition.setOnFinished(evento -> Platform.runLater(() -> rouletteNumber((int) ((imgWheel.getRotate() + 360 / 14) % 360) / (360 / 7) + 1)));
+        rotateTransition.play();
+    }
 
     @Override
     public void initialize() {
     }
 
     private void rouletteNumber(int number) {
-        FlowController.getInstance().delete("CardView");
-        CardController cardController = (CardController) FlowController.getInstance().getController("CardView");
-        if (isFirstGame) {
-            if (number == 4) {
-                currentCompetitor = competitorsPlayer(currentPlayer - 1);
-                currentCompetitor.setTurno("A");
-                changeLabelPlayer();
-                isFirstGame = false;
+        PauseTransition pause = new PauseTransition(Duration.seconds(2));
+        pause.setOnFinished(p -> Platform.runLater(() -> {
+            if (turnAgain) {
+                turnAgain = false;
+                onMouseClickedSpinWheel(null);
             } else {
-                //Crear Funcion para pasar al siguiente jugador
-                if (currentPlayer == numberOfPlayers) {
-                    currentPlayer = 1;
+                FlowController.getInstance().delete("CardView");
+                CardController cardController = (CardController) FlowController.getInstance().getController("CardView");
+                if (isFirstGame) {
+                    if (number == 4) {
+                        currentCompetitor = competitorsPlayer(currentPlayer - 1);
+                        currentCompetitor.setTurno("A");
+                        changeLabelPlayer();
+                        isFirstGame = false;
+                    } else {
+
+                        if (currentPlayer == numberOfPlayers) {
+                            currentPlayer = 1;
+                        } else {
+                            currentPlayer++;
+                        }
+                        currentCompetitor = competitorsPlayer(currentPlayer - 1);
+                        changeLabelPlayer();
+                    }
+                } else if (number == 4) {
+                    checkAnswerCrown(crownAction(), cardController);
                 } else {
-                    currentPlayer++;
+                    cardController.setTypeOfCard(typeOfQuestion(number));
+                    FlowController.getInstance().goViewInWindowModalOfCard("CardView", getStage(), true, principalController.getWidth(), principalController.getHeight());
+                    checkAnswer(cardController.isAnswer(), cardController);
                 }
-                currentCompetitor = competitorsPlayer(currentPlayer - 1);
-                changeLabelPlayer();
             }
-        } else if (number == 4) {
-            //Llama a corona
-
-            checkAnswerCrown(crownAction(), cardController);
-
-        } else {
-            cardController.setTypeOfCard(typeOfQuestion(number));
-            FlowController.getInstance().goViewInWindowModalOfCard("CardView", getStage(), true, principalController.getWidth(), principalController.getHeight());
-            checkAnswer(cardController.isAnswer(), cardController);
-
-        }
-
+        }));
+        pause.play();
     }
-
 
     private void checkAnswer(boolean answer, CardController cardController) {
         int position = currentCompetitor.getPosicionFicha().intValue();
@@ -322,18 +321,19 @@ private void onMouseClickedSpinWheel(MouseEvent event) {
             changePlayerTurn();
         }
     }
-private void setPlayerWildCard() {
-    if (game.getDificultad().equals("Intermedio")) {
-        Random random = new Random();
-        Runnable[] actions = {
-            () -> currentCompetitor.setComodinBomba(1L),
-            () -> currentCompetitor.setComodinDoble(1L),
-            () -> currentCompetitor.setComodinPasar(1L),
-            () -> currentCompetitor.setComodinTiro(1L)
-        };
-        actions[random.nextInt(actions.length)].run();
+
+    private void setPlayerWildCard() {
+        if (game.getDificultad().equals("Intermedio")) {
+            Random random = new Random();
+            Runnable[] actions = {
+                () -> currentCompetitor.setComodinBomba(1L),
+                () -> currentCompetitor.setComodinDoble(1L),
+                () -> currentCompetitor.setComodinPasar(1L),
+                () -> currentCompetitor.setComodinTiro(1L)
+            };
+            actions[random.nextInt(actions.length)].run();
+        }
     }
-}
 
     private void setPlayerCharacters(String type) {
         //PlayerCategories se llena con un get y los valores de cada categoria en la calse player
@@ -388,6 +388,9 @@ private void setPlayerWildCard() {
 
     private void loadGameData(PartidaDto Game) {
         round = Game.getRonda();
+        if(game.getDificultad().equals("Fácil")){
+            isEasyGame = true;
+        }
         Map<Integer, CompetidorDto> competitorMap = new HashMap<>();
         for (CompetidorDto c : Game.getCompetidorList()) {
             int index = c.getNumeroJugador().intValue() - 1;
@@ -422,7 +425,7 @@ private void setPlayerWildCard() {
             timeline.setCycleCount(Animation.INDEFINITE);
             timeline.play();
         }
-    }
+            }
 
     private void actualizarCronometro() {
         tiempoInicial = tiempoInicial.minusSeconds(1);
@@ -483,13 +486,20 @@ private void setPlayerWildCard() {
 
     private String typeOfQuestion(int number) {
         return switch (number) {
-            case 1 -> "Historia";
-            case 2 -> "Ciencia";
-            case 3 -> "Geografía";
-            case 5 -> "Entretenimiento";
-            case 6 -> "Arte";
-            case 7 -> "Deporte";
-            default -> "";
+            case 1 ->
+                "Historia";
+            case 2 ->
+                "Ciencia";
+            case 3 ->
+                "Geografía";
+            case 5 ->
+                "Entretenimiento";
+            case 6 ->
+                "Arte";
+            case 7 ->
+                "Deporte";
+            default ->
+                "";
         };
     }
 
@@ -567,7 +577,6 @@ private void setPlayerWildCard() {
         this.game = game;
     }
 
-
     public CompetidorDto getCurrentCompetitor() {
         return currentCompetitor;
     }
@@ -602,7 +611,7 @@ private void setPlayerWildCard() {
             for (int i = 0; i < numberOfPlayers; i++) {
                 CompetidorDto competidorDto = competitorsPlayer(i);
                 int amountAvatars = (int) Arrays.stream(new String[]{competidorDto.getDeporte(), competidorDto.getEntretenimiento(), competidorDto.getCiencias(), competidorDto.getHistoria(),
-                        competidorDto.getGeografia(), competidorDto.getArte()}).filter(category -> category.equals("A")).count();
+                    competidorDto.getGeografia(), competidorDto.getArte()}).filter(category -> category.equals("A")).count();
                 if (amountAvatars > maxAvatars) {
                     maxAvatars = amountAvatars;
                     maxAvatarCompetitors.clear();
@@ -674,5 +683,10 @@ private void setPlayerWildCard() {
     public void setCurrentPlayer(int currentPlayer) {
         this.currentPlayer = currentPlayer;
     }
-}
 
+    @FXML
+    private void onActionBtnTurnAgain(ActionEvent event) {
+        turnAgain = true;
+        btnTurnAgain.setDisable(true);
+    }
+}
