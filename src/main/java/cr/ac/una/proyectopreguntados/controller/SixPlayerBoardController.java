@@ -234,36 +234,14 @@ public class SixPlayerBoardController extends Controller implements Initializabl
         }
     }
 
-    @FXML
-    private void onMouseClickedSpinWheel(MouseEvent event) {
-        RotateTransition rotateTransition = new RotateTransition(Duration.seconds(1), imgWheel);
-        Random random = new Random();
-        int randomAngle = random.nextInt(1081) + 1080;
-        rotateTransition.setByAngle(randomAngle);
-        rotateTransition.setCycleCount(1);
-
-        // Crea una instancia de la clase interna que implementa EventHandler<ActionEvent>
-        EventHandler<ActionEvent> eventHandler = new TransitionFinishedEventHandler();
-
-        // Asigna la instancia como el oyente de la transición
-        rotateTransition.setOnFinished(eventHandler);
-
-        // Inicia la rotación
-        rotateTransition.play();
-    }
-
-    class TransitionFinishedEventHandler implements EventHandler<ActionEvent> {
-
-        @Override
-        public void handle(ActionEvent event) {
-            double currentRotation = imgWheel.getRotate();
-            int topSection = (int) ((currentRotation + 360 / 14) % 360) / (360 / 7) + 1;
-            // Llama a rouletteNumber() después de que la rotación haya sido completada
-            Platform.runLater(() -> {
-                rouletteNumber(topSection);
-            });
-        }
-    }
+@FXML
+private void onMouseClickedSpinWheel(MouseEvent event) {
+    RotateTransition rotateTransition = new RotateTransition(Duration.seconds(1), imgWheel);
+    rotateTransition.setByAngle(new Random().nextInt(1081) + 1080);
+    rotateTransition.setCycleCount(1);
+    rotateTransition.setOnFinished(evento -> Platform.runLater(() -> rouletteNumber((int) ((imgWheel.getRotate() + 360 / 14) % 360) / (360 / 7) + 1)));
+    rotateTransition.play();
+}
 
     @Override
     public void initialize() {
@@ -333,6 +311,7 @@ public class SixPlayerBoardController extends Controller implements Initializabl
 
         if (answer) {
             setPlayerCharacters(type);
+            setPlayerWildCard();
         }
 
         currentCompetitor.setPosicionFicha(1L);
@@ -343,7 +322,18 @@ public class SixPlayerBoardController extends Controller implements Initializabl
             changePlayerTurn();
         }
     }
-
+private void setPlayerWildCard() {
+    if (game.getDificultad().equals("Intermedio")) {
+        Random random = new Random();
+        Runnable[] actions = {
+            () -> currentCompetitor.setComodinBomba(1L),
+            () -> currentCompetitor.setComodinDoble(1L),
+            () -> currentCompetitor.setComodinPasar(1L),
+            () -> currentCompetitor.setComodinTiro(1L)
+        };
+        actions[random.nextInt(actions.length)].run();
+    }
+}
 
     private void setPlayerCharacters(String type) {
         //PlayerCategories se llena con un get y los valores de cada categoria en la calse player

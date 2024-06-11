@@ -94,24 +94,29 @@ public class CardController extends Controller implements Initializable {
         // TODO
         this.sixPlayerBoardController = sixPlayerBoardController;
         competidorDtoCurrent = sixPlayerBoardController.getCurrentCompetitor();
-        disableWildCards();
         fillQuestions();
         clearButtons();
+        disableWildCards();
+        unblockButtons();
     }
 
     @Override
     public void initialize() {
-        disableWildCards();
+
         fillQuestions();
         SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getControllerBoard();
         this.sixPlayerBoardController = sixPlayerBoardController;
         clearButtons();
+        disableWildCards();
+        unblockButtons();
 
     }
 
     @FXML
     private void onActionBtnOption(ActionEvent event) {
         clearButtons();
+        blockButtons();
+        blockWildCards();
         MFXButton button = (MFXButton) event.getSource();
         String buttonText = button.getText();
         SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getControllerBoard();
@@ -130,14 +135,12 @@ public class CardController extends Controller implements Initializable {
                         answer = false;
                         Platform.runLater(() -> button.setStyle("-fx-background-color: #FF0000")); 
                     }
-
                     PauseTransition pause = new PauseTransition(Duration.seconds(1));
                     pause.setOnFinished(e -> {
                         restoreCard();
                         preguntaDto.setModificado(true);
                         preguntasEchas.add(preguntaDto);
                         sixPlayerBoardController.setCurrentCompetitor(competidorDtoCurrent);
-                        unblockButtons();
                           ((Stage) principalRoot.getScene().getWindow()).close();
                     });
                     pause.play();
@@ -304,12 +307,15 @@ public class CardController extends Controller implements Initializable {
             buttonList.get(0).setVisible(false);
             buttonList.get(1).setVisible(false);
         }
+        competidorDtoCurrent.setComodinBomba(competidorDtoCurrent.getComodinBomba() - 1);
         buttonList.clear();
+        blockWildCards();
     }
 
     @FXML
     private void onActionBtnSecondTry(ActionEvent event) {
-        
+        competidorDtoCurrent.setComodinDoble(competidorDtoCurrent.getComodinDoble() - 1);
+        blockWildCards();
     }
 
     @FXML
@@ -330,19 +336,31 @@ public class CardController extends Controller implements Initializable {
         btnOptionTwo.setText(preguntaDto.getRespuestasList().get(1).getContenido());
         btnOptionThree.setText(preguntaDto.getRespuestasList().get(2).getContenido());
         btnOptionFour.setText(preguntaDto.getRespuestasList().get(3).getContenido());
+        competidorDtoCurrent.setComodinDoble(competidorDtoCurrent.getComodinDoble() - 1);
         unblockButtons();
+        blockWildCards();
     }
     private void disableWildCards(){
         if(competidorDtoCurrent.getComodinBomba() == 0){
-            btnBomb.setDisable(false);
+            btnBomb.setDisable(true);
         }
         if (competidorDtoCurrent.getComodinPasar()==0){
-            //btnPass.setDisable(false);
+            btnPassQuestion.setDisable(true);
         }
         if (competidorDtoCurrent.getComodinDoble()==0){
-            //btnDouble.setDisable(false);
+            btnSecondTry.setDisable(true);
         }
 
+    }
+    private void blockWildCards(){
+        btnBomb.setDisable(true);
+        btnPassQuestion.setDisable(true);
+        btnSecondTry.setDisable(true);
+    }
+    private void unblockWildCards(){
+        btnBomb.setDisable(false);
+        btnPassQuestion.setDisable(false);
+        btnSecondTry.setDisable(false);
     }
 
 }
