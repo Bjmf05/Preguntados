@@ -1,19 +1,13 @@
 package cr.ac.una.proyectopreguntados.controller;
 
-import cr.ac.una.proyectopreguntados.model.CompetidorDto;
-import cr.ac.una.proyectopreguntados.model.CompetidorPK;
 import cr.ac.una.proyectopreguntados.model.JugadorDto;
-import cr.ac.una.proyectopreguntados.model.Respuesta;
 import cr.ac.una.proyectopreguntados.service.JugadorService;
 import cr.ac.una.proyectopreguntados.util.RespuestaEnt;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import java.net.URL;
-import static java.util.Collections.list;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,7 +18,6 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -84,7 +77,8 @@ public class StatisticalGraphController extends Controller implements Initializa
         serieOfData.getData().add(new XYChart.Data<>(jugador.getCantidadAGeografia(), "Geografia"));
         serieOfData.getData().add(new XYChart.Data<>(jugador.getCantidadACiencia(), "Ciencias"));
         serieOfData.getData().add(new XYChart.Data<>(jugador.getCantidadAEntretenimiento(), "Entretenimiento"));
-
+        serieOfData.getData().add(new XYChart.Data<>(jugador.getCantidadADeporte(), "Deporte"));
+        
         barChartGraph.getData().addAll(serieOfData);
         for (XYChart.Series<Number, String> series : barChartGraph.getData()) {
             for (XYChart.Data<Number, String> data : series.getData()) {
