@@ -161,7 +161,6 @@ public class SixPlayerBoardController extends Controller implements Initializabl
     @FXML
     private MFXButton btnTurnAgain;
     private boolean turnAgain = false;
-    private boolean isEasyGame = false;
     /**
      * Initializes the controller class.
      */
@@ -244,6 +243,7 @@ public class SixPlayerBoardController extends Controller implements Initializabl
     }
 
     private void rouletteNumber(int number) {
+        blockbtnTurnAgain();
         PauseTransition pause = new PauseTransition(Duration.seconds(2));
         pause.setOnFinished(p -> Platform.runLater(() -> {
             if (turnAgain) {
@@ -279,7 +279,13 @@ public class SixPlayerBoardController extends Controller implements Initializabl
         }));
         pause.play();
     }
-
+private void blockbtnTurnAgain() {
+        if (!isFirstGame && currentCompetitor.getComodinTiro()>0) {
+            btnTurnAgain.setDisable(false);
+        } else {
+            btnTurnAgain.setDisable(true);
+        }
+    }
     private void checkAnswer(boolean answer, CardController cardController) {
         int position = currentCompetitor.getPosicionFicha().intValue();
         if (answer && position != 4) {
@@ -387,10 +393,6 @@ public class SixPlayerBoardController extends Controller implements Initializabl
     }
 
     private void loadGameData(PartidaDto Game) {
-        round = Game.getRonda();
-        if(game.getDificultad().equals("Fácil")){
-            isEasyGame = true;
-        }
         Map<Integer, CompetidorDto> competitorMap = new HashMap<>();
         for (CompetidorDto c : Game.getCompetidorList()) {
             int index = c.getNumeroJugador().intValue() - 1;
@@ -688,5 +690,6 @@ public class SixPlayerBoardController extends Controller implements Initializabl
     private void onActionBtnTurnAgain(ActionEvent event) {
         turnAgain = true;
         btnTurnAgain.setDisable(true);
+        currentCompetitor.setComodinTiro(currentCompetitor.getComodinTiro() - 1);
     }
 }
