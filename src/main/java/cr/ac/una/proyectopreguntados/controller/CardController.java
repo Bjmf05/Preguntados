@@ -84,6 +84,7 @@ public class CardController extends Controller implements Initializable {
     private MFXButton btnPassQuestion;
     GameBoardController gameBoardController;
     private Boolean isDuel = false;
+    private Boolean secondTry = false;
     /**
      * Initializes the controller class.
      */
@@ -132,7 +133,12 @@ public class CardController extends Controller implements Initializable {
                         Platform.runLater(() -> button.setStyle("-fx-background-color: #00FF00"));
                     } else {
                         answer = false;
-                        Platform.runLater(() -> button.setStyle("-fx-background-color: #FF0000")); 
+                        Platform.runLater(() -> button.setStyle("-fx-background-color: #FF0000"));
+                        if (secondTry) {
+                            secondTry = false;
+                            unblockButtons();
+                            return;
+                        }
                     }
                     PauseTransition pause = new PauseTransition(Duration.seconds(1));
                     pause.setOnFinished(e -> {
@@ -144,7 +150,6 @@ public class CardController extends Controller implements Initializable {
                     });
                     pause.play();
                 });
-
     }
 
     public void setTypeOfCard(String typeOfCard) {
@@ -313,7 +318,8 @@ public class CardController extends Controller implements Initializable {
 
     @FXML
     private void onActionBtnSecondTry(ActionEvent event) {
-        competidorDtoCurrent.setComodinDoble(competidorDtoCurrent.getComodinDoble() - 1);
+        competidorDtoCurrent.setComodinDoble(competidorDtoCurrent.getComodinDoble() - 1); 
+        secondTry = true;
         blockWildCards();
     }
 
