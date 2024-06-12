@@ -55,7 +55,7 @@ public class StatisticalGraphController extends Controller implements Initializa
         // TODO
         loadPlayer();
         categoryYAxis.setCategories(FXCollections.observableArrayList(
-                "Total de Preguntas", "Acertadas", "Historia", "Arte", "Geografía", "Ciencias", "Entretenimiento"
+                "Total de Preguntas", "Acertadas", "Historia", "Arte", "Geografía", "Ciencias", "Entretenimiento", "Deporte"
         ));
     }
 
