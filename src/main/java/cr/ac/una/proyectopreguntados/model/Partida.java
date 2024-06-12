@@ -59,8 +59,8 @@ public class Partida implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "partida", fetch = FetchType.LAZY)
     private List<Competidor> competidorList;
     @JoinTable(name = "PLAM_PREGUNTAS_PARTIDAS", joinColumns = {
-        @JoinColumn(name = "EXT_ID_PARTIDA", referencedColumnName = "PART_ID")}, inverseJoinColumns = {
-        @JoinColumn(name = "EXT_ID_PREGUNTA", referencedColumnName = "PRE_ID")})
+            @JoinColumn(name = "EXT_ID_PARTIDA", referencedColumnName = "PART_ID")}, inverseJoinColumns = {
+            @JoinColumn(name = "EXT_ID_PREGUNTA", referencedColumnName = "PRE_ID")})
     @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
     private List<Pregunta> preguntaList;
 
@@ -152,7 +152,7 @@ public class Partida implements Serializable {
     public void setRonda(Integer ronda) {
         this.ronda = ronda;
     }
-    
+
 
     public Long getVersion() {
         return version;
@@ -202,6 +202,4 @@ public class Partida implements Serializable {
     public String toString() {
         return "cr.ac.una.proyectopreguntados.model.Partida[ partId=" + id + " ]";
     }
-
-   
-}
+    }

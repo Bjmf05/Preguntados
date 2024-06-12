@@ -15,6 +15,7 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Version;
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +41,6 @@ import java.util.List;
     @NamedQuery(name = "Jugador.findByJugCantidadAEntretenimiento", query = "SELECT j FROM Jugador j WHERE j.jugCantidadAEntretenimiento = :jugCantidadAEntretenimiento"),
     @NamedQuery(name = "Jugador.findByJugVersion", query = "SELECT j FROM Jugador j WHERE j.version = :version")*/})
 public class Jugador implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @SequenceGenerator(name = "PLAM_PLAM_JUGADORES_JUG_ID_GENERATOR", sequenceName = "una.PLAM_JUGADORES_SEQ01", allocationSize = 1)

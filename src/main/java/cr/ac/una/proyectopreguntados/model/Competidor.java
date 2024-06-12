@@ -40,7 +40,6 @@ import java.io.Serializable;
     @NamedQuery(name = "Competidor.findByComComodinTiro", query = "SELECT c FROM Competidor c WHERE c.comComodinTiro = :comComodinTiro"),
     @NamedQuery(name = "Competidor.findByComVersion", query = "SELECT c FROM Competidor c WHERE c.version = :version")*/})
 public class Competidor implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected CompetidorPK competidorPK;
@@ -86,6 +85,8 @@ public class Competidor implements Serializable {
     @Basic(optional = false)
     @Column(name = "COM_COMODIN_TIRO")
     private Long comodinTiro;
+    @Column(name = "COM_AYUDAS_OPTENIDAS")
+    private Integer ayudasOptenidas;
     @Version
     @Column(name = "COM_VERSION")
     private Long version;
@@ -124,6 +125,7 @@ public class Competidor implements Serializable {
         this.comodinPasar = competidorDto.getComodinPasar();
         this.comodinTiro = competidorDto.getComodinTiro();
         this.jugador = competidorDto.getJugador();
+        this.ayudasOptenidas = competidorDto.getAyudasOptenidas();
         this.version = competidorDto.getVersion();
     }
 
@@ -273,6 +275,14 @@ public class Competidor implements Serializable {
 
     public void setPartida(Partida partida) {
         this.partida = partida;
+    }
+
+    public Integer getAyudasOptenidas() {
+        return ayudasOptenidas;
+    }
+
+    public void setAyudasOptenidas(Integer ayudasOptenidas) {
+        this.ayudasOptenidas = ayudasOptenidas;
     }
 
     @Override

@@ -23,6 +23,7 @@ public class CompetidorDto implements Serializable {
     private Long comodinPasar;
     private Long comodinBomba;
     private Long comodinTiro;
+    private Integer ayudasOptenidas;
     private Long version;
     private Jugador jugador;
     private boolean modificado;
@@ -43,6 +44,7 @@ public class CompetidorDto implements Serializable {
         this.comodinPasar = 0L;
         this.comodinBomba = 0L;
         this.comodinTiro = 0L;
+        this.ayudasOptenidas = 0;
         this.modificado = false;
     }
 
@@ -63,6 +65,7 @@ public class CompetidorDto implements Serializable {
         this.comodinDoble = competidor.getComodinDoble();
         this.comodinPasar = competidor.getComodinPasar();
         this.comodinTiro = competidor.getComodinTiro();
+        this.ayudasOptenidas = competidor.getAyudasOptenidas();
         this.jugador = competidor.getJugador();
         this.version = competidor.getVersion();
     }
@@ -209,6 +212,14 @@ public class CompetidorDto implements Serializable {
 
     public Jugador getJugador() {
         return jugador;
+    }
+
+    public Integer getAyudasOptenidas() {
+        return ayudasOptenidas;
+    }
+
+    public void setAyudasOptenidas(Integer ayudasOptenidas) {
+        this.ayudasOptenidas = ayudasOptenidas;
     }
 
     public boolean isModificado() {
