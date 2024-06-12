@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXComboBox?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -12,14 +10,14 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" fx:id="root" prefHeight="450.0" prefWidth="600.0" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.proyectopreguntados.controller.StatisticalGraphController">
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="450.0" prefWidth="600.0" styleClass="statisticalGraphBackground" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.proyectopreguntados.controller.StatisticalGraphController">
    <children>
       <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="400.0" prefWidth="362.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label prefHeight="8.0" prefWidth="315.0" styleClass="Title" stylesheets="@Style.css" text="Estadisticas del Jugador" />
             <HBox alignment="CENTER" prefHeight="23.0" prefWidth="600.0" spacing="20.0">
                <children>
-                  <Label prefHeight="17.0" prefWidth="85.0" text="Jugador:" />
+                  <Label prefHeight="17.0" prefWidth="85.0" styleClass="lblTime" text="Jugador:" />
                   <MFXComboBox fx:id="cbxNombre" floatMode="BORDER" floatingText="Nombre" onAction="#onActionCbxNombre" />
                </children>
             </HBox>
@@ -27,22 +25,14 @@
                <children>
                   <BarChart fx:id="barChartGraph" prefHeight="280.0" prefWidth="600.0">
                      <xAxis>
-                        <NumberAxis fx:id="numberXAxis" label="Cantidad" prefWidth="538.0" />
+                        <NumberAxis fx:id="numberXAxis" label="Cantidad" prefWidth="565.0" styleClass="lblTime" />
                      </xAxis>
                      <yAxis>
-                        <CategoryAxis fx:id="categoryYAxis" label="Categoría" />
+                        <CategoryAxis fx:id="categoryYAxis" label="Categoría" styleClass="lblTime" />
                      </yAxis>
                   </BarChart>
                </children>
             </StackPane>
-            <HBox alignment="CENTER" prefHeight="32.0" prefWidth="600.0">
-               <children>
-                  <MFXButton fx:id="btnExit" onAction="#onActionExit" text="Salir" />
-               </children>
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-            </HBox>
          </children>
       </VBox>
    </children>

@@ -249,6 +249,11 @@
     -fx-bar-fill: #3498db;
 }
 
+.statisticalGraphBackground{
+    -fx-background-color:#ffffff;
+    -fx-opacity: 0.9;
+}
+
 .playerLabel{
     -fx-font-family: Roboto;
     -fx-text-fill: #000000;

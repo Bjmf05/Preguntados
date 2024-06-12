@@ -42,8 +42,6 @@ public class StatisticalGraphController extends Controller implements Initializa
     private CategoryAxis categoryYAxis;
     @FXML
     private NumberAxis numberXAxis;
-    @FXML
-    private MFXButton btnExit;
     private JugadorDto jugadorDto;
     private ObservableList<JugadorDto> players = FXCollections.observableArrayList();
 
@@ -57,6 +55,7 @@ public class StatisticalGraphController extends Controller implements Initializa
         categoryYAxis.setCategories(FXCollections.observableArrayList(
                 "Total de Preguntas", "Acertadas", "Historia", "Arte", "Geografía", "Ciencias", "Entretenimiento", "Deporte"
         ));
+        categoryYAxis.setStyle("--fx-background-color: black; -fx-font-size: 10px;");
     }
 
     @FXML
@@ -97,6 +96,7 @@ public class StatisticalGraphController extends Controller implements Initializa
     private void setValueBarChart(XYChart.Data<Number, String> data) {
         stpBarChart = (StackPane) data.getNode();
         Label label = new Label(String.format("%d", data.getXValue().intValue()));//data.getXValue().toString());
+        label.setStyle("-fx-text-fill: black; -fx-font-size: 10px; -fx-font-weight: bold;");
         stpBarChart.setMinHeight(40); // Ajusta el tamaño mínimo de las barras
         stpBarChart.getChildren().add(label);
         StackPane.setAlignment(label, javafx.geometry.Pos.CENTER_RIGHT);
@@ -113,11 +113,6 @@ public class StatisticalGraphController extends Controller implements Initializa
 
     @Override
     public void initialize() {
-    }
-
-    @FXML
-    private void onActionExit(ActionEvent event) {
-        ((Stage) root.getScene().getWindow()).close();
     }
 
 }
