@@ -32,7 +32,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
@@ -232,16 +231,16 @@ public class DuelController extends Controller implements Initializable {
     }
 
     private void actionFinishGame() {
-        SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getControllerBoard();
+        GameBoardController gameBoardController = (GameBoardController) FlowController.getInstance().getControllerBoard();
         CompetidorDto[] competitiors = {challenging, challenged};
-        int current = sixPlayerBoardController.getCurrentPlayer();
+        int current = gameBoardController.getCurrentPlayer();
         for (CompetidorDto competidorDto : competitiors) {
-            sixPlayerBoardController.setCurrentPlayer(competidorDto.getNumeroJugador().intValue());
+            gameBoardController.setCurrentPlayer(competidorDto.getNumeroJugador().intValue());
             String[] playerCategories = {competidorDto.getDeporte(), competidorDto.getEntretenimiento(), competidorDto.getCiencias(), competidorDto.getHistoria(), competidorDto.getGeografia(), competidorDto.getArte()};
-            ImageView[] playerImages = sixPlayerBoardController.getPlayerImages();
+            ImageView[] playerImages = gameBoardController.getPlayerImages();
             for (int j = 0; j < playerCategories.length; j++) {
                 if (playerCategories[j].equals("A")) {
-                    sixPlayerBoardController.getCharacter(playerImages[j]);
+                    gameBoardController.getCharacter(playerImages[j]);
                 }else{
                     ImageView imageView = playerImages[j];
                     imageView.setOpacity(0.5);
@@ -249,11 +248,11 @@ public class DuelController extends Controller implements Initializable {
 
             }
         }
-        sixPlayerBoardController.setCurrentPlayer(current);
+        gameBoardController.setCurrentPlayer(current);
         updatePlayer(challenging);
         updatePlayer(challenged);
-        sixPlayerBoardController.setCurrentCompetitor(challenging);
-        sixPlayerBoardController.setPlayers();
+        gameBoardController.setCurrentCompetitor(challenging);
+        gameBoardController.setPlayers();
 
     }
 private void updatePlayer(CompetidorDto competidorDto){
@@ -290,8 +289,8 @@ private void updatePlayer(CompetidorDto competidorDto){
     private PreguntaDto selectRandomQuestion(String typeOfQuestion) {
         ObservableList<PreguntaDto> questionFiltered = preguntasList.filtered(question -> question.getCategoria().equals(typeOfQuestion));
         if (questionFiltered.isEmpty()) {
-            SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getControllerBoard();
-            sixPlayerBoardController.finishGame("no hay preguntas disponibles.");
+            GameBoardController gameBoardController = (GameBoardController) FlowController.getInstance().getControllerBoard();
+            gameBoardController.finishGame("no hay preguntas disponibles.");
             getStage().close();
         }
         int index = new Random().nextInt(questionFiltered.size());

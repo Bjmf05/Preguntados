@@ -7,7 +7,6 @@ import cr.ac.una.proyectopreguntados.model.CompetidorDto;
 import cr.ac.una.proyectopreguntados.util.AppContext;
 import cr.ac.una.proyectopreguntados.util.FlowController;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -226,8 +225,8 @@ public class SelectCrownCategoryController extends Controller implements Initial
     }
 
     private void deleteCharacter() {
-        SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getControllerBoard();
-        CompetidorDto competidorDto = sixPlayerBoardController.getCurrentCompetitor();
+        GameBoardController gameBoardController = (GameBoardController) FlowController.getInstance().getControllerBoard();
+        CompetidorDto competidorDto = gameBoardController.getCurrentCompetitor();
         String art = competidorDto.getArte();
         String geography = competidorDto.getGeografia();
         String enterteinment = competidorDto.getEntretenimiento();
@@ -288,9 +287,9 @@ public class SelectCrownCategoryController extends Controller implements Initial
 }
 
 private void disableDuel(){
-    SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getControllerBoard();
+    GameBoardController gameBoardController = (GameBoardController) FlowController.getInstance().getControllerBoard();
     imgDuel.setDisable(true);
-    CompetidorDto competidorDto = sixPlayerBoardController.getCurrentCompetitor();
+    CompetidorDto competidorDto = gameBoardController.getCurrentCompetitor();
     if(hasCrown(competidorDto)){
         ObservableList<CompetidorDto> competidores = getCompetitors();
         int playersWithCrown = countPlayersWithCrown(competidores);
@@ -301,8 +300,8 @@ private void disableDuel(){
 
 }
 private ObservableList<CompetidorDto> getCompetitors() {
-    SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getControllerBoard();
-    sixPlayerBoardController.getPlayers();
+    GameBoardController gameBoardController = (GameBoardController) FlowController.getInstance().getControllerBoard();
+    gameBoardController.getPlayers();
     return (ObservableList<CompetidorDto>) AppContext.getInstance().get("competitorsPlayer");
 }
 

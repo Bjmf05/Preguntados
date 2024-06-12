@@ -10,7 +10,6 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -181,8 +180,8 @@ handleAvatarSelection(playerIndex, route);
         }}
 
     private void fillChallengin() {
-        SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController)FlowController.getInstance().getControllerBoard();
-        CompetidorDto currentPlayer = sixPlayerBoardController.getCurrentCompetitor();
+        GameBoardController gameBoardController = (GameBoardController)FlowController.getInstance().getControllerBoard();
+        CompetidorDto currentPlayer = gameBoardController.getCurrentCompetitor();
         for (CompetidorDto player : competitorsDuel) {
             if (player.getCompetidorPK().equals(currentPlayer.getCompetidorPK())) {
                 challenging= player;

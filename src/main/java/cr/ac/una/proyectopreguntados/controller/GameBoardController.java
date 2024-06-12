@@ -31,7 +31,7 @@ import javafx.util.Duration;
  *
  * @author PC
  */
-public class SixPlayerBoardController extends Controller implements Initializable {
+public class GameBoardController extends Controller implements Initializable {
 
     @FXML
     private Label lblPlayer1;
@@ -329,15 +329,21 @@ private void blockbtnTurnAgain() {
     }
 
     private void setPlayerWildCard() {
-        if (game.getDificultad().equals("Intermedio")) {
-            Random random = new Random();
-            Runnable[] actions = {
+        if (game.getDificultad().equals("Intermedio")&& currentCompetitor.getAyudasOptenidas()<4){
+
+            List<Runnable> actions = new ArrayList<>(Arrays.asList(
                 () -> currentCompetitor.setComodinBomba(1L),
                 () -> currentCompetitor.setComodinDoble(1L),
                 () -> currentCompetitor.setComodinPasar(1L),
                 () -> currentCompetitor.setComodinTiro(1L)
-            };
-            actions[random.nextInt(actions.length)].run();
+            ));
+            if (currentCompetitor.getComodinBomba() == 1L) actions.remove(0);
+            if (currentCompetitor.getComodinDoble() == 1L) actions.remove(1);
+            if (currentCompetitor.getComodinPasar() == 1L) actions.remove(2);
+            if (currentCompetitor.getComodinTiro() == 1L) actions.remove(3);
+            Random random = new Random();
+            actions.get(random.nextInt(actions.size())).run();
+            currentCompetitor.setAyudasOptenidas(currentCompetitor.getAyudasOptenidas() + 1);
         }
     }
 
@@ -440,32 +446,32 @@ private void blockbtnTurnAgain() {
         }
     }
 
-    private void fillPlayersDto() {
-        for (int i = 0; i < numberOfPlayers; i++) {
-            CompetidorDto competidorDto = competitors.get(i);
-            switch (i) {
-                case 0:
-                    player1 = competidorDto;
-                    break;
-                case 1:
-                    player2 = competidorDto;
-                    break;
-                case 2:
-                    player3 = competidorDto;
-                    break;
-                case 3:
-                    player4 = competidorDto;
-                    break;
-                case 4:
-                    player5 = competidorDto;
-                    break;
-                case 5:
-                    player6 = competidorDto;
-                    break;
-            }
-
+private void fillPlayersDto() {
+    for (int i = 0; i < numberOfPlayers; i++) {
+        CompetidorDto competidorDto = competitors.get(i);
+        switch (i) {
+            case 0:
+                player1 = competidorDto;
+                break;
+            case 1:
+                player2 = competidorDto;
+                break;
+            case 2:
+                player3 = competidorDto;
+                break;
+            case 3:
+                player4 = competidorDto;
+                break;
+            case 4:
+                player5 = competidorDto;
+                break;
+            case 5:
+                player6 = competidorDto;
+                break;
         }
+
     }
+}
 
     private Label labelsNamePlayers(int i) {
         Label[] labels = {lblPlayer1, lblPlayer2, lblPlayer3, lblPlayer4, lblPlayer5, lblPlayer6};
@@ -486,24 +492,10 @@ private void blockbtnTurnAgain() {
         }
     }
 
-    private String typeOfQuestion(int number) {
-        return switch (number) {
-            case 1 ->
-                "Historia";
-            case 2 ->
-                "Ciencia";
-            case 3 ->
-                "Geografía";
-            case 5 ->
-                "Entretenimiento";
-            case 6 ->
-                "Arte";
-            case 7 ->
-                "Deporte";
-            default ->
-                "";
-        };
-    }
+private String typeOfQuestion(int number) {
+    String[] types = {"", "Historia", "Ciencia", "Geografía", "", "Entretenimiento", "Arte", "Deporte"};
+    return number < types.length ? types[number] : "Deporte";
+}
 
     public void getCharacter(ImageView image) {
         image.setOpacity(1);

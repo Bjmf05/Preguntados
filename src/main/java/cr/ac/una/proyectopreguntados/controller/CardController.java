@@ -8,7 +8,7 @@ import cr.ac.una.proyectopreguntados.util.AppContext;
 import cr.ac.una.proyectopreguntados.util.FlowController;
 import cr.ac.una.proyectopreguntados.util.Mensaje;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
@@ -19,7 +19,6 @@ import java.util.ResourceBundle;
 import javafx.animation.PauseTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
-import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -83,17 +82,17 @@ public class CardController extends Controller implements Initializable {
     private MFXButton btnSecondTry;
     @FXML
     private MFXButton btnPassQuestion;
-    SixPlayerBoardController sixPlayerBoardController;
+    GameBoardController gameBoardController;
     private Boolean isDuel = false;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getControllerBoard();
+        GameBoardController gameBoardController = (GameBoardController) FlowController.getInstance().getControllerBoard();
         // TODO
-        this.sixPlayerBoardController = sixPlayerBoardController;
-        competidorDtoCurrent = sixPlayerBoardController.getCurrentCompetitor();
+        this.gameBoardController = gameBoardController;
+        competidorDtoCurrent = gameBoardController.getCurrentCompetitor();
         fillQuestions();
         clearButtons();
         disableWildCards();
@@ -104,8 +103,8 @@ public class CardController extends Controller implements Initializable {
     public void initialize() {
 
         fillQuestions();
-        SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getControllerBoard();
-        this.sixPlayerBoardController = sixPlayerBoardController;
+        GameBoardController gameBoardController = (GameBoardController) FlowController.getInstance().getControllerBoard();
+        this.gameBoardController = gameBoardController;
         clearButtons();
         disableWildCards();
         unblockButtons();
@@ -119,7 +118,7 @@ public class CardController extends Controller implements Initializable {
         blockWildCards();
         MFXButton button = (MFXButton) event.getSource();
         String buttonText = button.getText();
-        SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getControllerBoard();
+        GameBoardController gameBoardController = (GameBoardController) FlowController.getInstance().getControllerBoard();
 
         preguntaDto.getRespuestasList().stream()
                 .filter(respuesta -> buttonText.equals(respuesta.getContenido()))
@@ -140,7 +139,7 @@ public class CardController extends Controller implements Initializable {
                         restoreCard();
                         preguntaDto.setModificado(true);
                         preguntasEchas.add(preguntaDto);
-                        sixPlayerBoardController.setCurrentCompetitor(competidorDtoCurrent);
+                        gameBoardController.setCurrentCompetitor(competidorDtoCurrent);
                           ((Stage) principalRoot.getScene().getWindow()).close();
                     });
                     pause.play();
@@ -210,10 +209,10 @@ public class CardController extends Controller implements Initializable {
     
     private void newQuestion(String typeOfQuestion) {
 
-        partidaDto = sixPlayerBoardController.getGame();
+        partidaDto = gameBoardController.getGame();
         ObservableList<PreguntaDto> questionFiltered = preguntasList.filtered(question -> question.getCategoria().equals(typeOfQuestion));
         if (questionFiltered.isEmpty()) {
-            sixPlayerBoardController.finishGame("no hay preguntas disponibles.");
+            gameBoardController.finishGame("no hay preguntas disponibles.");
             getStage().close();
         }else {
             Random random = new Random();
@@ -320,8 +319,8 @@ public class CardController extends Controller implements Initializable {
 
     @FXML
     private void onActionBtnPassQuestion(ActionEvent event) {
-        SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getControllerBoard();
-        partidaDto = sixPlayerBoardController.getGame();
+        GameBoardController gameBoardController = (GameBoardController) FlowController.getInstance().getControllerBoard();
+        partidaDto = gameBoardController.getGame();
         ObservableList<PreguntaDto> questionFiltered = preguntasList.filtered(question -> question.getCategoria().equals(this.question));
         if (questionFiltered.isEmpty()) {
             new Mensaje().showModal(Alert.AlertType.INFORMATION, "No hay preguntas disponibles", getStage(), "de"+question);

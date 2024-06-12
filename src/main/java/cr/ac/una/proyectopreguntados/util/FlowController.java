@@ -13,10 +13,7 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 
-import cr.ac.una.proyectopreguntados.controller.LogInController;
-import cr.ac.una.proyectopreguntados.controller.PrincipalController;
-import cr.ac.una.proyectopreguntados.controller.SixPlayerBoardController;
-import cr.ac.una.proyectopreguntados.model.Partida;
+import cr.ac.una.proyectopreguntados.controller.GameBoardController;
 import cr.ac.una.proyectopreguntados.model.PartidaDto;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -138,18 +135,18 @@ public class FlowController {
 
         PartidaDto partida = (PartidaDto) AppContext.getInstance().get("Partida");
         int numPlayers = partida.getJugadores().intValue();
-        SixPlayerBoardController controller;
+        GameBoardController controller;
         switch (numPlayers) {
             case 2:
-                return controller = (SixPlayerBoardController) FlowController.getInstance().getController("TwoPlayerBoardView");
+                return controller = (GameBoardController) FlowController.getInstance().getController("TwoPlayerBoardView");
             case 3:
-                return controller = (SixPlayerBoardController) FlowController.getInstance().getController("ThreePlayerBoardView");
+                return controller = (GameBoardController) FlowController.getInstance().getController("ThreePlayerBoardView");
             case 4:
-                return controller = (SixPlayerBoardController) FlowController.getInstance().getController("FourPlayerBoardView");
+                return controller = (GameBoardController) FlowController.getInstance().getController("FourPlayerBoardView");
             case 5:
-                return controller = (SixPlayerBoardController) FlowController.getInstance().getController("FivePlayerBoardView");
+                return controller = (GameBoardController) FlowController.getInstance().getController("FivePlayerBoardView");
             case 6:
-                return controller = (SixPlayerBoardController) FlowController.getInstance().getController("SixPlayerBoardView");
+                return controller = (GameBoardController) FlowController.getInstance().getController("SixPlayerBoardView");
             default:
                 return null;
         }

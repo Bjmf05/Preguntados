@@ -9,7 +9,6 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
 /**
@@ -49,8 +48,8 @@ public class PrincipalController extends Controller implements Initializable {
 
     @FXML
     private void onActionBtnSave(ActionEvent event) {
-        SixPlayerBoardController sixPlayerBoardController = (SixPlayerBoardController) FlowController.getInstance().getControllerBoard();
-        sixPlayerBoardController.safeGame();
+        GameBoardController gameBoardController = (GameBoardController) FlowController.getInstance().getControllerBoard();
+        gameBoardController.safeGame();
         FlowController.getInstance().deleteAll();
         FlowController.getInstance().goViewInWindow("LogInView");
         FlowController.getInstance().salir();
