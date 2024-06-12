@@ -10,8 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="800.0" stylesheets="@Style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="cr.ac.una.proyectopreguntados.controller.DuelController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="800.0" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.proyectopreguntados.controller.DuelController">
    <children>
       <VBox alignment="TOP_CENTER" layoutX="48.0" layoutY="89.0" prefHeight="377.0" prefWidth="700.0" styleClass="CrownCategory-background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -74,7 +73,15 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <ImageView fx:id="imgTypeQuestion" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
+                  <VBox alignment="TOP_CENTER">
+                     <children>
+                        <ImageView fx:id="imgTypeQuestion" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label styleClass="playerLabel" text="Turno" />
+                        <Label fx:id="lblPlayerTurn" styleClass="lblTurn" text="Label" />
+                        <Label styleClass="playerLabel" text="Ganador" />
+                        <Label fx:id="lblWinner" styleClass="lblWinner" />
+                     </children>
+                  </VBox>
                   <VBox alignment="CENTER" prefHeight="290.0" prefWidth="271.0">
                      <children>
                         <HBox alignment="CENTER">

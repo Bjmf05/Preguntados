@@ -311,7 +311,7 @@ public class CardController extends Controller implements Initializable {
             buttonList.get(0).setVisible(false);
             buttonList.get(1).setVisible(false);
         }
-        competidorDtoCurrent.setComodinBomba(competidorDtoCurrent.getComodinBomba() - 1);
+        competidorDtoCurrent.setComodinBomba(0L);
         buttonList.clear();
         blockWildCards();
     }
@@ -320,6 +320,7 @@ public class CardController extends Controller implements Initializable {
     private void onActionBtnSecondTry(ActionEvent event) {
         competidorDtoCurrent.setComodinDoble(competidorDtoCurrent.getComodinDoble() - 1); 
         secondTry = true;
+        competidorDtoCurrent.setComodinDoble(0L);
         blockWildCards();
     }
 
@@ -341,7 +342,7 @@ public class CardController extends Controller implements Initializable {
         btnOptionTwo.setText(preguntaDto.getRespuestasList().get(1).getContenido());
         btnOptionThree.setText(preguntaDto.getRespuestasList().get(2).getContenido());
         btnOptionFour.setText(preguntaDto.getRespuestasList().get(3).getContenido());
-        competidorDtoCurrent.setComodinDoble(competidorDtoCurrent.getComodinDoble() - 1);
+        competidorDtoCurrent.setComodinPasar(0L);
         unblockButtons();
         blockWildCards();
     }

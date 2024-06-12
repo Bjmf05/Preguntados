@@ -99,6 +99,7 @@ public class DuelController extends Controller implements Initializable {
     private ObservableList<PreguntaDto> preguntasEchas = FXCollections.observableArrayList();
     private PreguntaDto preguntaDto;
     private InputStream inputStream;
+    private InputStream inputStreamAvatar;
     private String question;
     private Boolean showingFrontCardOne = true;
     private Boolean showingFrontCardTwo = true;
@@ -106,7 +107,16 @@ public class DuelController extends Controller implements Initializable {
     private boolean answerPlayer2;
     private boolean tied = false;
     private boolean winner = false;
-
+    @FXML
+    private Label lblPlayerTurn;
+    @FXML
+    private Label lblWinner;
+    private final String routeArte = "/cr/ac/una/proyectopreguntados/resources/Art.png";
+    private final String routeGeografia = "/cr/ac/una/proyectopreguntados/resources/Geography.png";
+    private final String routeHistoria = "/cr/ac/una/proyectopreguntados/resources/History.png";
+    private final String routeCiencia = "/cr/ac/una/proyectopreguntados/resources/Science.png";
+    private final String routeDeporte = "/cr/ac/una/proyectopreguntados/resources/Sports.png";
+    private final String routeEntretenimiento = "/cr/ac/una/proyectopreguntados/resources/Entertainment.png";
     /**
      * Initializes the controller class.
      */
@@ -118,9 +128,12 @@ public class DuelController extends Controller implements Initializable {
         challenging = (CompetidorDto) AppContext.getInstance().get("challenging");
         challengingAvatar = (String) AppContext.getInstance().get("typeAvatarChallenging");
         challengedAvatar = (String) AppContext.getInstance().get("typeAvatarChallenged");
+        inputStreamAvatar = App.class.getResourceAsStream(getRouteAvatar(challengedAvatar));
+        imgTypeQuestion.setImage(new Image(inputStreamAvatar));
         preguntasList = (ObservableList<PreguntaDto>) AppContext.getInstance().get("PreguntasList");
         preguntasEchas = (ObservableList<PreguntaDto>) AppContext.getInstance().get("PreguntasEchas");
         lblNamePlayer1.setText(challenging.getJugador().getNombre());
+        lblPlayerTurn.setText(challenging.getJugador().getNombre());
         lblNamePlayer2.setText(challenged.getJugador().getNombre());
         setTypeOfCard(challengedAvatar);
         flipCardPlayerOne();
@@ -162,6 +175,7 @@ public class DuelController extends Controller implements Initializable {
                     });
                     pause.play();
                 });
+        lblPlayerTurn.setText(challenged.getJugador().getNombre());
         unblockButtons(btnOptionOnePlayer2, btnOptionTwoPlayer2, btnOptionThreePlayer2, btnOptionFourPlayer2);
         flipCardPlayerTwo();
     }
@@ -202,32 +216,31 @@ public class DuelController extends Controller implements Initializable {
 
         finishDuel();
     }
-
-    private void restoreCard() {
-        rootCardQuestion.setVisible(true);
-        imgCardBack.setVisible(false);
-        rootCardQuestion1.setVisible(true);
-        imgCardBack2.setVisible(false);
-    }
-
     private void finishDuel() {
         if (tied && !answerPlayer2 || !tied && answerPlayer1 && !answerPlayer2) {
             actionAvatarPlayer(challengedAvatar, challenged, "I");
             actionAvatarPlayer(challengedAvatar, challenging, "A");
             winner = true;
+            lblWinner.setText(challenging.getJugador().getNombre());
         } else if (!tied && answerPlayer1 && answerPlayer2) {
             tied = true;
             flipCardPlayerTwo();
             setTypeOfCard(challengedAvatar);
             flipCardPlayerTwo();
             blockButtons(btnOptionOne, btnOptionTwo, btnOptionThree, btnOptionFour);
+            clearButtons();
+            lblWinner.setText("Empate");
             return;
         } else if (!tied && !answerPlayer1 && answerPlayer2 || tied && answerPlayer2) {
             actionAvatarPlayer(challengingAvatar, challenging, "I");
             winner = false;
+            lblWinner.setText(challenged.getJugador().getNombre());
         }
         actionFinishGame();
-        getStage().close();
+        PauseTransition pause = new PauseTransition(Duration.seconds(1));
+        pause.setOnFinished(p -> Platform.runLater(() -> {
+        getStage().close();}));
+        pause.play();
     }
 
     private void actionFinishGame() {
@@ -452,5 +465,23 @@ private void updatePlayer(CompetidorDto competidorDto){
         btnOptionTwoPlayer2.setStyle("-fx-background-color: #FFFFFF");
         btnOptionThreePlayer2.setStyle("-fx-background-color: #FFFFFF");
         btnOptionFourPlayer2.setStyle("-fx-background-color: #FFFFFF");
+    }
+    private String getRouteAvatar(String routeAvatar) {
+        switch (routeAvatar) {
+            case "Arte":
+                return routeArte;
+            case "Geografía":
+                return routeGeografia;
+            case "Historia":
+                return routeHistoria;
+            case "Ciencia":
+                return routeCiencia;
+            case "Deporte":
+                return routeDeporte;
+            case "Entretenimiento":
+                return routeEntretenimiento;
+            default:
+                return "";
+        }
     }
 }

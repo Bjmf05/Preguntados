@@ -272,5 +272,6 @@
          </padding>
       </VBox>
       <MFXButton fx:id="btnTurnAgain" layoutX="727.0" layoutY="190.0" onAction="#onActionBtnTurnAgain" text="Volver a Girar" />
+      <MFXButton fx:id="btnYieldTurn" layoutX="732.0" layoutY="364.0" onAction="#onActionBtnYieldTurn" text="Ceder Turno" />
    </children>
 </AnchorPane>

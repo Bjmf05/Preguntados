@@ -161,6 +161,9 @@ public class GameBoardController extends Controller implements Initializable {
     @FXML
     private MFXButton btnTurnAgain;
     private boolean turnAgain = false;
+    @FXML
+    private MFXButton btnYieldTurn;
+
     /**
      * Initializes the controller class.
      */
@@ -243,6 +246,8 @@ public class GameBoardController extends Controller implements Initializable {
     }
 
     private void rouletteNumber(int number) {
+        btnSpinWheel.setDisable(true);
+        btnYieldTurn.setDisable(true);
         blockbtnTurnAgain();
         PauseTransition pause = new PauseTransition(Duration.seconds(2));
         pause.setOnFinished(p -> Platform.runLater(() -> {
@@ -279,13 +284,15 @@ public class GameBoardController extends Controller implements Initializable {
         }));
         pause.play();
     }
-private void blockbtnTurnAgain() {
-        if (!isFirstGame && currentCompetitor.getComodinTiro()>0) {
+
+    private void blockbtnTurnAgain() {
+        if (!isFirstGame && currentCompetitor.getComodinTiro() > 0) {
             btnTurnAgain.setDisable(false);
         } else {
             btnTurnAgain.setDisable(true);
         }
     }
+
     private void checkAnswer(boolean answer, CardController cardController) {
         int position = currentCompetitor.getPosicionFicha().intValue();
         if (answer && position != 4) {
@@ -300,6 +307,10 @@ private void blockbtnTurnAgain() {
         if (position == 4) {
             //Accion para cuando haya corona por responder cuatro preguntas bien
             checkAnswerCrown(crownAction(), cardController);
+        }
+        btnSpinWheel.setDisable(false);
+        if(game.getDificultad().equals("Facil")){
+            btnYieldTurn.setDisable(false);
         }
     }
 
@@ -326,16 +337,20 @@ private void blockbtnTurnAgain() {
         if (!answer) {
             changePlayerTurn();
         }
+        btnSpinWheel.setDisable(false);
+        if(game.getDificultad().equals("Facil")){
+            btnYieldTurn.setDisable(false);
+        }
     }
 
     private void setPlayerWildCard() {
-        if (game.getDificultad().equals("Intermedio")&& currentCompetitor.getAyudasOptenidas()<4){
+        if (game.getDificultad().equals("Intermedio") && currentCompetitor.getAyudasOptenidas() < 4) {
 
             List<Runnable> actions = new ArrayList<>(Arrays.asList(
-                () -> currentCompetitor.setComodinBomba(1L),
-                () -> currentCompetitor.setComodinDoble(1L),
-                () -> currentCompetitor.setComodinPasar(1L),
-                () -> currentCompetitor.setComodinTiro(1L)
+                    () -> currentCompetitor.setComodinBomba(1L),
+                    () -> currentCompetitor.setComodinDoble(1L),
+                    () -> currentCompetitor.setComodinPasar(1L),
+                    () -> currentCompetitor.setComodinTiro(1L)
             ));
             if (currentCompetitor.getComodinBomba() == 1L) actions.remove(0);
             if (currentCompetitor.getComodinDoble() == 1L) actions.remove(1);
@@ -399,6 +414,9 @@ private void blockbtnTurnAgain() {
     }
 
     private void loadGameData(PartidaDto Game) {
+        if (!Game.getDificultad().equals("Facil")) {
+            btnYieldTurn.setDisable(true);
+        }
         Map<Integer, CompetidorDto> competitorMap = new HashMap<>();
         for (CompetidorDto c : Game.getCompetidorList()) {
             int index = c.getNumeroJugador().intValue() - 1;
@@ -433,7 +451,7 @@ private void blockbtnTurnAgain() {
             timeline.setCycleCount(Animation.INDEFINITE);
             timeline.play();
         }
-            }
+    }
 
     private void actualizarCronometro() {
         tiempoInicial = tiempoInicial.minusSeconds(1);
@@ -446,32 +464,32 @@ private void blockbtnTurnAgain() {
         }
     }
 
-private void fillPlayersDto() {
-    for (int i = 0; i < numberOfPlayers; i++) {
-        CompetidorDto competidorDto = competitors.get(i);
-        switch (i) {
-            case 0:
-                player1 = competidorDto;
-                break;
-            case 1:
-                player2 = competidorDto;
-                break;
-            case 2:
-                player3 = competidorDto;
-                break;
-            case 3:
-                player4 = competidorDto;
-                break;
-            case 4:
-                player5 = competidorDto;
-                break;
-            case 5:
-                player6 = competidorDto;
-                break;
-        }
+    private void fillPlayersDto() {
+        for (int i = 0; i < numberOfPlayers; i++) {
+            CompetidorDto competidorDto = competitors.get(i);
+            switch (i) {
+                case 0:
+                    player1 = competidorDto;
+                    break;
+                case 1:
+                    player2 = competidorDto;
+                    break;
+                case 2:
+                    player3 = competidorDto;
+                    break;
+                case 3:
+                    player4 = competidorDto;
+                    break;
+                case 4:
+                    player5 = competidorDto;
+                    break;
+                case 5:
+                    player6 = competidorDto;
+                    break;
+            }
 
+        }
     }
-}
 
     private Label labelsNamePlayers(int i) {
         Label[] labels = {lblPlayer1, lblPlayer2, lblPlayer3, lblPlayer4, lblPlayer5, lblPlayer6};
@@ -492,10 +510,10 @@ private void fillPlayersDto() {
         }
     }
 
-private String typeOfQuestion(int number) {
-    String[] types = {"", "Historia", "Ciencia", "Geografía", "", "Entretenimiento", "Arte", "Deporte"};
-    return number < types.length ? types[number] : "Deporte";
-}
+    private String typeOfQuestion(int number) {
+        String[] types = {"", "Historia", "Ciencia", "Geografía", "", "Entretenimiento", "Arte", "Deporte"};
+        return number < types.length ? types[number] : "Deporte";
+    }
 
     public void getCharacter(ImageView image) {
         image.setOpacity(1);
@@ -605,7 +623,7 @@ private String typeOfQuestion(int number) {
             for (int i = 0; i < numberOfPlayers; i++) {
                 CompetidorDto competidorDto = competitorsPlayer(i);
                 int amountAvatars = (int) Arrays.stream(new String[]{competidorDto.getDeporte(), competidorDto.getEntretenimiento(), competidorDto.getCiencias(), competidorDto.getHistoria(),
-                    competidorDto.getGeografia(), competidorDto.getArte()}).filter(category -> category.equals("A")).count();
+                        competidorDto.getGeografia(), competidorDto.getArte()}).filter(category -> category.equals("A")).count();
                 if (amountAvatars > maxAvatars) {
                     maxAvatars = amountAvatars;
                     maxAvatarCompetitors.clear();
@@ -683,5 +701,26 @@ private String typeOfQuestion(int number) {
         turnAgain = true;
         btnTurnAgain.setDisable(true);
         currentCompetitor.setComodinTiro(currentCompetitor.getComodinTiro() - 1);
+    }
+
+    @FXML
+    private void onActionBtnYieldTurn(ActionEvent event) {
+        if (currentCompetitor.getComodinBomba() == 0 && currentCompetitor.getComodinDoble() == 0 && currentCompetitor.getComodinPasar() == 0 && currentCompetitor.getComodinTiro() == 0) {
+            List<Runnable> actions = new ArrayList<>(Arrays.asList(
+                    () -> currentCompetitor.setComodinBomba(1L),
+                    () -> currentCompetitor.setComodinDoble(1L),
+                    () -> currentCompetitor.setComodinPasar(1L),
+                    () -> currentCompetitor.setComodinTiro(1L)
+            ));
+
+            for (int i = 0; i < 2; i++) {
+                if (currentCompetitor.getComodinBomba() == 1L) actions.remove(0);
+                if (currentCompetitor.getComodinDoble() == 1L) actions.remove(1);
+                if (currentCompetitor.getComodinPasar() == 1L) actions.remove(2);
+                if (currentCompetitor.getComodinTiro() == 1L) actions.remove(3);
+                actions.get(new Random().nextInt(actions.size())).run();
+            }
+            changePlayerTurn();
+        }
     }
 }
