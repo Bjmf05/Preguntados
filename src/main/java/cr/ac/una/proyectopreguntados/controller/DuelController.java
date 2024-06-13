@@ -98,7 +98,8 @@ public class DuelController extends Controller implements Initializable {
     private ObservableList<PreguntaDto> preguntasList = FXCollections.observableArrayList();
     private ObservableList<PreguntaDto> preguntasEchas = FXCollections.observableArrayList();
     private PreguntaDto preguntaDto;
-    private InputStream inputStream;
+    private InputStream inputStreamCardPlayerOne;
+    private InputStream inputStreamCardPlayerTwo;
     private InputStream inputStreamAvatar;
     private String question;
     private Boolean showingFrontCardOne = true;
@@ -140,7 +141,7 @@ public class DuelController extends Controller implements Initializable {
         setTypeOfCard(challengedAvatar);
         flipCardPlayerOne();
         blockButtons(btnOptionOnePlayer2, btnOptionTwoPlayer2, btnOptionThreePlayer2, btnOptionFourPlayer2);
-
+        rootCardQuestion1.setVisible(true);
     }
 
     @Override
@@ -302,8 +303,16 @@ public class DuelController extends Controller implements Initializable {
         if (typeOfCard.equals("Geografía")) {
             typeOfCard = "Geografia";
         }
-        inputStream = App.class.getResourceAsStream("/cr/ac/una/proyectopreguntados/resources/" + typeOfCard + "Card.png");
-        imgCardBack.setImage(new Image(inputStream));
+        inputStreamCardPlayerOne = App.class.getResourceAsStream("/cr/ac/una/proyectopreguntados/resources/" + typeOfCard + "Card.png");
+        inputStreamCardPlayerTwo = App.class.getResourceAsStream("/cr/ac/una/proyectopreguntados/resources/" + typeOfCard + "Card.png");
+        imgCardBack.setImage(new Image(inputStreamCardPlayerOne));
+        imgCardBack.setFitHeight(272);
+        imgCardBack.setFitWidth(244);
+        imgCardBack.setPreserveRatio(false);
+        imgCardBack2.setImage(new Image(inputStreamCardPlayerTwo));  
+        imgCardBack2.setFitHeight(272);
+        imgCardBack2.setFitWidth(244);
+        imgCardBack2.setPreserveRatio(false);
         //showingFront = true;
 
         shuffleOption();
@@ -437,15 +446,15 @@ public class DuelController extends Controller implements Initializable {
     }
 
     private void flipCardPlayerOne() {
-        RotateTransition rotateBack = new RotateTransition(Duration.seconds(2), imgCardBack);
+        RotateTransition rotateBack = new RotateTransition(Duration.seconds(3), imgCardBack);
         rotateBack.setAxis(Rotate.Y_AXIS);
         rotateBack.setFromAngle(0);
         rotateBack.setToAngle(90);
         //Rotación hacia adelante 
-        RotateTransition rotateFront = new RotateTransition(Duration.seconds(2), imgCardBack);
+        RotateTransition rotateFront = new RotateTransition(Duration.seconds(3), vbCard);
         rotateFront.setAxis(Rotate.Y_AXIS);
-        rotateFront.setFromAngle(90);
-        rotateFront.setToAngle(180);
+        rotateFront.setFromAngle(-90);
+        rotateFront.setToAngle(0);
         rotateBack.setOnFinished(event -> {
             rootCardQuestion.setVisible(!showingFrontCardOne);
             imgCardBack.setVisible(showingFrontCardOne);
@@ -456,15 +465,15 @@ public class DuelController extends Controller implements Initializable {
     }
 
     private void flipCardPlayerTwo() {
-        RotateTransition rotateBack = new RotateTransition(Duration.seconds(2), imgCardBack2);
+        RotateTransition rotateBack = new RotateTransition(Duration.seconds(3), imgCardBack2);
         rotateBack.setAxis(Rotate.Y_AXIS);
         rotateBack.setFromAngle(0);
         rotateBack.setToAngle(90);
         //Rotación hacia adelante 
-        RotateTransition rotateFront = new RotateTransition(Duration.seconds(2), imgCardBack2);
+        RotateTransition rotateFront = new RotateTransition(Duration.seconds(3), vbCard1);
         rotateFront.setAxis(Rotate.Y_AXIS);
-        rotateFront.setFromAngle(90);
-        rotateFront.setToAngle(180);
+        rotateFront.setFromAngle(-90);
+        rotateFront.setToAngle(0);
         rotateBack.setOnFinished(event -> {
             rootCardQuestion1.setVisible(!showingFrontCardTwo);
             imgCardBack2.setVisible(showingFrontCardTwo);

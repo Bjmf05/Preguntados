@@ -160,6 +160,9 @@ public class CardController extends Controller implements Initializable {
         }
         inputStream = App.class.getResourceAsStream("/cr/ac/una/proyectopreguntados/resources/" + typeOfCard + "Card.png");
         imgCardBack.setImage(new Image(inputStream));
+        imgCardBack.setFitHeight(243);
+        imgCardBack.setFitWidth(200);
+        imgCardBack.setPreserveRatio(false);
         showingFront = true;
 
         shuffleOption();
