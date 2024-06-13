@@ -107,6 +107,7 @@ public class DuelController extends Controller implements Initializable {
     private boolean answerPlayer2;
     private boolean tied = false;
     private boolean winner = false;
+    MFXButton buttonPlayer1;
     @FXML
     private Label lblPlayerTurn;
     @FXML
@@ -117,6 +118,7 @@ public class DuelController extends Controller implements Initializable {
     private final String routeCiencia = "/cr/ac/una/proyectopreguntados/resources/Science.png";
     private final String routeDeporte = "/cr/ac/una/proyectopreguntados/resources/Sports.png";
     private final String routeEntretenimiento = "/cr/ac/una/proyectopreguntados/resources/Entertainment.png";
+
     /**
      * Initializes the controller class.
      */
@@ -148,8 +150,8 @@ public class DuelController extends Controller implements Initializable {
     @FXML
     private void onActionBtnOption(ActionEvent event) {
         blockButtons(btnOptionOne, btnOptionTwo, btnOptionThree, btnOptionFour);
-        MFXButton button = (MFXButton) event.getSource();
-        String buttonText = button.getText();
+        buttonPlayer1 = (MFXButton) event.getSource();
+        String buttonText = buttonPlayer1.getText();
         preguntaDto.getRespuestasList().stream()
                 .filter(respuesta -> buttonText.equals(respuesta.getContenido()))
                 .findFirst()
@@ -159,10 +161,10 @@ public class DuelController extends Controller implements Initializable {
                         challenging.getJugador().setCantidadAciertos(challenging.getJugador().getCantidadAciertos() + 1);
                         typeQuestionJugador(preguntaDto.getCategoria(), challenging);
                         answerPlayer1 = true;
-                        Platform.runLater(() -> button.setStyle("-fx-background-color: #00FF00"));
+                        // Platform.runLater(() -> button.setStyle("-fx-background-color: #00FF00"));
                     } else {
                         answerPlayer1 = false;
-                       Platform.runLater(() -> button.setStyle("-fx-background-color: #FF0000"));
+                        // Platform.runLater(() -> button.setStyle("-fx-background-color: #FF0000"));
                     }
 
                     PauseTransition pause = new PauseTransition(Duration.seconds(1));
@@ -197,25 +199,39 @@ public class DuelController extends Controller implements Initializable {
                         challenged.getJugador().setCantidadAciertos(challenged.getJugador().getCantidadAciertos() + 1);
                         typeQuestionJugador(preguntaDto.getCategoria(), challenged);
                         answerPlayer2 = true;
-                      Platform.runLater(() -> button.setStyle("-fx-background-color: #00FF00"));
+                        Platform.runLater(() -> {
+                            button.setStyle("-fx-background-color: #00FF00");
+                            if (answerPlayer1) {
+                                buttonPlayer1.setStyle("-fx-background-color: #00FF00");
+                            } else {
+                                buttonPlayer1.setStyle("-fx-background-color: #FF0000");
+                            }
+                        });
                     } else {
                         answerPlayer2 = false;
-                     Platform.runLater(() -> button.setStyle("-fx-background-color: #FF0000"));
+                        Platform.runLater(() -> {
+                            button.setStyle("-fx-background-color: #FF0000");
+                            if (answerPlayer1) {
+                                buttonPlayer1.setStyle("-fx-background-color: #00FF00");
+                            } else {
+                                buttonPlayer1.setStyle("-fx-background-color: #FF0000");
+                            }
+                        });
                     }
-
-                    PauseTransition pause = new PauseTransition(Duration.seconds(1));
+                    PauseTransition pause = new PauseTransition(Duration.seconds(2));
                     pause.setOnFinished(e -> {
                         //restoreCard();
-                        // preguntaDto.setModificado(true);
-                        //   preguntasEchas.add(preguntaDto);
+                        //  preguntaDto.setModificado(true);
+                        // preguntasEchas.add(preguntaDto);
                         //  sixPlayerBoardController.setCurrentCompetitor(challenging);
                         //unblockButtons();
+                        clearButtons();
+                        finishDuel();
                     });
                     pause.play();
                 });
-
-        finishDuel();
     }
+
     private void finishDuel() {
         if (tied && !answerPlayer2 || !tied && answerPlayer1 && !answerPlayer2) {
             actionAvatarPlayer(challengedAvatar, challenged, "I");
@@ -239,7 +255,8 @@ public class DuelController extends Controller implements Initializable {
         actionFinishGame();
         PauseTransition pause = new PauseTransition(Duration.seconds(1));
         pause.setOnFinished(p -> Platform.runLater(() -> {
-        getStage().close();}));
+            getStage().close();
+        }));
         pause.play();
     }
 
@@ -254,7 +271,7 @@ public class DuelController extends Controller implements Initializable {
             for (int j = 0; j < playerCategories.length; j++) {
                 if (playerCategories[j].equals("A")) {
                     gameBoardController.getCharacter(playerImages[j]);
-                }else{
+                } else {
                     ImageView imageView = playerImages[j];
                     imageView.setOpacity(0.5);
                 }
@@ -268,10 +285,12 @@ public class DuelController extends Controller implements Initializable {
         gameBoardController.setPlayers();
 
     }
-private void updatePlayer(CompetidorDto competidorDto){
-    ObservableList<CompetidorDto> competitorsPlayer = (ObservableList<CompetidorDto>) AppContext.getInstance().get("competitorsPlayer");
-    competitorsPlayer.replaceAll(competitor -> competitor.getJugador().getNombre().equals(competidorDto.getJugador().getNombre()) ? competidorDto : competitor);
-}
+
+    private void updatePlayer(CompetidorDto competidorDto) {
+        ObservableList<CompetidorDto> competitorsPlayer = (ObservableList<CompetidorDto>) AppContext.getInstance().get("competitorsPlayer");
+        competitorsPlayer.replaceAll(competitor -> competitor.getJugador().getNombre().equals(competidorDto.getJugador().getNombre()) ? competidorDto : competitor);
+    }
+
     @FXML
     private void onActionBtnBombPlayer2(ActionEvent event) {
 
@@ -330,12 +349,14 @@ private void updatePlayer(CompetidorDto competidorDto){
         btn3.setText(question.getRespuestasList().get(2).getContenido());
         btn4.setText(question.getRespuestasList().get(3).getContenido());
     }
+
     private void blockButtons(MFXButton btn1, MFXButton btn2, MFXButton btn3, MFXButton btn4) {
         btn1.setDisable(true);
         btn2.setDisable(true);
         btn3.setDisable(true);
         btn4.setDisable(true);
     }
+
     private void unblockButtons(MFXButton btn1, MFXButton btn2, MFXButton btn3, MFXButton btn4) {
         btn1.setDisable(false);
         btn2.setDisable(false);
@@ -456,6 +477,7 @@ private void updatePlayer(CompetidorDto competidorDto){
     public boolean isWinner() {
         return winner;
     }
+
     private void clearButtons() {
         btnOptionOne.setStyle("-fx-background-color: #FFFFFF");
         btnOptionTwo.setStyle("-fx-background-color: #FFFFFF");
@@ -466,6 +488,7 @@ private void updatePlayer(CompetidorDto competidorDto){
         btnOptionThreePlayer2.setStyle("-fx-background-color: #FFFFFF");
         btnOptionFourPlayer2.setStyle("-fx-background-color: #FFFFFF");
     }
+
     private String getRouteAvatar(String routeAvatar) {
         switch (routeAvatar) {
             case "Arte":
