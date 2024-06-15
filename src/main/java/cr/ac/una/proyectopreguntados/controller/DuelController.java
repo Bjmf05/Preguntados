@@ -239,7 +239,7 @@ public class DuelController extends Controller implements Initializable {
             actionAvatarPlayer(challengedAvatar, challenging, "A");
             winner = true;
             lblWinner.setText(challenging.getJugador().getNombre());
-        } else if (!tied && answerPlayer1 && answerPlayer2) {
+        } else if (!tied && (answerPlayer1 == answerPlayer2) ) {
             tied = true;
             flipCardPlayerTwo();
             setTypeOfCard(challengedAvatar);

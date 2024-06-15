@@ -234,6 +234,7 @@ public class GameBoardController extends Controller implements Initializable {
 
     @FXML
     private void onMouseClickedSpinWheel(MouseEvent event) {
+        btnSpinWheel.setDisable(true);
         RotateTransition rotateTransition = new RotateTransition(Duration.seconds(1), imgWheel);
         rotateTransition.setByAngle(new Random().nextInt(1081) + 1080);
         rotateTransition.setCycleCount(1);
@@ -246,7 +247,6 @@ public class GameBoardController extends Controller implements Initializable {
     }
 
     private void rouletteNumber(int number) {
-        btnSpinWheel.setDisable(true);
         btnYieldTurn.setDisable(true);
         blockbtnTurnAgain();
         PauseTransition pause = new PauseTransition(Duration.seconds(2));
@@ -273,6 +273,7 @@ public class GameBoardController extends Controller implements Initializable {
                         currentCompetitor = competitorsPlayer(currentPlayer - 1);
                         changeLabelPlayer();
                     }
+                    btnSpinWheel.setDisable(false);
                 } else if (number == 4) {
                     checkAnswerCrown(crownAction(), cardController);
                 } else {
