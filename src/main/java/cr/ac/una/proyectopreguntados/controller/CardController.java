@@ -67,7 +67,7 @@ public class CardController extends Controller implements Initializable {
     private InputStream inputStream;
     private PreguntaDto preguntaDto;
     private CompetidorDto competidorDtoCurrent;
-    private PartidaDto partidaDto;
+    //private PartidaDto partidaDto;
     private boolean answer = false;
     @FXML
     private VBox vbCard;
@@ -217,11 +217,11 @@ public class CardController extends Controller implements Initializable {
     
     private void newQuestion(String typeOfQuestion) {
 
-        partidaDto = gameBoardController.getGame();
+        //partidaDto = gameBoardController.getGame();
         ObservableList<PreguntaDto> questionFiltered = preguntasList.filtered(question -> question.getCategoria().equals(typeOfQuestion));
         if (questionFiltered.isEmpty()) {
             gameBoardController.finishGame("no hay preguntas disponibles.");
-            getStage().close();
+            ((Stage) principalRoot.getScene().getWindow()).close();
         }else {
             Random random = new Random();
             int index = random.nextInt(questionFiltered.size());
@@ -330,10 +330,11 @@ public class CardController extends Controller implements Initializable {
     @FXML
     private void onActionBtnPassQuestion(ActionEvent event) {
         GameBoardController gameBoardController = (GameBoardController) FlowController.getInstance().getControllerBoard();
-        partidaDto = gameBoardController.getGame();
+        //partidaDto = gameBoardController.getGame();
         ObservableList<PreguntaDto> questionFiltered = preguntasList.filtered(question -> question.getCategoria().equals(this.question));
         if (questionFiltered.isEmpty()) {
-            new Mensaje().showModal(Alert.AlertType.INFORMATION, "No hay preguntas disponibles", getStage(), "de"+question);
+            gameBoardController.finishGame("no hay preguntas disponibles.");
+            ((Stage) principalRoot.getScene().getWindow()).close();
             return;
         }
         Random random = new Random();

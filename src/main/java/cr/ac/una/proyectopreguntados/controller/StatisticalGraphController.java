@@ -53,7 +53,7 @@ public class StatisticalGraphController extends Controller implements Initializa
         // TODO
         loadPlayer();
         categoryYAxis.setCategories(FXCollections.observableArrayList(
-                "Total de Preguntas", "Acertadas", "Historia", "Arte", "Geografía", "Ciencias", "Entretenimiento", "Deporte"
+                "Total de Preguntas", "Acertadas", "Historia", "Arte", "Geografia", "Ciencias", "Entretenimiento", "Deporte"
         ));
         categoryYAxis.setStyle("--fx-background-color: black; -fx-font-size: 10px;");
     }
@@ -68,6 +68,7 @@ public class StatisticalGraphController extends Controller implements Initializa
         //categoryYAxis = (CategoryAxis) barChartGraph.getYAxis();
         // Crear la serie de datos
         XYChart.Series<Number, String> serieOfData = new XYChart.Series<>();
+        serieOfData.getData().clear();
         serieOfData.setName("Preguntas Respondidas");
         serieOfData.getData().add(new XYChart.Data<>(jugador.getCantidadPreguntas(), "Total de Preguntas"));
         serieOfData.getData().add(new XYChart.Data<>(jugador.getCantidadAciertos(), "Acertadas"));

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="800.0" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.proyectopreguntados.controller.DuelController">
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="400.0" prefWidth="800.0" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.proyectopreguntados.controller.DuelController">
    <children>
       <VBox alignment="TOP_CENTER" layoutX="48.0" layoutY="89.0" prefHeight="377.0" prefWidth="700.0" styleClass="CrownCategory-background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -66,8 +66,8 @@
                         </AnchorPane>
                         <HBox alignment="CENTER" prefHeight="102.0" prefWidth="200.0" spacing="10.0">
                            <children>
-                              <MFXButton text="Intento 2" />
-                              <MFXButton text="Pasar" />
+                              <MFXButton fx:id="btnSecondTryPlayerOne" onAction="#onActionBtnSecondTryPlayerOne" text="Intento 2" />
+                              <MFXButton fx:id="btnPassQuestionPlayerOne" onAction="#onActionBtnPassQuestionPlayerOne" text="Pasar" />
                               <MFXButton fx:id="btnBombPlayer1" onAction="#onActionBtnBombPlayer1" text="Bomba" />
                            </children>
                         </HBox>
@@ -131,8 +131,8 @@
                         </AnchorPane>
                         <HBox alignment="CENTER" prefHeight="102.0" prefWidth="200.0" spacing="10.0">
                            <children>
-                              <MFXButton text="Intento 2" />
-                              <MFXButton text="Pasar" />
+                              <MFXButton fx:id="btnSecondTryPlayerTwo" onAction="#onActionBtnSecondTryPlayerTwo" text="Intento 2" />
+                              <MFXButton fx:id="btnPassQuestionPlayerTwo" onAction="#onActionBtnPassQuestionPlayerTwo" text="Pasar" />
                               <MFXButton fx:id="btnBombPlayer2" onAction="#onActionBtnBombPlayer2" text="Bomba" />
                            </children>
                         </HBox>

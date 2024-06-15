@@ -32,6 +32,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
@@ -119,7 +120,19 @@ public class DuelController extends Controller implements Initializable {
     private final String routeCiencia = "/cr/ac/una/proyectopreguntados/resources/Science.png";
     private final String routeDeporte = "/cr/ac/una/proyectopreguntados/resources/Sports.png";
     private final String routeEntretenimiento = "/cr/ac/una/proyectopreguntados/resources/Entertainment.png";
-
+    @FXML
+    private MFXButton btnSecondTryPlayerOne;
+    @FXML
+    private MFXButton btnPassQuestionPlayerOne;
+    @FXML
+    private MFXButton btnSecondTryPlayerTwo;
+    @FXML
+    private MFXButton btnPassQuestionPlayerTwo;
+    @FXML
+    private AnchorPane root;
+    private Boolean secondTryPlayerOne = false;
+    private Boolean secondTryPlayerTwo = false;
+    private String urlImage;
     /**
      * Initializes the controller class.
      */
@@ -166,25 +179,52 @@ public class DuelController extends Controller implements Initializable {
                     } else {
                         answerPlayer1 = false;
                         // Platform.runLater(() -> button.setStyle("-fx-background-color: #FF0000"));
+                        if (secondTryPlayerOne) {
+                            secondTryPlayerOne = false;
+                            unblockButtons(btnOptionOne, btnOptionTwo, btnOptionThree, btnOptionFour);
+                            return;
+                        }
                     }
-
-                    PauseTransition pause = new PauseTransition(Duration.seconds(1));
+                    PauseTransition pause = new PauseTransition(Duration.seconds(0.40));
                     pause.setOnFinished(e -> {
-                        //restoreCard();
                         //  preguntaDto.setModificado(true);
                         // preguntasEchas.add(preguntaDto);
                         //  sixPlayerBoardController.setCurrentCompetitor(challenging);
                         //unblockButtons();
+                        lblPlayerTurn.setText(challenged.getJugador().getNombre());
+                        unblockButtons(btnOptionOnePlayer2, btnOptionTwoPlayer2, btnOptionThreePlayer2, btnOptionFourPlayer2);
+                        flipCardPlayerTwo();
                     });
                     pause.play();
                 });
-        lblPlayerTurn.setText(challenged.getJugador().getNombre());
-        unblockButtons(btnOptionOnePlayer2, btnOptionTwoPlayer2, btnOptionThreePlayer2, btnOptionFourPlayer2);
-        flipCardPlayerTwo();
     }
 
     @FXML
     private void onActionBtnBombPlayer1(ActionEvent event) {
+        ArrayList<MFXButton> buttonList = new ArrayList<>();
+        buttonList.add(btnOptionOne);
+        buttonList.add(btnOptionTwo);
+        buttonList.add(btnOptionThree);
+        buttonList.add(btnOptionFour);
+        // Eliminar dos botones al azar, excepto la respuesta correcta
+        MFXButton correctButton = null;
+        for (MFXButton button : buttonList) {
+            String buttonText = button.getText();
+            boolean correctOpcion = preguntaDto.getRespuestasList().stream().anyMatch(respuesta ->
+                    buttonText.equals(respuesta.getContenido()) && "V".equals(respuesta.getTipo()));
+            if (correctOpcion) {
+                correctButton = button;
+                break;
+            }
+        }
+        if (correctButton != null) {
+            buttonList.remove(correctButton);
+            buttonList.get(0).setVisible(false);
+            buttonList.get(1).setVisible(false);
+        }
+        challenging.setComodinBomba(0L);
+        buttonList.clear();
+        blockWildCardsPlayerOne();
     }
 
     @FXML
@@ -218,10 +258,15 @@ public class DuelController extends Controller implements Initializable {
                                 buttonPlayer1.setStyle("-fx-background-color: #FF0000");
                             }
                         });
+                        if (secondTryPlayerTwo) {
+                            secondTryPlayerTwo = false;
+                            unblockButtons(btnOptionOnePlayer2, btnOptionTwoPlayer2, btnOptionThreePlayer2, btnOptionFourPlayer2);
+                            return;
+                        }
                     }
                     PauseTransition pause = new PauseTransition(Duration.seconds(2));
                     pause.setOnFinished(e -> {
-                        //restoreCard();
+                        restoreCardPlayerOne();
                         //  preguntaDto.setModificado(true);
                         // preguntasEchas.add(preguntaDto);
                         //  sixPlayerBoardController.setCurrentCompetitor(challenging);
@@ -294,7 +339,30 @@ public class DuelController extends Controller implements Initializable {
 
     @FXML
     private void onActionBtnBombPlayer2(ActionEvent event) {
-
+        ArrayList<MFXButton> buttonList = new ArrayList<>();
+        buttonList.add(btnOptionOnePlayer2);
+        buttonList.add(btnOptionTwoPlayer2);
+        buttonList.add(btnOptionThreePlayer2);
+        buttonList.add(btnOptionFourPlayer2);
+        // Eliminar dos botones al azar, excepto la respuesta correcta
+        MFXButton correctButton = null;
+        for (MFXButton button : buttonList) {
+            String buttonText = button.getText();
+            boolean correctOpcion = preguntaDto.getRespuestasList().stream().anyMatch(respuesta ->
+                    buttonText.equals(respuesta.getContenido()) && "V".equals(respuesta.getTipo()));
+            if (correctOpcion) {
+                correctButton = button;
+                break;
+            }
+        }
+        if (correctButton != null) {
+            buttonList.remove(correctButton);
+            buttonList.get(0).setVisible(false);
+            buttonList.get(1).setVisible(false);
+        }
+        challenged.setComodinBomba(0L);
+        buttonList.clear();
+        blockWildCardsPlayerTwo();
     }
 
     public void setTypeOfCard(String typeOfCard) {
@@ -316,7 +384,6 @@ public class DuelController extends Controller implements Initializable {
         //showingFront = true;
 
         shuffleOption();
-        //flipCard();
     }
 
     private void newQuestion(String typeOfQuestion) {
@@ -515,5 +582,99 @@ public class DuelController extends Controller implements Initializable {
             default:
                 return "";
         }
+    }
+
+    @FXML
+    private void onActionBtnSecondTryPlayerOne(ActionEvent event) {
+        challenging.setComodinDoble(challenging.getComodinDoble() - 1); 
+        secondTryPlayerOne = true;
+        challenging.setComodinDoble(0L);
+        blockWildCardsPlayerOne();
+    }
+
+    @FXML
+    private void onActionBtnPassQuestionPlayerOne(ActionEvent event) {
+        GameBoardController gameBoardController = (GameBoardController) FlowController.getInstance().getControllerBoard();
+        //partidaDto = gameBoardController.getGame();
+        ObservableList<PreguntaDto> questionFiltered = preguntasList.filtered(question -> question.getCategoria().equals(this.question));
+        if (questionFiltered.isEmpty()) {
+            gameBoardController.finishGame("no hay preguntas disponibles.");
+            ((Stage) root.getScene().getWindow()).close();
+            return;
+        }
+        Random random = new Random();
+        int index = random.nextInt(questionFiltered.size());
+        preguntaDto = questionFiltered.get(index);
+        preguntaDto.setCantidadLlamadas(preguntaDto.getCantidadLlamadas() + 1);
+        textOfQuestion.setText(preguntaDto.getContenido());
+        btnOptionOne.setText(preguntaDto.getRespuestasList().get(0).getContenido());
+        btnOptionTwo.setText(preguntaDto.getRespuestasList().get(1).getContenido());
+        btnOptionThree.setText(preguntaDto.getRespuestasList().get(2).getContenido());
+        btnOptionFour.setText(preguntaDto.getRespuestasList().get(3).getContenido());
+        challenging.setComodinPasar(0L);
+//        unblockButtons();
+        blockWildCardsPlayerOne();
+    }
+
+    @FXML
+    private void onActionBtnSecondTryPlayerTwo(ActionEvent event) {
+        challenged.setComodinDoble(challenged.getComodinDoble() - 1); 
+        secondTryPlayerTwo = true;
+        challenged.setComodinDoble(0L);
+        blockWildCardsPlayerTwo();
+    }
+
+    @FXML
+    private void onActionBtnPassQuestionPlayerTwo(ActionEvent event) {
+        GameBoardController gameBoardController = (GameBoardController) FlowController.getInstance().getControllerBoard();
+        //partidaDto = gameBoardController.getGame();
+        ObservableList<PreguntaDto> questionFiltered = preguntasList.filtered(question -> question.getCategoria().equals(this.question));
+        if (questionFiltered.isEmpty()) {
+            gameBoardController.finishGame("no hay preguntas disponibles.");
+            ((Stage) root.getScene().getWindow()).close();
+            return;
+        }
+        Random random = new Random();
+        int index = random.nextInt(questionFiltered.size());
+        preguntaDto = questionFiltered.get(index);
+        preguntaDto.setCantidadLlamadas(preguntaDto.getCantidadLlamadas() + 1);
+        textOfQuestionPlayer2.setText(preguntaDto.getContenido());
+        btnOptionOnePlayer2.setText(preguntaDto.getRespuestasList().get(0).getContenido());
+        btnOptionTwoPlayer2.setText(preguntaDto.getRespuestasList().get(1).getContenido());
+        btnOptionThreePlayer2.setText(preguntaDto.getRespuestasList().get(2).getContenido());
+        btnOptionFourPlayer2.setText(preguntaDto.getRespuestasList().get(3).getContenido());
+        challenged.setComodinPasar(0L);
+//        unblockButtons();
+        blockWildCardsPlayerTwo();
+    }
+    private void blockWildCardsPlayerOne(){
+        btnBombPlayer1.setDisable(true);
+        btnPassQuestionPlayerOne.setDisable(true);
+        btnSecondTryPlayerOne.setDisable(true);
+    }
+
+    private void blockWildCardsPlayerTwo(){
+        btnBombPlayer2.setDisable(true);
+        btnPassQuestionPlayerTwo.setDisable(true);
+        btnSecondTryPlayerTwo.setDisable(true);
+    }
+
+    private void restoreCardPlayerOne(){
+        RotateTransition rotateBack = new RotateTransition(Duration.seconds(1), vbCard);
+        rotateBack.setAxis(Rotate.Y_AXIS);
+        rotateBack.setFromAngle(0);
+        rotateBack.setToAngle(90);
+
+        RotateTransition rotateFront = new RotateTransition(Duration.seconds(1), imgCardBack);
+        rotateFront.setAxis(Rotate.Y_AXIS);
+        rotateFront.setFromAngle(-90);
+        rotateFront.setToAngle(0);
+
+        rotateBack.setOnFinished(event -> {
+            rootCardQuestion.setVisible(true);
+            imgCardBack.setVisible(false);
+        });
+        SequentialTransition flipAnimation = new SequentialTransition(rotateBack, rotateFront);
+        flipAnimation.play();
     }
 }
