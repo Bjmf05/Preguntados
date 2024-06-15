@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -20,27 +21,30 @@
                   <Label styleClass="Title" text="Filtro" />
                   <HBox>
                      <children>
-                        <MFXTextField fx:id="txfIdQuestion" floatMode="BORDER" floatingText="ID" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                        <MFXTextField fx:id="txfIdQuestion" floatMode="BORDER" floatingText="ID" maxWidth="1.7976931348623157E308" styleClass="mfx-btn-background-MaintenanceQuestion" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
                   <HBox>
                      <children>
-                        <MFXTextField fx:id="txfContentQuestion" floatMode="BORDER" floatingText="Contenido Pregunta" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                        <MFXTextField fx:id="txfContentQuestion" floatMode="BORDER" floatingText="Contenido Pregunta" maxWidth="1.7976931348623157E308" styleClass="mfx-btn-background-MaintenanceQuestion" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
                   <HBox>
                      <children>
-                        <MFXComboBox fx:id="cbxTypeQuestion" floatingText="Tipo " maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                        <MFXComboBox fx:id="cbxTypeQuestion" floatingText="Tipo " maxWidth="1.7976931348623157E308" styleClass="mfx-btn-background-MaintenanceQuestion" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
                   <HBox>
                      <children>
-                        <MFXComboBox fx:id="cbxStatus" floatMode="BORDER" floatingText="Estado" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                        <MFXComboBox fx:id="cbxStatus" floatMode="BORDER" floatingText="Estado" maxWidth="1.7976931348623157E308" styleClass="mfx-btn-background-MaintenanceQuestion" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
                   <VBox>
                      <children>
-                        <MFXButton fx:id="btnSearch" maxWidth="1.7976931348623157E308" onAction="#onActionBtnSearch" text="Buscar" VBox.vgrow="ALWAYS" />
+                        <MFXButton fx:id="btnSearch" maxWidth="1.7976931348623157E308" onAction="#onActionBtnSearch" styleClass="mfx-btn-Search" text="Buscar" VBox.vgrow="ALWAYS">
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></MFXButton>
                      </children>
                   </VBox>
                </children>
@@ -60,7 +64,10 @@
                   </TableView>
                   <HBox alignment="CENTER">
                      <children>
-                        <MFXButton fx:id="btnAccept" onAction="#onActionBtnAccept" text="Aceptar" />
+                        <MFXButton fx:id="btnAccept" onAction="#onActionBtnAccept" styleClass="mfx-btn-Accept-Question" text="Aceptar">
+                           <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></MFXButton>
                      </children>
                   </HBox>
                </children>

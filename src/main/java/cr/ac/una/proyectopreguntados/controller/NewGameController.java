@@ -92,8 +92,8 @@ public class NewGameController extends Controller implements Initializable {
         txfNewPlayer.delegateSetTextFormatter(Formato.getInstance().letrasFormat(30));
         cbxAmountPlayer.getItems().addAll("2", "3", "4", "5", "6");
         cbxDifficulty.getItems().addAll("Facil", "Intermedio", "Dificil");
-        txfHour.delegateSetTextFormatter(Formato.getInstance().integerFormat(24));
-        txfMinute.delegateSetTextFormatter(Formato.getInstance().integerFormat(60));
+        txfHour.delegateSetTextFormatter(Formato.getInstance().integerFormat(23));
+        txfMinute.delegateSetTextFormatter(Formato.getInstance().integerFormat(59));
         txfNameGame.setTextFormatter(Formato.getInstance().letrasFormat(50));
         clear();
         fillCbxPlayer();

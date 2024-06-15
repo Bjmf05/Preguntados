@@ -3,6 +3,9 @@
  */
 
 *{
+    -fx-text-fill: #040404;
+    -fx-font-weight: bold;
+    -fx-aligment:CENTER;
     -fx-base-color-focus:#09b6bc;
     -fx-base-color-unfocus:#4d4d4d;
     -fx-base-color-etiquetas:#4d4d4d;
@@ -161,7 +164,7 @@
     -fx-fit-width: 100%;
     -fx-background-position: center;
 }
-.mfx-btn-NewGame{
+.mfx-btn-NewGame,.mfx-btn-NewGame:armed,.mfx-btn-NewGame:focused{
     -fx-background-color:#00C853;
 }
 
@@ -172,7 +175,7 @@
 .mfx-btn-NewGame:hover{
     -fx-background-color:#00ff66;
 }
-.mfx-btn-MaintenanceQuestion{
+.mfx-btn-MaintenanceQuestion,.mfx-btn-MaintenanceQuestion:armed,.mfx-btn-MaintenanceQuestion:focused{
     -fx-background-color: #e8de40;
 }
 
@@ -183,7 +186,7 @@
 .mfx-btn-MaintenanceQuestion:hover{
     -fx-background-color: #f0f481;
 }
-.mfx-btn-LoadGame{
+.mfx-btn-LoadGame,.mfx-btn-LoadGame:armed,.mfx-btn-LoadGame:focused{
     -fx-background-color: #49f6e2;
 }
 
@@ -195,7 +198,7 @@
     -fx-background-color: #81f8d7;
 }
 
-.mfx-btn-Exit{
+.mfx-btn-Exit,.mfx-btn-Exit:armed,.mfx-btn-Exit:focused{
     -fx-background-color: #ec5858;
 }
 .mfx-btn-Exit>ImageView{
@@ -204,7 +207,7 @@
 .mfx-btn-Exit:hover{
     -fx-background-color: #f489a5;
 }
-.mfx-btn-Statistics{
+.mfx-btn-Statistics,.mfx-btn-Statistics:armed,.mfx-btn-Statistics:focused{
     -fx-background-color: #79d1fd;
 }
 .mfx-btn-Statistics>ImageView{
@@ -214,7 +217,7 @@
 .mfx-btn-Statistics:hover{
     -fx-background-color: #a0d3e8;
 }
-.mfx-btn-About{
+.mfx-btn-About,.mfx-btn-About:armed,.mfx-btn-About:focused{
     -fx-background-color: #56588e;
 }
 .mfx-btn-About>ImageView{
@@ -225,6 +228,17 @@
     -fx-background-color: #da9fea;
 }
 /*Maintenance question*/
+.mfx-btn-background-MaintenanceQuestion{
+    -fx-background-color: #f0f481;
+}
+.lbl-amount-maintenance{
+    -fx-font-size: 15.0px;
+    -fx-text-fill: #000000;
+    -fx-padding: 5 0 5 0;
+    -fx-font-weight:bold;
+    -fx-background-color:#f0f481;
+    -fx-opacity: 0.7;
+}
 /*Search question*/
 .tbvQuestions{
     -fx-font-family: Roboto;
@@ -232,6 +246,16 @@
     -fx-text-fill: black;
     -fx-font-size: 12px;
 
+}
+.mfx-btn-Accept-Question,.mfx-btn-Search-Question:armed,.mfx-btn-Search-Question:focused{
+    -fx-background-color: #30daf4;
+}
+.mfx-btn-Accept-Question>ImageView{
+    -fx-image: url("../resources/icon-accept.png");
+}
+
+.mfx-btn-Accept-Question:hover{
+    -fx-background-color: #8fedfb;
 }
 /*QuestionView*/
 .button-Question{
@@ -274,7 +298,7 @@
     -fx-background-color:#00ffcc;
 }
 
-.mfx-btn-Search{
+.mfx-btn-Search,.mfx-btn-Search:armed,.mfx-btn-Search:focused{
     -fx-background-color:#00bcd4;
 }
 
@@ -286,7 +310,7 @@
     -fx-background-color:#006666;
 }
 
-.mfx-btn-Delete{
+.mfx-btn-Delete,.mfx-btn-Delete:armed,.mfx-btn-Delete:focused{
     -fx-background-color:#f44336;
 }
 
@@ -298,7 +322,7 @@
     -fx-background-color:#ff0000;
 }
 
-.mfx-btn-Save{
+.mfx-btn-Save,.mfx-btn-Save:armed,.mfx-btn-Save:focused{
     -fx-background-color:#00C853;
 }
 
@@ -369,4 +393,40 @@
     -fx-font-size: 20px;
     -fx-padding: 5 0 5 0;
     -fx-font-weight:bold;
+}
+
+/*LogInview*/
+.mfx-background-color-logIn{
+    -fx-background-color: #bcf4be;
+}
+/*NewGameview*/
+.mfx-btn-Play{
+    -fx-background-color: #27deea;
+}
+
+.mfx-btn-Play>ImageView{
+    -fx-image: url("../resources/icon-play.png");
+}
+
+.mfx-btn-Play:hover{
+    -fx-background-color: #357985;
+}
+.mfx-btn-SelectAvatar{
+    -fx-background-color: #206bd3;
+}
+
+.mfx-btn-SelectAvatar>ImageView{
+    -fx-image: url("../resources/icon-select.png");
+}
+
+.mfx-btn-SelectAvatar:hover{
+    -fx-background-color: #6182c3;
+}
+/*SearchGameView*/
+.lbl-background-SearchGame{
+    -fx-font-size: 14.0px;
+    -fx-text-fill: #000000;
+    -fx-padding: 5 0 5 0;
+    -fx-font-weight:bold;
+    -fx-background-color:#81f8d7;
 }

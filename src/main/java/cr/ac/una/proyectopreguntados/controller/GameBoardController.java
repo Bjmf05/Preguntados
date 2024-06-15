@@ -163,6 +163,7 @@ public class GameBoardController extends Controller implements Initializable {
     private boolean turnAgain = false;
     @FXML
     private MFXButton btnYieldTurn;
+    int amountAvatars = 0;
 
     /**
      * Initializes the controller class.
@@ -310,7 +311,7 @@ public class GameBoardController extends Controller implements Initializable {
             checkAnswerCrown(crownAction(), cardController);
         }
         btnSpinWheel.setDisable(false);
-        if(game.getDificultad().equals("Facil")){
+        if (game.getDificultad().equals("Facil")) {
             btnYieldTurn.setDisable(false);
         }
     }
@@ -335,11 +336,11 @@ public class GameBoardController extends Controller implements Initializable {
         positionPlayer(1);
         savePlayerDto();
 
-        if (!answer) {
+        if (!answer || (amountAvatars == 3 && round == 1)) {
             changePlayerTurn();
         }
         btnSpinWheel.setDisable(false);
-        if(game.getDificultad().equals("Facil")){
+        if (game.getDificultad().equals("Facil")) {
             btnYieldTurn.setDisable(false);
         }
     }
@@ -388,7 +389,7 @@ public class GameBoardController extends Controller implements Initializable {
 
         String[] playerCategories = {currentCompetitor.getDeporte(), currentCompetitor.getEntretenimiento(), currentCompetitor.getCiencias(), currentCompetitor.getHistoria(), currentCompetitor.getGeografia(), currentCompetitor.getArte()};
         ImageView[] playerImages = getPlayerImages();
-        int amountAvatars = 0;
+        amountAvatars = 0;
         for (int i = 0; i < playerCategories.length; i++) {
             if (playerCategories[i].equals("A")) {
                 getCharacter(playerImages[i]);
@@ -547,10 +548,7 @@ public class GameBoardController extends Controller implements Initializable {
     private void positionPlayer(int position) {
         ImageView[] avatars = {imgAvatarPlayer1, imgAvatarPlayer2, imgAvatarPlayer3, imgAvatarPlayer4, imgAvatarPlayer5, imgAvatarPlayer6};
         int[][][] playerPositions = {playerPosition.playerOnePositions(numberOfPlayers), playerPosition.playerTwoPositions(numberOfPlayers), playerPosition.playerThreePositions(numberOfPlayers), playerPosition.playerFourPositions(numberOfPlayers), playerPosition.playerFivePositions(numberOfPlayers), playerPosition.playerSixPositions6};
-
-        if (currentPlayer >= 1 && currentPlayer <= avatars.length) {
-            movePlayer(position, playerPositions[currentPlayer - 1], avatars[currentPlayer - 1]);
-        }
+        movePlayer(position, playerPositions[currentPlayer - 1], avatars[currentPlayer - 1]);
     }
 
     private void movePlayer(int position, int[][] playerPositions, ImageView avatarImage) {
@@ -654,6 +652,10 @@ public class GameBoardController extends Controller implements Initializable {
 
     public void safeGame() {
         game.setRonda(round);
+        if (game.getTiempoLimite() != null) {
+            game.setTiempoLimite(lblTime.getText());
+            timeline.stop();
+        }
         AppContext.getInstance().set("PartidaSave", game);
         savePlayerDto();
         competitors.clear();

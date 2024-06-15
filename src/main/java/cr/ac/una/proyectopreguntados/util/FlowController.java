@@ -18,9 +18,7 @@ import cr.ac.una.proyectopreguntados.model.PartidaDto;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -102,6 +100,9 @@ public class FlowController {
             MFXThemeManager.addOn(scene, Themes.DEFAULT, Themes.LEGACY);
             mainStage.setScene(scene);
             mainStage.show();
+            InputStream inputStream = App.class.getResourceAsStream("/cr/ac/una/proyectopreguntados/resources/Corona.png");
+            mainStage.getIcons().add(new Image(inputStream));
+            mainStage.setTitle("Preguntados");
             boardView();
         } catch (IOException ex) {
             java.util.logging.Logger.getLogger(FlowController.class.getName()).log(Level.SEVERE, "Error inicializando la vista base.", ex);
@@ -250,16 +251,25 @@ public class FlowController {
 
     }
 
-    public void showViewInVBox(String viewName, VBox vbox) {
-        try {
-            FXMLLoader loader = getLoader(viewName);
-            Parent view = loader.getRoot();
-            vbox.getChildren().clear();
-            vbox.getChildren().add(view);
-        } catch (Exception ex) {
-            java.util.logging.Logger.getLogger(FlowController.class.getName()).log(Level.SEVERE, "Error showing view in VBox.", ex);
+public void showViewInVBox(String viewName, VBox vbox) {
+    try {
+        FXMLLoader loader = getLoader(viewName);
+        Parent view = loader.getRoot();
+
+        // Permitir que la vista se expanda para llenar el espacio disponible
+        VBox.setVgrow(view, Priority.ALWAYS);
+
+        if (view instanceof Region) {
+            ((Region) view).setMaxWidth(Double.MAX_VALUE);
+            ((Region) view).setMaxHeight(Double.MAX_VALUE);
         }
+
+        vbox.getChildren().clear();
+        vbox.getChildren().add(view);
+    } catch (Exception ex) {
+        java.util.logging.Logger.getLogger(FlowController.class.getName()).log(Level.SEVERE, "Error showing view in VBox.", ex);
     }
+}
 
     public Controller getController(String viewName) {
         return getLoader(viewName).getController();
