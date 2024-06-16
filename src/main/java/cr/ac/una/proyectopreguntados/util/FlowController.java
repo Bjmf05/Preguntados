@@ -256,7 +256,6 @@ public void showViewInVBox(String viewName, VBox vbox) {
         FXMLLoader loader = getLoader(viewName);
         Parent view = loader.getRoot();
 
-        // Permitir que la vista se expanda para llenar el espacio disponible
         VBox.setVgrow(view, Priority.ALWAYS);
 
         if (view instanceof Region) {
