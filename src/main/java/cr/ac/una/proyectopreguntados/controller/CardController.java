@@ -15,10 +15,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 import java.util.ResourceBundle;
+import javafx.animation.KeyFrame;
 
 import javafx.animation.PauseTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -85,6 +87,7 @@ public class CardController extends Controller implements Initializable {
     GameBoardController gameBoardController;
     private Boolean isDuel = false;
     private Boolean secondTry = false;
+    private Timeline timeline;
     /**
      * Initializes the controller class.
      */
@@ -150,6 +153,7 @@ public class CardController extends Controller implements Initializable {
                     });
                     pause.play();
                 });
+        timeline.stop();
     }
 
     public void setTypeOfCard(String typeOfCard) {
@@ -164,7 +168,6 @@ public class CardController extends Controller implements Initializable {
         imgCardBack.setFitWidth(200);
         imgCardBack.setPreserveRatio(false);
         showingFront = true;
-
         shuffleOption();
         flipCard();
     }
@@ -186,6 +189,7 @@ public class CardController extends Controller implements Initializable {
         SequentialTransition flipAnimation = new SequentialTransition(rotateBack, rotateFront);
         flipAnimation.play();
         showingFront = !showingFront;
+        setTimeOfSliderTime(18);
     }
 
     private void shuffleOption() {
@@ -373,4 +377,39 @@ public class CardController extends Controller implements Initializable {
         btnSecondTry.setDisable(false);
     }
 
+    private void setTimeOfSliderTime(int duraction){
+        sliderTime.setMin(0);
+        sliderTime.setMax(18);
+        sliderTime.setValue(0);
+        // Detener y limpiar cualquier Timeline existente
+        if (timeline != null) {
+            timeline.stop();
+        }
+        // Configurar el timeline para actualizar el slider cada segundo
+        timeline = new Timeline(
+                new KeyFrame(Duration.seconds(1), e -> {
+                    double currentValue = sliderTime.getValue();
+                    double newValue = currentValue + 1;
+                    if (newValue > sliderTime.getMax()) {
+                        newValue = sliderTime.getMin();
+                    }
+                    sliderTime.setValue(newValue);
+                    if (newValue >= 18) {
+                        answer = false;
+                        preguntaDto.setModificado(true);
+                        preguntasEchas.add(preguntaDto);
+                        gameBoardController.setCurrentCompetitor(competidorDtoCurrent);
+                        if (principalRoot != null && ((javafx.scene.Node) principalRoot).getScene() != null) {
+                            Stage stage = (Stage) ((javafx.scene.Node) principalRoot).getScene().getWindow();
+                            if (stage != null) {
+                                stage.close();
+                            }
+                        }
+                    }
+                })
+        );
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+        sliderTime.setDisable(true);
+    }
 }

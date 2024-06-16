@@ -660,21 +660,11 @@ public class DuelController extends Controller implements Initializable {
     }
 
     private void restoreCardPlayerOne(){
-        RotateTransition rotateBack = new RotateTransition(Duration.seconds(1), vbCard);
-        rotateBack.setAxis(Rotate.Y_AXIS);
-        rotateBack.setFromAngle(0);
-        rotateBack.setToAngle(90);
-
-        RotateTransition rotateFront = new RotateTransition(Duration.seconds(1), imgCardBack);
-        rotateFront.setAxis(Rotate.Y_AXIS);
-        rotateFront.setFromAngle(-90);
-        rotateFront.setToAngle(0);
-
-        rotateBack.setOnFinished(event -> {
-            rootCardQuestion.setVisible(true);
-            imgCardBack.setVisible(false);
-        });
-        SequentialTransition flipAnimation = new SequentialTransition(rotateBack, rotateFront);
-        flipAnimation.play();
+            rootCardQuestion.setDisable(false);
+            vbCard.setVisible(false);
+            imgCardBack.setFitHeight(272);
+            imgCardBack.setFitWidth(244);
+            imgCardBack.setPreserveRatio(false);
+            imgCardBack.setVisible(true);
     }
 }

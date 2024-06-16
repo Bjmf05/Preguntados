@@ -430,3 +430,11 @@
     -fx-font-weight:bold;
     -fx-background-color:#81f8d7;
 }
+
+/*SliderTime*/
+.slider .track {
+    -fx-background-color: #c56dff;
+}
+.slider .thumb {
+    -fx-background-color: #36ff00;
+}
