@@ -15,9 +15,7 @@ import java.util.Collections;
 import java.util.Random;
 import java.util.ResourceBundle;
 
-import javafx.animation.PauseTransition;
-import javafx.animation.RotateTransition;
-import javafx.animation.SequentialTransition;
+import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -132,7 +130,7 @@ public class DuelController extends Controller implements Initializable {
     private AnchorPane root;
     private Boolean secondTryPlayerOne = false;
     private Boolean secondTryPlayerTwo = false;
-    private String urlImage;
+    private Timeline timeline;
     /**
      * Initializes the controller class.
      */
@@ -529,6 +527,7 @@ public class DuelController extends Controller implements Initializable {
         SequentialTransition flipAnimation = new SequentialTransition(rotateBack, rotateFront);
         flipAnimation.play();
         showingFrontCardOne = !showingFrontCardOne;
+        setTimeOfSliderTime(challenging);
     }
 
     private void flipCardPlayerTwo() {
@@ -548,6 +547,7 @@ public class DuelController extends Controller implements Initializable {
         SequentialTransition flipAnimation = new SequentialTransition(rotateBack, rotateFront);
         flipAnimation.play();
         showingFrontCardTwo = !showingFrontCardTwo;
+        setTimeOfSliderTime(challenged);
     }
 
     public boolean isWinner() {
@@ -666,5 +666,54 @@ public class DuelController extends Controller implements Initializable {
             imgCardBack.setFitWidth(244);
             imgCardBack.setPreserveRatio(false);
             imgCardBack.setVisible(true);
+    }
+
+    private void setTimeOfSliderTime(CompetidorDto competidorDto){
+        sliderTime1.setMin(0);
+        sliderTime1.setMax(18);
+        sliderTime1.setValue(0);
+        sliderTime.setMin(0);
+        sliderTime.setMax(18);
+        sliderTime.setValue(0);
+        if (timeline != null) {
+            timeline.stop();
+        }
+
+        timeline = new Timeline(
+                new KeyFrame(Duration.seconds(1), e -> {
+                    double currentValue = competidorDto == challenging ? sliderTime.getValue() : sliderTime1.getValue();
+                    double newValue = currentValue + 1;
+                    if (newValue > sliderTime.getMax()) {
+                        newValue = sliderTime.getMin();
+                    }
+                    if (competidorDto == challenging) {
+                        sliderTime.setValue(newValue);
+                        if (newValue >= 18) {
+                            answerPlayer1 = false;
+                            preguntaDto.setModificado(true);
+                            preguntasEchas.add(preguntaDto);
+                            flipCardPlayerTwo();
+                            restoreCardPlayerOne();
+                            lblPlayerTurn.setText(challenged.getJugador().getNombre());
+                        }
+                    } else if (competidorDto == challenged) {
+                        sliderTime1.setValue(newValue);
+                        if (newValue >= 18)  {
+                            answerPlayer2 = false;
+                            preguntaDto.setModificado(true);
+                            preguntasEchas.add(preguntaDto);
+                            finishDuel();
+                        }
+                    }
+                })
+        );
+        timeline = timeline;
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+        if (competidorDto == challenging) {
+            sliderTime.setDisable(true);
+        } else if (competidorDto == challenged) {
+            sliderTime1.setDisable(true);
+        }
     }
 }
