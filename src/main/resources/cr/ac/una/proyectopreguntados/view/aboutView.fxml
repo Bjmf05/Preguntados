@@ -1,44 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="440.0" prefWidth="600.0" stylesheets="@Style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21">
+<AnchorPane id="AnchorPane" prefHeight="440.0" prefWidth="600.0" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox alignment="TOP_CENTER" prefHeight="430.0" prefWidth="518.0" spacing="15.0" HBox.hgrow="ALWAYS">
-               <children>
-                  <ImageView fitHeight="70.0" fitWidth="98.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../resources/Corona.png" />
-                     </image>
-                  </ImageView>
-                  <Label styleClass="lbl-About" text=" Proyecto de programacion 2 " />
-                  <Label styleClass="lbl-About" text=" Nombre del proyecto: Preguntdos " />
-                  <Label styleClass="lbl-About" text=" Universidad Nacional Sede Reginal Brunca Campus Perez Zeledon " />
-                  <Label styleClass="lbl-About" text=" Ciclo I " />
-                  <Label styleClass="lbl-About" text=" Año 2024 " />
-                  <HBox alignment="CENTER" prefHeight="42.0" prefWidth="600.0" spacing="20.0">
+            <ScrollPane prefHeight="440.0" prefWidth="600.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1130.0" prefWidth="1020.0" styleClass="backGroundAbout">
                      <children>
-                        <Label styleClass="lbl-About" text=" Nombre de los estudiates: " />
-                        <VBox alignment="CENTER" prefHeight="44.0" prefWidth="204.0" spacing="10.0">
+                        <VBox alignment="TOP_CENTER" prefHeight="1189.0" prefWidth="593.0" spacing="15.0" AnchorPane.bottomAnchor="-0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <Label styleClass="lbl-About" text=" Breiner Muñoz Fallas " />
-                              <Label styleClass="lbl-About" text=" Marconi Calvo Campos " />
+                              <HBox alignment="CENTER" prefHeight="66.0" prefWidth="565.0">
+                                 <children>
+                                    <ImageView fitHeight="73.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../resources/Corona.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="27.0" prefWidth="593.0">
+                                 <children>
+                                    <Label styleClass="lbl-About-Title" text="Bienvenido a Preguntados " />
+                                 </children>
+                              </HBox>
+                              <Text fx:id="textOfQuestion1" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textFont" text="El juego de conocimientos que desafía tu mente, sumérgete en un juego lleno de preguntas intrigantes y respuestas sorprendentes, donde podrás poner a prueba y expandir tu conocimiento." textAlignment="JUSTIFY" wrappingWidth="511.9882938861847" />
+                              <HBox alignment="CENTER" prefHeight="36.0" prefWidth="462.0">
+                                 <children>
+                                    <Label styleClass="lbl-About-Title" text="Características Principales" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox prefHeight="36.0" prefWidth="462.0">
+                                 <children>
+                                    <Label styleClass="lbl-About" text="Variedad de Categorías:" />
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets left="230.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textFont" text="Categorías como Historia, Arte, Geografía, Deporte, Entretenimiento y Ciencia, Preguntados ofrece preguntas en una amplia de preguntas y repuestas de estos temas." wrappingWidth="512.0" />
+                              <HBox prefHeight="36.0" prefWidth="764.0">
+                                 <children>
+                                    <Label styleClass="lbl-About" text="Modos de Juego: " />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="230.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textFont" text="Modo Fácil: los jugadores empiezan con las 4 Ayudas de un juego normal. Si a un jugador no le quedan más Ayudas, puede ceder el turno y pedir 2 Ayudas al azar. " wrappingWidth="512.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textFont" text="Modo intermedio: Los jugadores empiezan sin Ayudas, pero reciben 1 al azar cada vez que obtienen un personaje. Si no quedan más Ayudas (máximo 4 por jugador), el jugador no recibe ninguna tarjeta." wrappingWidth="512.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textFont" text="Modo Difícil: Los jugadores no pueden usar las Ayudas en ningún momento del juego." wrappingWidth="512.0" />
+                              <HBox alignment="TOP_CENTER" prefHeight="3.0" prefWidth="593.0">
+                                 <children>
+                                    <Label styleClass="lbl-About-Title" text="Informacion del Desarrollo:" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </HBox>
+                              <Text fx:id="textOfQuestion" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="lbl-About-Title" text=" Proyecto de programacion 2 " textAlignment="CENTER" wrappingWidth="511.9882938861847" />
+                              <Label styleClass="textFont" text=" Nombre del proyecto: Preguntados  " />
+                              <HBox alignment="CENTER" prefHeight="42.0" prefWidth="600.0" spacing="20.0">
+                                 <children>
+                                    <Label styleClass="lbl-About" text=" Nombre de los estudiates: " />
+                                    <VBox alignment="CENTER" prefHeight="44.0" prefWidth="204.0" spacing="10.0">
+                                       <children>
+                                          <Label styleClass="textFont" text=" Breiner Muñoz Fallas " />
+                                          <Label styleClass="textFont" text=" Marconi Calvo Campos " />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Label styleClass="textFont" text=" Profesor: Carlos Carranza Blanco " />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textFont" text="Universidad Nacional Sede Reginal Brunca Campus Perez Zeledon  " />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textFont" text="Ciclo I  Año 2024 " />
+                              <HBox prefHeight="10.0" prefWidth="593.0">
+                                 <children>
+                                    <Label styleClass="lbl-About" text="Contacto:" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="230.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textFont" text="breiner.munoz.fallas@est.ac.una.cr" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textFont" text="marconi.calvo.campos@est.una.ac.cr" />
                            </children>
                         </VBox>
                      </children>
-                  </HBox>
-                  <Label styleClass="lbl-About" text=" Profesor: Carlos Carranza Blanco " />
-               </children>
-            </VBox>
+                  </AnchorPane>
+              </content>
+            </ScrollPane>
          </children>
-      </HBox>
+      </VBox>
    </children>
 </AnchorPane>

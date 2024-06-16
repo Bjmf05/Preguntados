@@ -345,11 +345,30 @@
 
 .lbl-About{
     -fx-font-family: Roboto;
-    -fx-text-fill: #000000;
+    -fx-text-fill: #067777;
     -fx-font-size: 16px;
     -fx-padding: 5 0 5 0;
     -fx-font-weight:bold;
-    -fx-background-color:#cccccc;
+}
+
+.lbl-About-Title{
+    -fx-font-family: Roboto;
+    -fx-text-fill: #135146;
+    -fx-font-size: 18px;
+    -fx-padding: 5 0 5 0;
+    -fx-font-weight:bold;
+}
+
+.backGroundAbout{
+    -fx-background-color:#8d8fd1;
+}
+
+.textFont{
+    -fx-font-family: Roboto;
+    -fx-text-fill: #000000;
+    -fx-font-size: 15px;
+    -fx-padding: 5 0 5 0;
+    -fx-font-weight:bold;
 }
 
 .vboxCard{
