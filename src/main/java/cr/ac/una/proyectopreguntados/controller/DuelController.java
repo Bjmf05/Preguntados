@@ -264,7 +264,7 @@ public class DuelController extends Controller implements Initializable {
                     }
                     PauseTransition pause = new PauseTransition(Duration.seconds(2));
                     pause.setOnFinished(e -> {
-                        restoreCardPlayerOne();
+                        restoreOptionPlayerTwo();
                         //  preguntaDto.setModificado(true);
                         // preguntasEchas.add(preguntaDto);
                         //  sixPlayerBoardController.setCurrentCompetitor(challenging);
@@ -693,6 +693,7 @@ public class DuelController extends Controller implements Initializable {
                             preguntaDto.setModificado(true);
                             preguntasEchas.add(preguntaDto);
                             flipCardPlayerTwo();
+                            unblockButtons(btnOptionOnePlayer2, btnOptionTwoPlayer2, btnOptionThreePlayer2, btnOptionFourPlayer2);
                             restoreCardPlayerOne();
                             lblPlayerTurn.setText(challenged.getJugador().getNombre());
                         }
@@ -710,10 +711,14 @@ public class DuelController extends Controller implements Initializable {
         timeline = timeline;
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
-        if (competidorDto == challenging) {
-            sliderTime.setDisable(true);
-        } else if (competidorDto == challenged) {
-            sliderTime1.setDisable(true);
-        }
+        sliderTime.setDisable(true);
+        sliderTime1.setDisable(true);
+    }
+
+    private void restoreOptionPlayerTwo(){
+        btnOptionOnePlayer2.setVisible(true);
+        btnOptionTwoPlayer2.setVisible(true);
+        btnOptionThreePlayer2.setVisible(true);
+        btnOptionFourPlayer2.setVisible(true);
     }
 }
