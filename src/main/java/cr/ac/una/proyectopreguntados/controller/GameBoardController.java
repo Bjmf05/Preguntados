@@ -374,7 +374,7 @@ public class GameBoardController extends Controller implements Initializable {
             case "Ciencia":
                 currentCompetitor.setCiencias("A");
                 break;
-            case "Geografía":
+            case "Geografia":
                 currentCompetitor.setGeografia("A");
                 break;
             case "Entretenimiento":
@@ -417,9 +417,12 @@ public class GameBoardController extends Controller implements Initializable {
     }
 
     private void loadGameData(PartidaDto Game) {
+        round = game.getRonda();
+        lblCurrentRound.setText(String.valueOf(round));
         if (!Game.getDificultad().equals("Facil")) {
             btnYieldTurn.setDisable(true);
         }
+
         Map<Integer, CompetidorDto> competitorMap = new HashMap<>();
         for (CompetidorDto c : Game.getCompetidorList()) {
             int index = c.getNumeroJugador().intValue() - 1;
@@ -514,7 +517,7 @@ public class GameBoardController extends Controller implements Initializable {
     }
 
     private String typeOfQuestion(int number) {
-        String[] types = {"", "Historia", "Ciencia", "Geografía", "", "Entretenimiento", "Arte", "Deporte"};
+        String[] types = {"", "Historia", "Ciencia", "Geografia", "", "Entretenimiento", "Arte", "Deporte"};
         return number < types.length ? types[number] : "Deporte";
     }
 
@@ -632,13 +635,19 @@ public class GameBoardController extends Controller implements Initializable {
                     maxAvatarCompetitors.add(competidorDto);
                 }
             }
-
+            if (maxAvatarCompetitors.size() > 1) {
             for (CompetidorDto competitor : maxAvatarCompetitors) {
                 currentCompetitor = competitor;
                 currentCompetitor.getJugador().setPartidasGanadas(currentCompetitor.getJugador().getPartidasGanadas() + 1);
                 currentPlayer = currentCompetitor.getNumeroJugador().intValue();
                 savePlayerDto();
                 winner += currentCompetitor.getJugador().getNombre() + " -";
+            }}else{
+                currentCompetitor = maxAvatarCompetitors.get(0);
+                currentCompetitor.getJugador().setPartidasGanadas(currentCompetitor.getJugador().getPartidasGanadas() + 1);
+                currentPlayer = currentCompetitor.getNumeroJugador().intValue();
+                savePlayerDto();
+                winner += currentCompetitor.getJugador().getNombre();
             }
         }
         EndGameController endGameController = (EndGameController) FlowController.getInstance().getController("EndGameView");

@@ -244,7 +244,7 @@ handleAvatarSelection(playerIndex, route);
             case routeArte:
                 return "Arte";
             case routeGeografia:
-                return "Geografía";
+                return "Geografia";
             case routeHistoria:
                 return "Historia";
             case routeCiencia:

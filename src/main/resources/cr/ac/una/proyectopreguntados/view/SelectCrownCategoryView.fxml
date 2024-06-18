@@ -70,7 +70,7 @@
                               <Image url="@../resources/Geography.png" />
                            </image>
                         </ImageView>
-                        <Label styleClass="lblGeography" text="Geografía" />
+                        <Label styleClass="lblGeography" text="Geografia" />
                      </children>
                   </VBox>
                   <VBox fx:id="vbxArt" alignment="BOTTOM_CENTER">

@@ -42,7 +42,7 @@
                         <Insets right="350.0" />
                      </VBox.margin>
                   </HBox>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textFont" text="Categorías como Historia, Arte, Geografía, Deporte, Entretenimiento y Ciencia, Preguntados ofrece preguntas en una amplia de preguntas y repuestas de estos temas." wrappingWidth="512.0" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textFont" text="Categorías como Historia, Arte, Geografia, Deporte, Entretenimiento y Ciencia, Preguntados ofrece preguntas en una amplia de preguntas y repuestas de estos temas." wrappingWidth="512.0" />
                   <HBox alignment="TOP_CENTER" prefHeight="3.0" prefWidth="593.0">
                      <children>
                         <Label styleClass="lbl-About-Title" text="Informacion del Desarrollo:" />

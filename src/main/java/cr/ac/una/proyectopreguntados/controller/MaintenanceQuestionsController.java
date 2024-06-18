@@ -89,7 +89,7 @@ public class MaintenanceQuestionsController extends Controller implements Initia
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        cbxTypeQuestion.getItems().addAll("Deporte", "Historia", "Geografía", "Arte", "Ciencia", "Entretenimiento");
+        cbxTypeQuestion.getItems().addAll("Deporte", "Historia", "Geografia", "Arte", "Ciencia", "Entretenimiento");
         txfId.delegateSetTextFormatter(Formato.getInstance().integerFormat());
         txfQuestion.delegateSetTextFormatter(Formato.getInstance().textFormat(150));
         txfCorrectAnswer.delegateSetTextFormatter(Formato.getInstance().textFormat(50));

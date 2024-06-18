@@ -67,7 +67,7 @@ public class SearchQuestionController extends Controller implements Initializabl
         // TODO
         txfIdQuestion.delegateSetTextFormatter(Formato.getInstance().integerFormat());
         txfContentQuestion.delegateSetTextFormatter(Formato.getInstance().textFormat(150));
-        cbxTypeQuestion.getItems().addAll("Deporte", "Historia", "Geografía", "Arte", "Ciencia", "Entretenimiento","");
+        cbxTypeQuestion.getItems().addAll("Deporte", "Historia", "Geografia", "Arte", "Ciencia", "Entretenimiento","");
         cbxStatus.getItems().addAll("Activa", "Inactiva","");
         tbvClId.setCellValueFactory(new PropertyValueFactory<>("id"));
         tvcClQuestion.setCellValueFactory(new PropertyValueFactory<>("contenido"));

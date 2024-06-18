@@ -154,7 +154,7 @@ public class CardController extends Controller implements Initializable {
     public void setTypeOfCard(String typeOfCard) {
         newQuestion(typeOfCard);
         question = typeOfCard;
-        if (typeOfCard.equals("Geografía")) {
+        if (typeOfCard.equals("Geografia")) {
             typeOfCard = "Geografia";
         }
         inputStream = App.class.getResourceAsStream("/cr/ac/una/proyectopreguntados/resources/" + typeOfCard + "Card.png");
@@ -244,7 +244,7 @@ public class CardController extends Controller implements Initializable {
             case "Historia":
                 competidorDtoCurrent.getJugador().setCantidadAHistoria(competidorDtoCurrent.getJugador().getCantidadAHistoria() + 1);
                 break;
-            case "Geografía":
+            case "Geografia":
                 competidorDtoCurrent.getJugador().setCantidadAGeografia(competidorDtoCurrent.getJugador().getCantidadAGeografia() + 1);
                 break;
             case "Ciencia":

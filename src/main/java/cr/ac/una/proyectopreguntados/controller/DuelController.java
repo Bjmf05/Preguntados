@@ -273,6 +273,7 @@ public class DuelController extends Controller implements Initializable {
         if (tied && !answerPlayer2 || !tied && answerPlayer1 && !answerPlayer2) {
             actionAvatarPlayer(challengedAvatar, challenged, "I");
             actionAvatarPlayer(challengedAvatar, challenging, "A");
+            answerPlayer1 = true;
             winner = true;
             lblWinner.setText(challenging.getJugador().getNombre());
         } else if (!tied && (answerPlayer1 == answerPlayer2)) {
@@ -365,7 +366,7 @@ public class DuelController extends Controller implements Initializable {
     public void setTypeOfCard(String typeOfCard) {
         newQuestion(typeOfCard);
         question = typeOfCard;
-        if (typeOfCard.equals("Geografía")) {
+        if (typeOfCard.equals("Geografia")) {
             typeOfCard = "Geografia";
         }
         inputStreamCardPlayerOne = App.class.getResourceAsStream("/cr/ac/una/proyectopreguntados/resources/" + typeOfCard + "Card.png");
@@ -467,7 +468,7 @@ public class DuelController extends Controller implements Initializable {
             case "Historia":
                 competidorDto.getJugador().setCantidadAHistoria(competidorDto.getJugador().getCantidadAHistoria() + 1);
                 break;
-            case "Geografía":
+            case "Geografia":
                 competidorDto.getJugador().setCantidadAGeografia(competidorDto.getJugador().getCantidadAGeografia() + 1);
                 break;
             case "Ciencia":
@@ -492,7 +493,7 @@ public class DuelController extends Controller implements Initializable {
             case "Historia":
                 competidorDto.setHistoria(state);
                 break;
-            case "Geografía":
+            case "Geografia":
                 competidorDto.setGeografia(state);
                 break;
             case "Ciencia":
@@ -569,7 +570,7 @@ public class DuelController extends Controller implements Initializable {
         switch (routeAvatar) {
             case "Arte":
                 return routeArte;
-            case "Geografía":
+            case "Geografia":
                 return routeGeografia;
             case "Historia":
                 return routeHistoria;

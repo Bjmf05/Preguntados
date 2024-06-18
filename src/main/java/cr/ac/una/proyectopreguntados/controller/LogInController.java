@@ -33,6 +33,8 @@ public class LogInController extends Controller implements Initializable {
     private MFXButton btnLoadGame;
     @FXML
     private MFXButton btnNewGame;
+    @FXML
+    private MFXButton btnHelp;
 
 
     /**
@@ -56,7 +58,7 @@ public class LogInController extends Controller implements Initializable {
 
     @FXML
     private void onActionBtnAbout(ActionEvent event) {
-                FlowController.getInstance().showViewInVBox("AboutView", vbxRoot);
+        FlowController.getInstance().showViewInVBox("AboutView", vbxRoot);
     }
 
     @FXML
@@ -80,6 +82,11 @@ public class LogInController extends Controller implements Initializable {
     }
     public void exit(){
         getStage().close();
+    }
+
+    @FXML
+    private void onActionBtnHelp(ActionEvent event) {
+        FlowController.getInstance().showViewInVBox("HelpView", vbxRoot);
     }
 
 }

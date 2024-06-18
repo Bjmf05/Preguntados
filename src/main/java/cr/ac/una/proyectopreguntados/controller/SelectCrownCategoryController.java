@@ -185,7 +185,7 @@ public class SelectCrownCategoryController extends Controller implements Initial
 
     @FXML
     private void onMouseClickedImgGeography(MouseEvent event) {
-        playerSelection = "Geografía";
+        playerSelection = "Geografia";
         getStage().close();
     }
 
