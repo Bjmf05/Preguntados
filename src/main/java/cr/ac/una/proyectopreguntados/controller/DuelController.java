@@ -250,6 +250,7 @@ public class DuelController extends Controller implements Initializable {
                             return;
                         }
                     }
+                    timeline.stop();
                     PauseTransition pause = new PauseTransition(Duration.seconds(2));
                     pause.setOnFinished(e -> {
                         restoreOptionPlayerTwo();
@@ -612,6 +613,7 @@ public class DuelController extends Controller implements Initializable {
         btnOptionFour.setText(preguntaDto.getRespuestasList().get(3).getContenido());
         challenging.setComodinPasar(0L);
 //        unblockButtons();
+        preguntasList.remove(preguntaDto);
         blockWildCardsPlayerOne();
     }
 
@@ -644,6 +646,7 @@ public class DuelController extends Controller implements Initializable {
         btnOptionFourPlayer2.setText(preguntaDto.getRespuestasList().get(3).getContenido());
         challenged.setComodinPasar(0L);
 //        unblockButtons();
+        preguntasList.remove(preguntaDto);
         blockWildCardsPlayerTwo();
     }
 
@@ -707,7 +710,6 @@ public class DuelController extends Controller implements Initializable {
 
                 })
         );
-        timeline = timeline;
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
         sliderTime.setDisable(true);

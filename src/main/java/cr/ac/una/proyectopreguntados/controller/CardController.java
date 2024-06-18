@@ -184,7 +184,7 @@ public class CardController extends Controller implements Initializable {
         SequentialTransition flipAnimation = new SequentialTransition(rotateBack, rotateFront);
         flipAnimation.play();
         showingFront = !showingFront;
-        setTimeOfSliderTime(18);
+        setTimeOfSliderTime();
     }
 
     private void shuffleOption() {
@@ -221,6 +221,7 @@ public class CardController extends Controller implements Initializable {
         if (questionFiltered.isEmpty()) {
             gameBoardController.finishGame("no hay preguntas disponibles.");
             ((Stage) principalRoot.getScene().getWindow()).close();
+            return;
         }else {
             Random random = new Random();
             int index = random.nextInt(questionFiltered.size());
@@ -329,7 +330,6 @@ public class CardController extends Controller implements Initializable {
     @FXML
     private void onActionBtnPassQuestion(ActionEvent event) {
         GameBoardController gameBoardController = (GameBoardController) FlowController.getInstance().getControllerBoard();
-        //partidaDto = gameBoardController.getGame();
         ObservableList<PreguntaDto> questionFiltered = preguntasList.filtered(question -> question.getCategoria().equals(this.question));
         if (questionFiltered.isEmpty()) {
             gameBoardController.finishGame("no hay preguntas disponibles.");
@@ -373,7 +373,7 @@ public class CardController extends Controller implements Initializable {
         btnSecondTry.setDisable(false);
     }
 
-    private void setTimeOfSliderTime(int duraction){
+    private void setTimeOfSliderTime(){
         sliderTime.setMin(0);
         sliderTime.setMax(18);
         sliderTime.setValue(0);
