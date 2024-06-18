@@ -14,7 +14,7 @@
    <left>
       <VBox prefHeight="625.0" prefWidth="127.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
-            <MFXButton fx:id="btnSave" maxWidth="1.7976931348623157E308" onAction="#onActionBtnSave" prefHeight="40.0" text="Guardar y Salir" VBox.vgrow="ALWAYS" />
+            <MFXButton fx:id="btnSave" maxWidth="1.7976931348623157E308" onAction="#onActionBtnSave" prefHeight="40.0" styleClass="mfx-btn-SaveAndExit" text="Guardar y Salir" VBox.vgrow="ALWAYS" />
          </children>
          <padding>
             <Insets left="5.0" right="5.0" top="5.0" />

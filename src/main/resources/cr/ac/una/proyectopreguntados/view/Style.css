@@ -454,3 +454,23 @@
 .slider .thumb {
     -fx-background-color: #36ff00;
 }
+
+.mfx-btn-TurnAgain{
+    -fx-background-color: #4949fd;
+}
+
+.mfx-btn-TurnAgain>ImageView{
+    -fx-image: url("../resources/volverAGirar.png");
+}
+
+.mfx-btn-TurnAgain:hover{
+    -fx-background-color: #6182c3;
+}
+
+.mfx-btn-SaveAndExit,.mfx-btn-SaveAndExit:armed,.mfx-btn-SaveAndExit:focused{
+    -fx-background-color: #6ce76c;
+}
+
+.mfx-btn-SaveAndExit:hover{
+    -fx-background-color: #00ff00;
+}

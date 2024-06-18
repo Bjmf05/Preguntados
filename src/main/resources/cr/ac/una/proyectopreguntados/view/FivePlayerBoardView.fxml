@@ -235,7 +235,13 @@
             <Insets top="10.0" />
          </padding>
       </VBox>
-      <MFXButton fx:id="btnTurnAgain" layoutX="727.0" layoutY="199.0" onAction="#onActionBtnTurnAgain" text="Volver a Girar" />
-      <MFXButton fx:id="btnYieldTurn" layoutX="732.0" layoutY="349.0" onAction="#onActionBtnYieldTurn" text="Ceder Turno" />
+      <MFXButton fx:id="btnTurnAgain" layoutX="694.0" layoutY="197.0" onAction="#onActionBtnTurnAgain" styleClass="mfx-btn-TurnAgain" text="Volver a Girar">
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+         </graphic></MFXButton>
+      <MFXButton fx:id="btnYieldTurn" layoutX="698.0" layoutY="347.0" onAction="#onActionBtnYieldTurn" styleClass="mfx-btn-Exit" text="Ceder Turno">
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+         </graphic></MFXButton>
    </children>
 </AnchorPane>
