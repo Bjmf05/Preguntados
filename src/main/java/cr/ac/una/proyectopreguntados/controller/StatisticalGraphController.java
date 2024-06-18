@@ -53,9 +53,9 @@ public class StatisticalGraphController extends Controller implements Initializa
         // TODO
         loadPlayer();
         categoryYAxis.setCategories(FXCollections.observableArrayList(
-                "Total de Preguntas", "Acertadas", "Historia", "Arte", "Geografia", "Ciencias", "Entretenimiento", "Deporte"
+                "Total de Preguntas", "Acertadas", "Historia", "Arte", "Geografia", "Ciencias", "Entretenimiento", "Deporte", "Partidas Ganadas","Partidas Jugadas"
         ));
-        categoryYAxis.setStyle("--fx-background-color: black; -fx-font-size: 10px;");
+        categoryYAxis.setStyle("--fx-background-color: black; -fx-font-size: 12px;");
     }
 
     @FXML
@@ -65,7 +65,6 @@ public class StatisticalGraphController extends Controller implements Initializa
 
     private void dataOfGrafic(JugadorDto jugador) {
         barChartGraph.getData().clear();
-        //categoryYAxis = (CategoryAxis) barChartGraph.getYAxis();
         // Crear la serie de datos
         XYChart.Series<Number, String> serieOfData = new XYChart.Series<>();
         serieOfData.getData().clear();
@@ -78,7 +77,9 @@ public class StatisticalGraphController extends Controller implements Initializa
         serieOfData.getData().add(new XYChart.Data<>(jugador.getCantidadACiencia(), "Ciencias"));
         serieOfData.getData().add(new XYChart.Data<>(jugador.getCantidadAEntretenimiento(), "Entretenimiento"));
         serieOfData.getData().add(new XYChart.Data<>(jugador.getCantidadADeporte(), "Deporte"));
-        
+        serieOfData.getData().add(new XYChart.Data<>(jugador.getPartidasGanadas(), "Partidas Ganadas"));
+        serieOfData.getData().add(new XYChart.Data<>(jugador.getPartidasJugadas(), "Partidas Jugadas"));
+
         barChartGraph.getData().addAll(serieOfData);
         for (XYChart.Series<Number, String> series : barChartGraph.getData()) {
             for (XYChart.Data<Number, String> data : series.getData()) {
@@ -96,7 +97,7 @@ public class StatisticalGraphController extends Controller implements Initializa
 
     private void setValueBarChart(XYChart.Data<Number, String> data) {
         stpBarChart = (StackPane) data.getNode();
-        Label label = new Label(String.format("%d", data.getXValue().intValue()));//data.getXValue().toString());
+        Label label = new Label(String.format("%d", data.getXValue().intValue()));
         label.setStyle("-fx-text-fill: black; -fx-font-size: 10px; -fx-font-weight: bold;");
         stpBarChart.setMinHeight(40); // Ajusta el tamaño mínimo de las barras
         stpBarChart.getChildren().add(label);

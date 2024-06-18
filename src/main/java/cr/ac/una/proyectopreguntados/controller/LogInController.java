@@ -1,29 +1,14 @@
 package cr.ac.una.proyectopreguntados.controller;
 
-import cr.ac.una.proyectopreguntados.model.JugadorDto;
-import cr.ac.una.proyectopreguntados.service.JugadorService;
 import cr.ac.una.proyectopreguntados.util.FlowController;
-import cr.ac.una.proyectopreguntados.util.Formato;
-import cr.ac.una.proyectopreguntados.util.Mensaje;
-import cr.ac.una.proyectopreguntados.util.RespuestaEnt;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.net.URL;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -71,7 +56,7 @@ public class LogInController extends Controller implements Initializable {
 
     @FXML
     private void onActionBtnAbout(ActionEvent event) {
-                FlowController.getInstance().showViewInVBox("aboutView", vbxRoot);
+                FlowController.getInstance().showViewInVBox("AboutView", vbxRoot);
     }
 
     @FXML

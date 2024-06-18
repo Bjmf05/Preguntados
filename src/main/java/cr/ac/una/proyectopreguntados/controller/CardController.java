@@ -2,11 +2,9 @@ package cr.ac.una.proyectopreguntados.controller;
 
 import cr.ac.una.proyectopreguntados.App;
 import cr.ac.una.proyectopreguntados.model.CompetidorDto;
-import cr.ac.una.proyectopreguntados.model.PartidaDto;
 import cr.ac.una.proyectopreguntados.model.PreguntaDto;
 import cr.ac.una.proyectopreguntados.util.AppContext;
 import cr.ac.una.proyectopreguntados.util.FlowController;
-import cr.ac.una.proyectopreguntados.util.Mensaje;
 import io.github.palexdev.materialfx.controls.MFXButton;
 
 import java.io.InputStream;
@@ -27,7 +25,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -69,7 +66,6 @@ public class CardController extends Controller implements Initializable {
     private InputStream inputStream;
     private PreguntaDto preguntaDto;
     private CompetidorDto competidorDtoCurrent;
-    //private PartidaDto partidaDto;
     private boolean answer = false;
     @FXML
     private VBox vbCard;
@@ -105,14 +101,13 @@ public class CardController extends Controller implements Initializable {
 
     @Override
     public void initialize() {
-
         fillQuestions();
         GameBoardController gameBoardController = (GameBoardController) FlowController.getInstance().getControllerBoard();
         this.gameBoardController = gameBoardController;
         clearButtons();
+        unblockWildCards();
         disableWildCards();
         unblockButtons();
-
     }
 
     @FXML
@@ -353,6 +348,7 @@ public class CardController extends Controller implements Initializable {
         competidorDtoCurrent.setComodinPasar(0L);
         unblockButtons();
         blockWildCards();
+        preguntasList.remove(preguntaDto);
     }
     private void disableWildCards(){
         if(competidorDtoCurrent.getComodinBomba() == 0){

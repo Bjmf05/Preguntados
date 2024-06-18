@@ -43,8 +43,6 @@ public class DuelController extends Controller implements Initializable {
     @FXML
     private Label lblNamePlayer1;
     @FXML
-    private ImageView imgStack;
-    @FXML
     private AnchorPane rootCardQuestion;
     @FXML
     private VBox vbCard;
@@ -68,8 +66,6 @@ public class DuelController extends Controller implements Initializable {
     private ImageView imgTypeQuestion;
     @FXML
     private Label lblNamePlayer2;
-    @FXML
-    private ImageView imgStack1;
     @FXML
     private AnchorPane rootCardQuestion1;
     @FXML
@@ -152,7 +148,7 @@ public class DuelController extends Controller implements Initializable {
         setTypeOfCard(challengedAvatar);
         flipCardPlayerOne();
         blockButtons(btnOptionOnePlayer2, btnOptionTwoPlayer2, btnOptionThreePlayer2, btnOptionFourPlayer2);
-        rootCardQuestion1.setVisible(true);
+        vbCard1.setVisible(false);
     }
 
     @Override
@@ -540,6 +536,7 @@ public class DuelController extends Controller implements Initializable {
         rotateFront.setAxis(Rotate.Y_AXIS);
         rotateFront.setFromAngle(-90);
         rotateFront.setToAngle(0);
+        vbCard1.setVisible(true);
         rotateBack.setOnFinished(event -> {
             rootCardQuestion1.setVisible(!showingFrontCardTwo);
             imgCardBack2.setVisible(showingFrontCardTwo);
@@ -678,7 +675,6 @@ public class DuelController extends Controller implements Initializable {
         if (timeline != null) {
             timeline.stop();
         }
-
         timeline = new Timeline(
                 new KeyFrame(Duration.seconds(1), e -> {
                     double currentValue = competidorDto == challenging ? sliderTime.getValue() : sliderTime1.getValue();
