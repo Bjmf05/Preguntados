@@ -261,6 +261,7 @@ public class DuelController extends Controller implements Initializable {
     }
 
     private void finishDuel() {
+        restoreCardPlayerOne();
         if (buttonPlayer2 == null && buttonPlayer1 != null) {
             PauseTransition pause = new PauseTransition(Duration.seconds(2));
             pause.setOnFinished(e -> {
@@ -291,7 +292,12 @@ public class DuelController extends Controller implements Initializable {
         actionFinishGame();
         PauseTransition pause = new PauseTransition(Duration.seconds(1));
         pause.setOnFinished(p -> Platform.runLater(() -> {
-            getStage().close();
+            if (root != null && ((javafx.scene.Node) root).getScene() != null) {
+                Stage stage = (Stage) ((javafx.scene.Node) root).getScene().getWindow();
+                if (stage != null) {
+                    stage.close();
+                }
+            }
         }));
         pause.play();
     }
@@ -503,12 +509,12 @@ public class DuelController extends Controller implements Initializable {
     }
 
     private void flipCardPlayerOne() {
-        RotateTransition rotateBack = new RotateTransition(Duration.seconds(3), imgCardBack);
+        RotateTransition rotateBack = new RotateTransition(Duration.seconds(1.5), imgCardBack);
         rotateBack.setAxis(Rotate.Y_AXIS);
         rotateBack.setFromAngle(0);
         rotateBack.setToAngle(90);
         //Rotación hacia adelante 
-        RotateTransition rotateFront = new RotateTransition(Duration.seconds(3), vbCard);
+        RotateTransition rotateFront = new RotateTransition(Duration.seconds(1.5), vbCard);
         rotateFront.setAxis(Rotate.Y_AXIS);
         rotateFront.setFromAngle(-90);
         rotateFront.setToAngle(0);
@@ -523,12 +529,12 @@ public class DuelController extends Controller implements Initializable {
     }
 
     private void flipCardPlayerTwo() {
-        RotateTransition rotateBack = new RotateTransition(Duration.seconds(3), imgCardBack2);
+        RotateTransition rotateBack = new RotateTransition(Duration.seconds(1.5), imgCardBack2);
         rotateBack.setAxis(Rotate.Y_AXIS);
         rotateBack.setFromAngle(0);
         rotateBack.setToAngle(90);
         //Rotación hacia adelante 
-        RotateTransition rotateFront = new RotateTransition(Duration.seconds(3), vbCard1);
+        RotateTransition rotateFront = new RotateTransition(Duration.seconds(1.5), vbCard1);
         rotateFront.setAxis(Rotate.Y_AXIS);
         rotateFront.setFromAngle(-90);
         rotateFront.setToAngle(0);
