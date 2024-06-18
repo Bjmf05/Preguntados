@@ -14,6 +14,7 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXCheckbox;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,6 +22,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -230,18 +232,20 @@ public class MaintenanceQuestionsController extends Controller implements Initia
         for (Node node : required) {
             if (node instanceof MFXTextField && (((MFXTextField) node).getText() == null || ((MFXTextField) node).getText().isEmpty())) {
                 if (valid) {
-                    invalid += ((MFXTextField) node).getPromptText();
+                    invalid += ((MFXTextField) node).getFloatingText();
                 } else {
-                    invalid += "," + ((MFXTextField) node).getPromptText();
+                    invalid += "," + ((MFXTextField) node).getFloatingText();
                 }
                 valid = false;
-            } else if (node instanceof MFXComboBox && ((MFXComboBox) node).getSelectionModel().getSelectedIndex() < 0) {
-                if (valid) {
-                    invalid += ((MFXComboBox) node).getPromptText();
-                } else {
-                    invalid += "," + ((MFXComboBox) node).getPromptText();
-                }
-                valid = false;
+            } else if (cbxTypeQuestion.getValue()==null || cbxTypeQuestion.getValue().isEmpty()) {
+
+                    if (valid) {
+                        invalid += cbxTypeQuestion.getFloatingText();
+                    } else {
+                        invalid += "," + cbxTypeQuestion.getFloatingText();
+                    }
+                    valid = false;
+
             }
         }
         if (valid) {
@@ -279,7 +283,7 @@ public class MaintenanceQuestionsController extends Controller implements Initia
         lblQuantityIncorrectAnswer2.textProperty().bind(respuestaDtoIncorrect2.cantidadSelecciones);
         txfIncorrectAnswer3.textProperty().bindBidirectional(respuestaDtoIncorrect3.contenido);
         lblQuantityIncorrectAnswer3.textProperty().bind(respuestaDtoIncorrect3.cantidadSelecciones);
-        cbxTypeQuestion.textProperty().bindBidirectional(preguntaDto.categoria);
+        cbxTypeQuestion.setValue(preguntaDto.getCategoria());
     }
 
     private void unbindQuestion() {

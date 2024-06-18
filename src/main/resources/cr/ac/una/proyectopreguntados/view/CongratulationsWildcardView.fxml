@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="250.0" prefWidth="500.0" stylesheets="@Style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="cr.ac.una.proyectopreguntados.controller.CongratulationsWildcardController">
+   <children>
+      <ImageView fitHeight="250.0" fitWidth="500.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../resources/CongratulationsWildCard.png" />
+         </image>
+      </ImageView>
+      <MFXButton fx:id="btnAccept" layoutX="201.0" layoutY="201.0" onAction="#onActionBtnAccept" styleClass="mfx-btn-Accept-Question" text="Aceptar">
+         <graphic>
+            <ImageView fitHeight="150.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+         </graphic>
+      </MFXButton>
+      <HBox alignment="CENTER" layoutY="106.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Label fx:id="lblWildInfo" styleClass="lbl-EndGame" text="Label" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

@@ -79,6 +79,7 @@ public class PartidaService {
             List<Partida> games = (List<Partida>) query.getResultList();
             List<PartidaDto> gamesDto = new ArrayList<>();
             for (Partida game : games) {
+                if(game.getEstado().equals("A")){
                 PartidaDto partidaDto = new PartidaDto(game);
                 for (Pregunta pregunta : game.getPreguntaList()) {
                     partidaDto.getPreguntaList().add(new PreguntaDto(pregunta));
@@ -87,6 +88,7 @@ public class PartidaService {
                     partidaDto.getCompetidorList().add(new CompetidorDto(competidor));
                 }
                 gamesDto.add(partidaDto);
+            }
             }
             return new RespuestaEnt(true, "", "", "Games", gamesDto);
         } catch (NoResultException ex) {

@@ -104,6 +104,7 @@ public class DuelController extends Controller implements Initializable {
     private boolean tied = false;
     private boolean winner = false;
     MFXButton buttonPlayer1;
+    MFXButton buttonPlayer2;
     @FXML
     private Label lblPlayerTurn;
     @FXML
@@ -127,6 +128,7 @@ public class DuelController extends Controller implements Initializable {
     private Boolean secondTryPlayerOne = false;
     private Boolean secondTryPlayerTwo = false;
     private Timeline timeline;
+
     /**
      * Initializes the controller class.
      */
@@ -169,10 +171,8 @@ public class DuelController extends Controller implements Initializable {
                         challenging.getJugador().setCantidadAciertos(challenging.getJugador().getCantidadAciertos() + 1);
                         typeQuestionJugador(preguntaDto.getCategoria(), challenging);
                         answerPlayer1 = true;
-                        // Platform.runLater(() -> button.setStyle("-fx-background-color: #00FF00"));
                     } else {
                         answerPlayer1 = false;
-                        // Platform.runLater(() -> button.setStyle("-fx-background-color: #FF0000"));
                         if (secondTryPlayerOne) {
                             secondTryPlayerOne = false;
                             unblockButtons(btnOptionOne, btnOptionTwo, btnOptionThree, btnOptionFour);
@@ -181,10 +181,6 @@ public class DuelController extends Controller implements Initializable {
                     }
                     PauseTransition pause = new PauseTransition(Duration.seconds(0.40));
                     pause.setOnFinished(e -> {
-                        //  preguntaDto.setModificado(true);
-                        // preguntasEchas.add(preguntaDto);
-                        //  sixPlayerBoardController.setCurrentCompetitor(challenging);
-                        //unblockButtons();
                         lblPlayerTurn.setText(challenged.getJugador().getNombre());
                         unblockButtons(btnOptionOnePlayer2, btnOptionTwoPlayer2, btnOptionThreePlayer2, btnOptionFourPlayer2);
                         flipCardPlayerTwo();
@@ -223,8 +219,8 @@ public class DuelController extends Controller implements Initializable {
 
     @FXML
     private void onActionBtnOptionPlayer2(ActionEvent event) {
-        MFXButton button = (MFXButton) event.getSource();
-        String buttonText = button.getText();
+        buttonPlayer2 = (MFXButton) event.getSource();
+        String buttonText = buttonPlayer2.getText();
         preguntaDto.getRespuestasList().stream()
                 .filter(respuesta -> buttonText.equals(respuesta.getContenido()))
                 .findFirst()
@@ -235,21 +231,17 @@ public class DuelController extends Controller implements Initializable {
                         typeQuestionJugador(preguntaDto.getCategoria(), challenged);
                         answerPlayer2 = true;
                         Platform.runLater(() -> {
-                            button.setStyle("-fx-background-color: #00FF00");
-                            if (answerPlayer1) {
-                                buttonPlayer1.setStyle("-fx-background-color: #00FF00");
-                            } else {
-                                buttonPlayer1.setStyle("-fx-background-color: #FF0000");
+                            buttonPlayer2.setStyle("-fx-background-color: #00FF00");
+                            if (buttonPlayer1 != null) {
+                                buttonPlayer1.setStyle(answerPlayer1 ? "-fx-background-color: #00FF00" : "-fx-background-color: #FF0000");
                             }
                         });
                     } else {
                         answerPlayer2 = false;
                         Platform.runLater(() -> {
-                            button.setStyle("-fx-background-color: #FF0000");
-                            if (answerPlayer1) {
-                                buttonPlayer1.setStyle("-fx-background-color: #00FF00");
-                            } else {
-                                buttonPlayer1.setStyle("-fx-background-color: #FF0000");
+                            buttonPlayer2.setStyle("-fx-background-color: #FF0000");
+                            if (buttonPlayer1 != null) {
+                                buttonPlayer1.setStyle(answerPlayer1 ? "-fx-background-color: #00FF00" : "-fx-background-color: #FF0000");
                             }
                         });
                         if (secondTryPlayerTwo) {
@@ -261,10 +253,6 @@ public class DuelController extends Controller implements Initializable {
                     PauseTransition pause = new PauseTransition(Duration.seconds(2));
                     pause.setOnFinished(e -> {
                         restoreOptionPlayerTwo();
-                        //  preguntaDto.setModificado(true);
-                        // preguntasEchas.add(preguntaDto);
-                        //  sixPlayerBoardController.setCurrentCompetitor(challenging);
-                        //unblockButtons();
                         clearButtons();
                         finishDuel();
                     });
@@ -273,13 +261,21 @@ public class DuelController extends Controller implements Initializable {
     }
 
     private void finishDuel() {
+        if (buttonPlayer2 == null && buttonPlayer1 != null) {
+            PauseTransition pause = new PauseTransition(Duration.seconds(2));
+            pause.setOnFinished(e -> {
+                buttonPlayer1.setStyle(answerPlayer1 ? "-fx-background-color: #00FF00" : "-fx-background-color: #FF0000");
+            });
+            pause.play();
+        }
         if (tied && !answerPlayer2 || !tied && answerPlayer1 && !answerPlayer2) {
             actionAvatarPlayer(challengedAvatar, challenged, "I");
             actionAvatarPlayer(challengedAvatar, challenging, "A");
             winner = true;
             lblWinner.setText(challenging.getJugador().getNombre());
-        } else if (!tied && (answerPlayer1 == answerPlayer2) ) {
+        } else if (!tied && (answerPlayer1 == answerPlayer2)) {
             tied = true;
+            restoreCardPlayerOne();
             flipCardPlayerTwo();
             setTypeOfCard(challengedAvatar);
             flipCardPlayerTwo();
@@ -371,7 +367,7 @@ public class DuelController extends Controller implements Initializable {
         imgCardBack.setFitHeight(272);
         imgCardBack.setFitWidth(244);
         imgCardBack.setPreserveRatio(false);
-        imgCardBack2.setImage(new Image(inputStreamCardPlayerTwo));  
+        imgCardBack2.setImage(new Image(inputStreamCardPlayerTwo));
         imgCardBack2.setFitHeight(272);
         imgCardBack2.setFitWidth(244);
         imgCardBack2.setPreserveRatio(false);
@@ -583,7 +579,7 @@ public class DuelController extends Controller implements Initializable {
 
     @FXML
     private void onActionBtnSecondTryPlayerOne(ActionEvent event) {
-        challenging.setComodinDoble(challenging.getComodinDoble() - 1); 
+        challenging.setComodinDoble(challenging.getComodinDoble() - 1);
         secondTryPlayerOne = true;
         challenging.setComodinDoble(0L);
         blockWildCardsPlayerOne();
@@ -615,7 +611,7 @@ public class DuelController extends Controller implements Initializable {
 
     @FXML
     private void onActionBtnSecondTryPlayerTwo(ActionEvent event) {
-        challenged.setComodinDoble(challenged.getComodinDoble() - 1); 
+        challenged.setComodinDoble(challenged.getComodinDoble() - 1);
         secondTryPlayerTwo = true;
         challenged.setComodinDoble(0L);
         blockWildCardsPlayerTwo();
@@ -644,28 +640,29 @@ public class DuelController extends Controller implements Initializable {
 //        unblockButtons();
         blockWildCardsPlayerTwo();
     }
-    private void blockWildCardsPlayerOne(){
+
+    private void blockWildCardsPlayerOne() {
         btnBombPlayer1.setDisable(true);
         btnPassQuestionPlayerOne.setDisable(true);
         btnSecondTryPlayerOne.setDisable(true);
     }
 
-    private void blockWildCardsPlayerTwo(){
+    private void blockWildCardsPlayerTwo() {
         btnBombPlayer2.setDisable(true);
         btnPassQuestionPlayerTwo.setDisable(true);
         btnSecondTryPlayerTwo.setDisable(true);
     }
 
-    private void restoreCardPlayerOne(){
-            rootCardQuestion.setDisable(false);
-            vbCard.setVisible(false);
-            imgCardBack.setFitHeight(272);
-            imgCardBack.setFitWidth(244);
-            imgCardBack.setPreserveRatio(false);
-            imgCardBack.setVisible(true);
+    private void restoreCardPlayerOne() {
+        rootCardQuestion.setDisable(false);
+        vbCard.setVisible(false);
+        imgCardBack.setFitHeight(272);
+        imgCardBack.setFitWidth(244);
+        imgCardBack.setPreserveRatio(false);
+        imgCardBack.setVisible(true);
     }
 
-    private void setTimeOfSliderTime(CompetidorDto competidorDto){
+    private void setTimeOfSliderTime(CompetidorDto competidorDto) {
         sliderTime1.setMin(0);
         sliderTime1.setMax(18);
         sliderTime1.setValue(0);
@@ -690,18 +687,18 @@ public class DuelController extends Controller implements Initializable {
                             preguntasEchas.add(preguntaDto);
                             flipCardPlayerTwo();
                             unblockButtons(btnOptionOnePlayer2, btnOptionTwoPlayer2, btnOptionThreePlayer2, btnOptionFourPlayer2);
-                            restoreCardPlayerOne();
                             lblPlayerTurn.setText(challenged.getJugador().getNombre());
                         }
                     } else if (competidorDto == challenged) {
                         sliderTime1.setValue(newValue);
-                        if (newValue >= 18)  {
+                        if (newValue >= 18) {
                             answerPlayer2 = false;
                             preguntaDto.setModificado(true);
                             preguntasEchas.add(preguntaDto);
                             finishDuel();
                         }
                     }
+
                 })
         );
         timeline = timeline;
@@ -711,7 +708,7 @@ public class DuelController extends Controller implements Initializable {
         sliderTime1.setDisable(true);
     }
 
-    private void restoreOptionPlayerTwo(){
+    private void restoreOptionPlayerTwo() {
         btnOptionOnePlayer2.setVisible(true);
         btnOptionTwoPlayer2.setVisible(true);
         btnOptionThreePlayer2.setVisible(true);

@@ -346,7 +346,7 @@ public class GameBoardController extends Controller implements Initializable {
     }
 
     private void setPlayerWildCard() {
-        if (game.getDificultad().equals("Intermedio") && currentCompetitor.getAyudasOptenidas() < 4) {
+        if (game.getDificultad().equals("Intermedio") && currentCompetitor.getAyudasOptenidas() <= 4) {
 
             List<Runnable> actions = new ArrayList<>(Arrays.asList(
                     () -> currentCompetitor.setComodinBomba(1L),
@@ -361,6 +361,7 @@ public class GameBoardController extends Controller implements Initializable {
             Random random = new Random();
             actions.get(random.nextInt(actions.size())).run();
             currentCompetitor.setAyudasOptenidas(currentCompetitor.getAyudasOptenidas() + 1);
+            messageNewWild("OneWild");
         }
     }
 
@@ -637,7 +638,7 @@ public class GameBoardController extends Controller implements Initializable {
                 currentCompetitor.getJugador().setPartidasGanadas(currentCompetitor.getJugador().getPartidasGanadas() + 1);
                 currentPlayer = currentCompetitor.getNumeroJugador().intValue();
                 savePlayerDto();
-                winner += currentCompetitor.getJugador().getNombre() + " ";
+                winner += currentCompetitor.getJugador().getNombre() + " -";
             }
         }
         EndGameController endGameController = (EndGameController) FlowController.getInstance().getController("EndGameView");
@@ -723,7 +724,15 @@ public class GameBoardController extends Controller implements Initializable {
                 if (currentCompetitor.getComodinTiro() == 1L) actions.remove(3);
                 actions.get(new Random().nextInt(actions.size())).run();
             }
+            messageNewWild("TwoWild");
             changePlayerTurn();
         }
+    }
+    private void messageNewWild(String amountWild){
+        CongratulationsWildcardController congratulationsWildcardController = (CongratulationsWildcardController) FlowController.getInstance().getController("CongratulationsWildcardView");
+        congratulationsWildcardController.setTypeMessage(amountWild);
+        FlowController.getInstance().goViewInWindowModal("CongratulationsWildcardView", getStage(), true);
+        FlowController.getInstance().delete("CongratulationsWildcardView");
+
     }
 }

@@ -70,12 +70,15 @@ public class SelectCrownCategoryController extends Controller implements Initial
         disableDuel();
         deleteCharacter();
 
-
     }
 
     @Override
     public void initialize() {
-
+        clear();
+        competitorsDuel= FXCollections.observableArrayList();
+        competitorsIsFilled = false;
+        disableDuel();
+        deleteCharacter();
     }
 
     @FXML
@@ -234,7 +237,7 @@ public class SelectCrownCategoryController extends Controller implements Initial
         String history = competidorDto.getHistoria();
         String science = competidorDto.getCiencias();
         if (science.equals("A")) {
-            root2.getChildren().remove(vbxScience);
+            root1.getChildren().remove(vbxScience);
         }
         if (enterteinment.equals("A")) {
             root1.getChildren().remove(vbxEntertainment);

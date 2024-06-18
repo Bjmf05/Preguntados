@@ -22,8 +22,6 @@ public class PrincipalController extends Controller implements Initializable {
     private BorderPane root;
     @FXML
     private MFXButton btnSave;
-    @FXML
-    private MFXButton btnPause;
 
     /**
      * Initializes the controller class.
@@ -58,9 +56,6 @@ public void exit(){
    FlowController.getInstance().deleteAll();
     FlowController.getInstance().goViewInWindow("LogInView");
     FlowController.getInstance().salir();
-    }
-    @FXML
-    private void onActionBtnPause(ActionEvent event) {
     }
 
 }

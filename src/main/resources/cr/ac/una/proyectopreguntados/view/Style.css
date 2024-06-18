@@ -4,7 +4,6 @@
 
 *{
     -fx-text-fill: #040404;
-    -fx-font-weight: bold;
     -fx-aligment:CENTER;
     -fx-base-color-focus:#09b6bc;
     -fx-base-color-unfocus:#4d4d4d;
@@ -26,7 +25,6 @@
     -fx-opacity: 0.8;
     -fx-content-display:left;
     -fx-text-fill: white;
-    -fx-font-weight: bold;
     -fx-font-size:14px;
     -fx-aligment:CENTER;
 }
@@ -261,7 +259,6 @@
 .button-Question{
     -fx-background-color: #a19f9f;
     -fx-text-fill: black;
-    -fx-font-weight: bold;
     -fx-font-size: 12px;
     -fx-alignment: CENTER;
 }

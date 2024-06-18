@@ -77,15 +77,14 @@ public class PreguntaService {
             Query query = em.createNamedQuery("Pregunta.findAll", Pregunta.class);
             List<Pregunta> preguntas = (List<Pregunta>) query.getResultList();
             List<PreguntaDto> preguntasDto = new ArrayList<>();
-            for (Pregunta pre : preguntas) {
-                
-                PreguntaDto preg = new PreguntaDto(pre);
-                for (Respuesta respuesta : pre.getPlamRespuestasList()) {
-                    preg.getRespuestasList().add(new RespuestaDto(respuesta));
+            for (Pregunta pre : preguntas){
+                if (pre.getEstado().equals("A")) {
+                    PreguntaDto preg = new PreguntaDto(pre);
+                    for (Respuesta respuesta : pre.getPlamRespuestasList()) {
+                        preg.getRespuestasList().add(new RespuestaDto(respuesta));
+                    }
+                    preguntasDto.add(preg);
                 }
-                
-                preguntasDto.add(preg);
-                
             }
             return new RespuestaEnt(true, "", "", "Preguntas", preguntasDto);
         } catch (NoResultException ex) {
