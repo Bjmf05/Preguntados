@@ -288,6 +288,7 @@ public class DuelController extends Controller implements Initializable {
             return;
         } else if (!tied && !answerPlayer1 && answerPlayer2 || tied && answerPlayer2) {
             actionAvatarPlayer(challengingAvatar, challenging, "I");
+            answerPlayer1=false;
             winner = false;
             lblWinner.setText(challenged.getJugador().getNombre());
         }

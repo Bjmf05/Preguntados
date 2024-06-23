@@ -58,7 +58,7 @@ public class LogInController extends Controller implements Initializable {
 
     @FXML
     private void onActionBtnAbout(ActionEvent event) {
-        FlowController.getInstance().showViewInVBox("AboutView", vbxRoot);
+        FlowController.getInstance().showViewInVBox("aboutView", vbxRoot);
     }
 
     @FXML

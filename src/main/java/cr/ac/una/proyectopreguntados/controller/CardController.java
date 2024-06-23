@@ -394,7 +394,6 @@ public class CardController extends Controller implements Initializable {
                         answer = false;
                         preguntaDto.setModificado(true);
                         preguntasEchas.add(preguntaDto);
-                        gameBoardController.setCurrentCompetitor(competidorDtoCurrent);
                         if (principalRoot != null && ((javafx.scene.Node) principalRoot).getScene() != null) {
                             Stage stage = (Stage) ((javafx.scene.Node) principalRoot).getScene().getWindow();
                             if (stage != null) {
