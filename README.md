@@ -55,7 +55,7 @@ If you want to contribute to this project, please follow these steps:
 5. Open a Pull Request.
 
 ## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the GPL License. See the [LICENSE](LICENSE) file for details.
 
 ## Contact
 Breiner Muñoz Fallas - breinermunoz@gmail.com
