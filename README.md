@@ -59,5 +59,6 @@ This project is licensed under the GPL License. See the [LICENSE](LICENSE) file 
 
 ## Contact
 Breiner Muñoz Fallas - breinermunoz@gmail.com
+Marconi Calvo Campos - marconicc19@gmail.com
 
 Project Link: https://github.com/Bjmf05/Preguntados

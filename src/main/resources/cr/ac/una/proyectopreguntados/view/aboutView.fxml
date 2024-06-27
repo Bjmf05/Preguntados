@@ -51,7 +51,7 @@
                         <Insets />
                      </VBox.margin>
                   </HBox>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="lbl-About-Title" text=" Proyecto de programacion 2 " textAlignment="CENTER" wrappingWidth="511.9882938861847" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="lbl-About-Title" text=" Proyecto de programación 2 " textAlignment="CENTER" wrappingWidth="511.9882938861847" />
                   <Label styleClass="textFont" text=" Nombre del proyecto: Preguntados  " />
                   <HBox alignment="CENTER" prefHeight="42.0" prefWidth="600.0" spacing="20.0">
                      <children>
@@ -65,7 +65,7 @@
                      </children>
                   </HBox>
                   <Label styleClass="textFont" text=" Profesor: Máster Carlos Carranza Blanco " />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textFont" text="Universidad Nacional Sede Reginal Brunca Campus Pérez Zeledón  " />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textFont" text="Universidad Nacional Sede Regional Brunca Campus Pérez Zeledón  " />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textFont" text="Ciclo I  Año 2024 " />
                   <HBox alignment="CENTER" prefHeight="10.0" prefWidth="593.0">
                      <children>
@@ -75,7 +75,7 @@
                         <Insets right="350.0" />
                      </VBox.margin>
                   </HBox>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textFont" text="breiner.munoz.fallas@est.ac.una.cr" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textFont" text="breiner.munoz.fallas@est.una.ac.cr" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textFont" text="marconi.calvo.campos@est.una.ac.cr" />
                </children>
             </VBox>
